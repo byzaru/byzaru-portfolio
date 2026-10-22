@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>ویرایش محتوای سایت</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4f4f6;
+      --panel: #fff;
+      --line: #e6e6ea;
+      --text: #1d1d20;
+      --muted: #77777f;
+      --accent: #8f00ff;
+      --accent-soft: rgba(143, 0, 255, .08);
+      --danger: #d92d4a;
+      color-scheme: light;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      font-family: Vazirmatn, Tahoma, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+    }
+    button, input, textarea, select { font: inherit; color: inherit; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    /* top bar */
+    .bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+      flex-wrap: wrap;
+    }
+    .bar h1 { font-size: 16px; margin: 0 0 0 auto; font-weight: 700; }
+    .status { font-size: 12px; color: var(--muted); }
+    .status.dirty { color: var(--accent); }
+    .btn {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 10px;
+      padding: 8px 14px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn:hover { background: #fafafa; }
+    .btn--primary { background: #262626; color: #fff; border-color: #262626; }
+    .btn--primary:hover { background: #000; }
+    .btn--ghost { border-color: transparent; color: var(--muted); }
+    .btn--small { padding: 4px 10px; font-size: 12px; border-radius: 8px; }
+    .btn--danger { color: var(--danger); }
+
+    .banner {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 20px;
+      background: #fff8e6;
+      border-bottom: 1px solid #f3e2b3;
+      font-size: 13px;
+    }
+    .banner.show { display: flex; }
+
+    /* layout */
+    .layout { flex: 1; display: grid; grid-template-columns: 440px 1fr; min-height: 0; }
+    .form { overflow-y: auto; padding: 16px; border-left: 1px solid var(--line); background: var(--bg); }
+    .preview { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+    .preview-tools {
+      display: flex; gap: 8px; align-items: center; padding: 10px 16px;
+      background: var(--panel); border-bottom: 1px solid var(--line);
+    }
+    .seg { display: inline-flex; background: var(--bg); border-radius: 10px; padding: 3px; }
+    .seg button { border: 0; background: none; padding: 6px 12px; border-radius: 8px; cursor: pointer; color: var(--muted); }
+    .seg button[aria-pressed="true"] { background: #fff; color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+    .stage { flex: 1; overflow: hidden; position: relative; background: #e9e9ee; }
+    .frame-wrap { position: absolute; top: 0; transform-origin: top right; background: #fff; box-shadow: 0 0 0 1px var(--line); }
+    .frame-wrap iframe { border: 0; width: 100%; height: 100%; display: block; }
+
+    /* sections */
+    details.section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      margin-bottom: 10px;
+    }
+    details.section > summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    details.section > summary::-webkit-details-marker { display: none; }
+    details.section > summary::after { content: "+"; margin-right: auto; color: var(--muted); font-weight: 400; font-size: 18px; }
+    details.section[open] > summary::after { content: "−"; }
+    .page-tag { font-size: 11px; font-weight: 500; color: var(--accent); background: var(--accent-soft); padding: 2px 8px; border-radius: 99px; }
+    .section-body { padding: 0 16px 16px; display: flex; flex-direction: column; gap: 14px; }
+
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field label { font-weight: 500; font-size: 13px; }
+    .hint { font-size: 12px; color: var(--muted); line-height: 1.6; }
+    .field input[type=text], .field input[type=number], .field textarea, .field select {
+      font-family: inherit;
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 9px 11px;
+      background: #fff;
+      line-height: 1.6;
+    }
+    .field textarea { min-height: 90px; resize: vertical; }
+    .field input:focus, .field textarea:focus, .field select:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px var(--accent-soft); }
+    .ltr { direction: ltr; text-align: left; font-family: "Helvetica Neue", Arial, sans-serif; }
+    .rtl { direction: rtl; text-align: right; }
+    .pair { display: grid; gap: 6px; }
+    .pair-item { position: relative; }
+    .lang-tag {
+      position: absolute; top: 9px; right: 8px;
+      font-size: 10px; font-weight: 700; color: var(--muted);
+      background: var(--bg); border-radius: 6px; padding: 1px 6px; pointer-events: none;
+    }
+    .pair-item .ltr { padding-right: 40px !important; }
+    .pair-item .rtl { padding-left: 40px !important; }
+    .pair-item.is-fa .lang-tag { right: auto; left: 8px; }
+
+    .row { display: flex; gap: 8px; align-items: center; }
+    .row > * { flex: 1; }
+    .color-row input[type=color] { flex: 0 0 44px; height: 40px; padding: 2px; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+    .thumb { flex: 0 0 48px; height: 48px; border-radius: 8px; border: 1px solid var(--line); background: #fafafa center/contain no-repeat; display: grid; place-items: center; font-size: 10px; color: var(--muted); }
+
+    .sub-heading { margin-top: 10px; padding-top: 14px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 4px; }
+    .sub-heading strong { font-size: 14px; }
+    .action-btn { align-self: flex-start; }
+
+    /* upload field */
+    .drop {
+      display: flex; gap: 12px; align-items: stretch;
+      border: 1px dashed #d4d4da; border-radius: 12px; padding: 10px; background: #fff;
+      transition: border-color .2s, background .2s;
+    }
+    .drop.is-over { border-color: var(--accent); background: var(--accent-soft); }
+    .drop .thumb { flex: 0 0 72px; height: 72px; }
+    .drop-main { flex: 1; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+    .drop-actions { justify-content: flex-start; }
+    .drop-actions > * { flex: none; }
+    .drop-tip { font-size: 11px; color: var(--muted); margin-inline-start: auto; align-self: center; }
+    .spec {
+      font-size: 12px; line-height: 1.8; color: var(--text);
+      background: var(--bg); border-radius: 8px; padding: 6px 10px;
+    }
+    .spec b { font-weight: 700; }
+    .upload-status { font-size: 12px; color: var(--muted); min-height: 0; }
+    .upload-status:empty { display: none; }
+    .upload-status.ok { color: #1f8a4c; }
+    .upload-status.warn { color: #b26a00; }
+    .upload-status.err { color: var(--danger); }
+    .pending-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); margin-inline-end: 6px; vertical-align: middle; }
+
+    /* lists */
+    .list { display: flex; flex-direction: column; gap: 8px; }
+    .item { border: 1px solid var(--line); border-radius: 12px; background: #fcfcfd; }
+    .item > summary { list-style: none; cursor: pointer; padding: 10px 12px; display: flex; align-items: center; gap: 6px; }
+    .item > summary::-webkit-details-marker { display: none; }
+    .item-title { flex: 1; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .item-tools { display: flex; gap: 2px; }
+    .icon-btn { border: 0; background: none; width: 28px; height: 28px; border-radius: 8px; cursor: pointer; color: var(--muted); }
+    .icon-btn:hover { background: var(--bg); color: var(--text); }
+    .icon-btn.del:hover { color: var(--danger); }
+    .item-body { padding: 4px 12px 12px; display: flex; flex-direction: column; gap: 12px; }
+    .add-btn { border: 1px dashed #cfcfd6; background: none; border-radius: 10px; padding: 9px; cursor: pointer; color: var(--muted); }
+    .add-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* dialog */
+    dialog { border: 0; border-radius: 16px; padding: 24px; max-width: 460px; box-shadow: 0 20px 60px rgba(0,0,0,.2); }
+    dialog::backdrop { background: rgba(0,0,0,.35); }
+    dialog h2 { margin: 0 0 12px; font-size: 17px; }
+    dialog ol { padding-right: 20px; line-height: 2; margin: 0 0 16px; }
+    code { direction: ltr; unicode-bidi: embed; background: var(--bg); padding: 1px 6px; border-radius: 6px; font-size: 12px; }
+
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .preview { display: none; }
+      .form { border: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bar">
+    <h1>ویرایش محتوای سایت</h1>
+    <span class="status" id="status">بدون تغییر</span>
+    <label class="btn btn--ghost" for="import-file">باز کردن فایل…</label>
+    <input type="file" id="import-file" accept=".js,.json" hidden>
+    <button class="btn btn--ghost" id="reset">برگشت به نسخهٔ سایت</button>
+    <button class="btn btn--primary" id="download">دانلود برای آپلود</button>
+  </div>
+
+  <div class="banner" id="draft-banner">
+    <span>تغییرات ذخیره‌نشدهٔ قبلی‌ات پیدا و بارگذاری شد.</span>
+    <button class="btn btn--small" id="discard-draft">کنار گذاشتن و شروع از نسخهٔ سایت</button>
+  </div>
+
+  <div class="layout">
+    <div class="form" id="form"></div>
+
+    <div class="preview">
+      <div class="preview-tools">
+        <div class="seg" id="page-seg">
+          <button type="button" data-page="index.html" aria-pressed="true">صفحهٔ اصلی</button>
+          <button type="button" data-page="about.html" aria-pressed="false">درباره من</button>
+        </div>
+        <div class="seg" id="lang-seg">
+          <button type="button" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" data-lang="fa" aria-pressed="false">فا</button>
+        </div>
+        <div class="seg" id="device-seg">
+          <button type="button" data-w="1440" aria-pressed="true">دسکتاپ</button>
+          <button type="button" data-w="390" aria-pressed="false">موبایل</button>
+        </div>
+      </div>
+      <div class="stage" id="stage">
+        <div class="frame-wrap" id="frame-wrap"><iframe id="frame" src="index.html" title="پیش‌نمایش سایت"></iframe></div>
+      </div>
+    </div>
+  </div>
+
+  <dialog id="done-dialog">
+    <h2 id="done-title"></h2>
+    <ol id="done-steps"></ol>
+    <p class="hint" id="done-note"></p>
+    <form method="dialog" style="text-align:left"><button class="btn btn--primary">باشه</button></form>
+  </dialog>
+
+  <script src="content.js"></script>
+  <script>
+  (function () {
+    "use strict";
+    var DRAFT_KEY = "portfolio-admin-draft";
+    var original = JSON.parse(JSON.stringify(window.SITE_CONTENT || {}));
+    var data;
+
+    /* ---------- schema ---------- */
+    var COLORS = [["blue", "آبی"], ["purple", "بنفش"], ["orange", "نارنجی"], ["green", "سبز"]];
+    var SPECS = {
+      screenshot: { folder: "projects", maxW: 900, maxKB: 500, minW: 700, accept: "image/png,image/jpeg,image/webp",
+        size: "عرض ۸۴۰ پیکسل، ارتفاع آزاد (اسکرین‌شات کامل صفحه، مثلاً ۲۰۰۰ تا ۴۰۰۰ پیکسل)", format: "JPG یا WebP", kb: "۵۰۰ کیلوبایت" },
+      caseImage: { folder: "projects", maxW: 2000, maxKB: 600, minW: 1200, accept: "image/png,image/jpeg,image/webp",
+        size: "عرض ۱۶۰۰ پیکسل (دو برابر عرض متن مودال)؛ برای دو تصویر کنار هم ۸۰۰ پیکسل کافی است", format: "JPG یا WebP", kb: "۶۰۰ کیلوبایت" },
+      cardLogo: { folder: "logos", maxH: 80, maxKB: 60, minH: 36, alpha: true, accept: "image/png,image/svg+xml,image/webp",
+        size: "ارتفاع ۳۶ پیکسل (نمایش ۱۸ پیکسل)، لوگوی افقی", format: "SVG یا PNG با پس‌زمینهٔ شفاف", kb: "۶۰ کیلوبایت" },
+      badge: { folder: "logos", maxH: 200, maxKB: 100, minH: 100, alpha: true, accept: "image/png,image/svg+xml,image/webp",
+        size: "ارتفاع ۱۲۴ پیکسل. فقط ۴۵ پیکسل سمت چپ لوگو دیده می‌شود، پس آیکون باید اول لوگو باشد", format: "SVG یا PNG با پس‌زمینهٔ شفاف", kb: "۱۰۰ کیلوبایت" },
+      profile: { folder: "", fileName: "profile", maxW: 600, maxKB: 300, minW: 450, accept: "image/png,image/jpeg,image/webp",
+        size: "۵۸۰ × ۶۶۶ پیکسل (نسبت ۸۷ به ۱۰۰)", format: "JPG یا WebP", kb: "۳۰۰ کیلوبایت" },
+      companyLogo: { folder: "logos", maxH: 200, maxKB: 100, minH: 70, alpha: true, accept: "image/png,image/svg+xml,image/webp",
+        size: "ارتفاع دو برابرِ «ارتفاع لوگو» در همین فرم (برای ۵۰ می‌شود ۱۰۰ پیکسل)", format: "SVG یا PNG با پس‌زمینهٔ شفاف", kb: "۱۰۰ کیلوبایت" },
+      illustration: { folder: "illustrations", maxW: 2400, maxH: 2400, maxKB: 800, minW: 1200, accept: "image/png,image/jpeg,image/webp",
+        size: "عرض ۱۶۰۰ تا ۲۴۰۰ پیکسل، هر نسبتی", format: "JPG یا WebP", kb: "۸۰۰ کیلوبایت" },
+      cv: { folder: "", fileName: "cv", maxKB: 3000, raw: "application/pdf", accept: "application/pdf",
+        size: "رزومهٔ یک یا دو صفحه‌ای", format: "PDF", kb: "۳ مگابایت" },
+      icon: { folder: "icons", maxW: 128, maxH: 128, maxKB: 20, alpha: true, accept: "image/svg+xml,image/png",
+        size: "۶۴ × ۶۴ پیکسل (نمایش ۳۲ پیکسل)", format: "SVG (یا PNG شفاف)", kb: "۲۰ کیلوبایت" }
+    };
+    var ITEMS_HINT = "هر خط یک مورد. خطی که با # و یک فاصله شروع شود، تیتر کوچک پررنگ می‌شود.";
+
+    function L(en, fa) { return { en: en || "", fa: fa || "" }; }
+    var CASE_TEMPLATE = [["Overview", "مرور کلی"], ["The problem", "مسئله"], ["Goals & success metrics", "اهداف و معیار موفقیت"],
+      ["Research & insights", "پژوهش و بینش‌ها"], ["Design process", "فرایند طراحی"], ["Solution", "راه‌حل"],
+      ["Impact", "نتیجه و اثر"], ["Learnings & next steps", "آموخته‌ها و قدم‌های بعدی"]];
+    function newCase() {
+      return { summary: L(), role: L(), timeline: L(), team: L(), tools: L(), cover: "",
+        blocks: CASE_TEMPLATE.map(function (h) { return { title: L(h[0], h[1]), body: L(), metrics: L(), images: [] }; }) };
+    }
+    var SCHEMA = [
+      { title: "اطلاعات کلی و منو", page: "index.html", fields: [
+        { key: "site.defaultLanguage", label: "زبان پیش‌فرض سایت", type: "select", options: [["en", "English"], ["fa", "فارسی"]], hint: "بازدیدکننده با این زبان وارد می‌شود و با دکمهٔ EN/فا عوضش می‌کند." },
+        { key: "site.logoHome", label: "لوگوی صفحهٔ اصلی", i18n: true },
+        { key: "site.logoAbout", label: "لوگوی صفحهٔ درباره من", i18n: true, hint: "کلمهٔ اول پررنگ و بقیه نازک نمایش داده می‌شود." },
+        { key: "site.pageTitle", label: "عنوان تب مرورگر", i18n: true },
+        { key: "site.email", label: "ایمیل" },
+        { key: "site.cv", label: "فایل رزومه", type: "image", spec: "cv", hint: "دکمهٔ «دانلود رزومه» فقط وقتی فایل گذاشته شده باشد، در کارت About و فوتر نشان داده می‌شود." },
+        { key: "social.linkedin", label: "لینک LinkedIn" },
+        { key: "social.behance", label: "لینک Behance" },
+        { key: "social.dribbble", label: "لینک Dribbble" },
+        { key: "social.icons.linkedin", label: "آیکون LinkedIn", type: "image", spec: "icon", fileName: "linkedin" },
+        { key: "social.icons.behance", label: "آیکون Behance", type: "image", spec: "icon", fileName: "behance" },
+        { key: "social.icons.dribbble", label: "آیکون Dribbble", type: "image", spec: "icon", fileName: "dribbble" },
+        { key: "nav.home", label: "منو: صفحهٔ اصلی", i18n: true },
+        { key: "nav.about", label: "منو: درباره من", i18n: true },
+        { key: "nav.caseStudies", label: "منو: کیس‌استادی‌ها", i18n: true },
+        { key: "nav.illustrations", label: "منو: تصویرسازی‌ها", i18n: true }
+      ]},
+      { title: "بخش اول صفحه", page: "index.html", fields: [
+        { key: "hero.title", label: "عنوان", type: "textarea", i18n: true, hint: "هر خط یک سطر عنوان است." },
+        { key: "hero.description", label: "توضیح", type: "textarea", i18n: true, hint: "هر خط یک پاراگراف است." },
+        { key: "hero.primaryButton", label: "متن دکمهٔ مشکی", i18n: true },
+        { key: "hero.secondaryButton", label: "متن دکمهٔ شیشه‌ای", i18n: true },
+        { key: "hero.bubbles", label: "حباب‌های رنگی (حداکثر ۴)", type: "list", max: 4, titleKey: "text",
+          blank: function () { return { text: L("New skill", "مهارت جدید"), color: "blue" }; },
+          fields: [
+            { key: "text", label: "متن", i18n: true },
+            { key: "color", label: "رنگ", type: "select", options: COLORS }
+          ] }
+      ]},
+      { title: "کیس‌استادی‌ها", page: "index.html", fields: [
+        { key: "projectsTitle", label: "عنوان بخش", i18n: true },
+        { key: "projectsIntro", label: "توضیح کوتاه کنار عنوان", i18n: true },
+        { key: "projects", label: "کارت‌ها", type: "list", titleKey: "title",
+          blank: function () { return { title: L("New case study", "کیس‌استادی جدید"), description: L(), company: L(), year: L(), tags: L(), image: "", logo: "", accent: "#007fff", link: "", caseStudy: newCase() }; },
+          fields: [
+            { key: "title", label: "عنوان", i18n: true },
+            { key: "description", label: "توضیح کوتاه", type: "textarea", i18n: true, hint: "یک یا دو جمله؛ بهتر است زیر ۲۰۰ کاراکتر بماند تا کارت‌ها هم‌قد بمانند." },
+            { key: "company", label: "شرکت یا کارفرما", i18n: true },
+            { key: "year", label: "سال", i18n: true },
+            { key: "tags", label: "تگ‌ها", type: "textarea", i18n: true, hint: "هر خط یک تگ؛ ۲ تا ۴ تگ بهترین نتیجه را می‌دهد." },
+            { key: "accent", label: "رنگ کارت", type: "color", hint: "پس‌زمینهٔ ملایم بالای کارت و نقطهٔ کنار نام شرکت با این رنگ ساخته می‌شود." },
+            { key: "image", label: "اسکرین‌شات", type: "image", spec: "screenshot", hint: "با هاور، عکس از بالا تا پایین اسکرول می‌خورد. تا وقتی عکس نباشد، یک اسکلت ساده جایش دیده می‌شود." },
+            { key: "logo", label: "لوگوی روی کارت (اختیاری)", type: "image", spec: "cardLogo" },
+            { key: "link", label: "لینک بیرونی (اختیاری)", hint: "فقط اگر این کیس‌استادی جای دیگری است (مثلاً بیهنس). اگر محتوای مودال را پر کنی، مودال اولویت دارد. اگر هیچ‌کدام نباشد، «به‌زودی» نشان داده می‌شود." },
+            { type: "heading", label: "صفحهٔ کیس‌استادی (مودال)", hint: "با کلیک روی کارت باز می‌شود. هر بخشی که خالی بماند، روی سایت دیده نمی‌شود؛ پس لازم نیست همه را پر کنی." },
+            { type: "action", label: "باز کردن مودال در پیش‌نمایش", run: function (item, btn) {
+                var filled = ((item.caseStudy || {}).blocks || []).some(function (b) {
+                  return ["body", "metrics"].some(function (k) { return b[k] && (b[k].en || b[k].fa); }) || (b.images || []).some(function (im) { return im.image; });
+                });
+                if (!filled) {
+                  btn.textContent = "اول متن یکی از بخش‌های پایین را پر کن";
+                  setTimeout(function () { btn.textContent = "باز کردن مودال در پیش‌نمایش"; }, 2500);
+                  return;
+                }
+                previewCase(item);
+              } },
+            { key: "caseStudy.summary", label: "خلاصهٔ بالای صفحه", type: "textarea", i18n: true, hint: "یک تا دو جمله: چه چیزی، برای چه کسی، با چه نتیجه‌ای. اگر خالی باشد، توضیح کارت استفاده می‌شود." },
+            { key: "caseStudy.role", label: "نقش من", i18n: true, hint: "مثلاً: طراح محصول، مسئول کل فرایند از پژوهش تا تحویل" },
+            { key: "caseStudy.timeline", label: "زمان", i18n: true, hint: "مثلاً: ۴ ماه، بهار ۲۰۲۵" },
+            { key: "caseStudy.team", label: "تیم", i18n: true, hint: "مثلاً: ۱ PM، ۲ توسعه‌دهنده، ۱ پژوهشگر" },
+            { key: "caseStudy.tools", label: "پلتفرم و ابزار", i18n: true, hint: "مثلاً: وب و iOS · Figma, Maze" },
+            { key: "caseStudy.cover", label: "تصویر کاور (اختیاری)", type: "image", spec: "caseImage", hint: "اگر خالی باشد، اسکرین‌شات کارت به‌عنوان کاور استفاده می‌شود." },
+            { key: "caseStudy.blocks", label: "بخش‌ها", type: "list", titleKey: "title",
+              blank: function () { return { title: L("New section", "بخش جدید"), body: L(), metrics: L(), images: [] }; },
+              fields: [
+                { key: "title", label: "عنوان بخش", i18n: true },
+                { key: "body", label: "متن", type: "textarea", i18n: true, hint: "هر خط یک پاراگراف. «- » در ابتدای خط = بولت، «> » = نقل‌قول (مثلاً حرف یک کاربر)، «# » = تیتر کوچک." },
+                { key: "metrics", label: "اعداد کلیدی", type: "textarea", i18n: true, hint: "هر خط یک عدد به شکل «مقدار | توضیح»؛ مثلاً «۳۲٪ | افزایش تکمیل رزرو». فقط عدد واقعی و قابل دفاع بنویس." },
+                { key: "images", label: "تصویرها", type: "list", titleKey: "caption",
+                  blank: function () { return { image: "", caption: L() }; },
+                  fields: [
+                    { key: "image", label: "تصویر", type: "image", spec: "caseImage" },
+                    { key: "caption", label: "زیرنویس", i18n: true }
+                  ] }
+              ] }
+          ] }
+      ]},
+      { title: "تصویرسازی‌ها", page: "index.html", fields: [
+        { key: "illustrationsTitle", label: "عنوان بخش", i18n: true },
+        { key: "illustrationsIntro", label: "توضیح کوتاه", i18n: true },
+        { key: "illustrations", label: "تصویرها", type: "list", titleKey: "title",
+          blank: function () { return { image: "assets/illustrations/", title: L("Untitled", "بدون عنوان") }; },
+          fields: [
+            { key: "image", label: "عکس", type: "image", spec: "illustration", hint: "تا وقتی عکس نباشد، یک کاشی خاکستری جایش نشان داده می‌شود." },
+            { key: "title", label: "عنوان", i18n: true }
+          ] }
+      ]},
+      { title: "خدمات", page: "index.html", fields: [
+        { key: "servicesTitle", label: "عنوان بخش", i18n: true },
+        { key: "services", label: "کارت‌ها", type: "list", titleKey: "title",
+          blank: function () { return { title: L("New", "جدید"), text: L() }; },
+          fields: [
+            { key: "title", label: "عنوان", i18n: true },
+            { key: "text", label: "متن", type: "textarea", i18n: true }
+          ] }
+      ]},
+      { title: "فوتر", page: "index.html", fields: [
+        { key: "contactTitle", label: "عنوان بخش تماس", i18n: true, hint: "ایمیل و لینک‌ها از «اطلاعات کلی» خوانده می‌شوند." }
+      ]},
+      { title: "درباره من", page: "about.html", fields: [
+        { key: "about.title", label: "عنوان", i18n: true },
+        { key: "about.photo", label: "عکس", type: "image", spec: "profile" },
+        { key: "about.text", label: "متن", type: "textarea", i18n: true, hint: "هر خط یک سطر جدید است." },
+        { key: "about.stats", label: "آمارها", type: "list", titleKey: "label",
+          blank: function () { return { label: L("New", "جدید"), value: "0" }; },
+          fields: [
+            { key: "label", label: "عنوان", i18n: true },
+            { key: "value", label: "عدد", hint: "مثل +20. عدد موقع باز شدن صفحه شمارش می‌شود." }
+          ] }
+      ]},
+      { title: "مهارت‌ها", page: "about.html", fields: [
+        { key: "skillsTitle", label: "عنوان بخش", i18n: true },
+        { key: "skills", label: "ردیف‌ها", type: "list", titleKey: "label",
+          blank: function () { return { label: L("New", "جدید"), value: L() }; },
+          fields: [
+            { key: "label", label: "دسته", i18n: true },
+            { key: "value", label: "مهارت‌ها", type: "textarea", i18n: true }
+          ] }
+      ]},
+      { title: "سوابق کاری", page: "about.html", fields: [
+        { key: "experienceTitle", label: "عنوان بخش", i18n: true },
+        { key: "experience", label: "شرکت‌ها", type: "list", titleKey: "company",
+          blank: function () { return { date: L(), type: L("Full time", "تمام‌وقت"), role: L(), company: L("New company", "شرکت جدید"), companyColor: "#007fff", logo: "", logoHeight: 50, intro: L(), listTitle: L("Accomplishments:", "دستاوردها:"), items: L() }; },
+          fields: [
+            { key: "company", label: "نام شرکت", i18n: true },
+            { key: "companyColor", label: "رنگ نام شرکت", type: "color" },
+            { key: "role", label: "سمت", i18n: true },
+            { key: "date", label: "تاریخ", i18n: true },
+            { key: "type", label: "نوع همکاری", i18n: true },
+            { key: "logo", label: "لوگو", type: "image", spec: "companyLogo" },
+            { key: "logoHeight", label: "ارتفاع لوگو (پیکسل)", type: "number" },
+            { key: "intro", label: "معرفی شرکت", type: "textarea", i18n: true },
+            { key: "listTitle", label: "عنوان لیست", i18n: true },
+            { key: "items", label: "دستاوردها", type: "textarea", i18n: true, hint: ITEMS_HINT + " بیشتر از ۴ مورد، بقیه پشت دکمهٔ «بیشتر» می‌روند." }
+          ] }
+      ]},
+      { title: "فریلنس", page: "about.html", fields: [
+        { key: "freelanceTitle", label: "عنوان بخش", i18n: true },
+        { key: "freelance", label: "همکاری‌ها", type: "list", titleKey: "company",
+          blank: function () { return { date: L(), type: L(), role: L(), company: L("New studio", "استودیو جدید"), companyColor: "#007fff", logo: "", logoHeight: 35, projects: [] }; },
+          fields: [
+            { key: "company", label: "نام استودیو یا کارفرما", i18n: true },
+            { key: "companyColor", label: "رنگ نام", type: "color" },
+            { key: "role", label: "سمت", i18n: true },
+            { key: "date", label: "تاریخ", i18n: true },
+            { key: "type", label: "نوع همکاری", i18n: true },
+            { key: "logo", label: "لوگو", type: "image", spec: "companyLogo" },
+            { key: "logoHeight", label: "ارتفاع لوگو (پیکسل)", type: "number" },
+            { key: "projects", label: "پروژه‌ها", type: "list", titleKey: "name",
+              blank: function () { return { name: L("New project:", "پروژهٔ جدید:"), description: L(), role: L("UI/UX Designer", "طراح UI/UX"), items: L() }; },
+              fields: [
+                { key: "name", label: "نام پروژه", i18n: true },
+                { key: "description", label: "توضیح", type: "textarea", i18n: true },
+                { key: "role", label: "نقش من", i18n: true },
+                { key: "items", label: "دستاوردها", type: "textarea", i18n: true, hint: ITEMS_HINT }
+              ] }
+          ] }
+      ]},
+      { title: "متن‌های کوچک دکمه‌ها", page: "about.html", fields: [
+        { key: "ui.myRole", label: "My role:", i18n: true },
+        { key: "ui.accomplishments", label: "Accomplishments:", i18n: true },
+        { key: "ui.showMore", label: "دکمهٔ بیشتر", i18n: true },
+        { key: "ui.showLess", label: "دکمهٔ کمتر", i18n: true },
+        { key: "ui.copy", label: "دکمهٔ کپی ایمیل", i18n: true },
+        { key: "ui.copied", label: "بعد از کپی", i18n: true },
+        { key: "ui.close", label: "بستن نمایش تصویر", i18n: true },
+        { key: "ui.soon", label: "برچسب کارت بدون لینک", i18n: true }
+      ]}
+    ];
+
+    /* ---------- path helpers ---------- */
+    function get(obj, path) {
+      return path.split(".").reduce(function (o, k) { return o == null ? undefined : o[k]; }, obj);
+    }
+    function set(obj, path, val) {
+      var ks = path.split("."), last = ks.pop();
+      var t = ks.reduce(function (o, k) { if (o[k] == null) o[k] = {}; return o[k]; }, obj);
+      t[last] = val;
+    }
+    function el(tag, attrs, kids) {
+      var n = document.createElement(tag);
+      Object.keys(attrs || {}).forEach(function (k) {
+        if (k === "text") n.textContent = attrs[k];
+        else if (k.indexOf("on") === 0) n.addEventListener(k.slice(2), attrs[k]);
+        else n.setAttribute(k, attrs[k]);
+      });
+      (kids || []).forEach(function (c) { if (c) n.appendChild(c); });
+      return n;
+    }
+    var uid = 0;
+
+    /* ---------- uploaded files (kept until they exist on the site) ---------- */
+    var pending = {}; // path -> { blob, url }
+    function fa(n) { try { return Number(n).toLocaleString("fa-IR"); } catch (e) { return String(n); } }
+    function srcFor(path) { return pending[path] ? pending[path].url : path; }
+    function blobToDataURL(blob) {
+      return new Promise(function (res, rej) { var r = new FileReader(); r.onload = function () { res(r.result); }; r.onerror = rej; r.readAsDataURL(blob); });
+    }
+    var IDB = (function () {
+      var dbp = null;
+      function db() {
+        if (!dbp) dbp = new Promise(function (res, rej) {
+          var r = indexedDB.open("portfolio-admin", 1);
+          r.onupgradeneeded = function () { r.result.createObjectStore("files"); };
+          r.onsuccess = function () { res(r.result); };
+          r.onerror = function () { rej(r.error); };
+        });
+        return dbp;
+      }
+      function run(mode, fn) {
+        return db().then(function (d) {
+          return new Promise(function (res, rej) {
+            var t = d.transaction("files", mode); fn(t.objectStore("files"));
+            t.oncomplete = function () { res(); }; t.onerror = function () { rej(t.error); };
+          });
+        });
+      }
+      return {
+        put: function (k, v) { return run("readwrite", function (st) { st.put(v, k); }).catch(function () {}); },
+        del: function (k) { return run("readwrite", function (st) { st.delete(k); }).catch(function () {}); },
+        clear: function () { return run("readwrite", function (st) { st.clear(); }).catch(function () {}); },
+        all: function () {
+          return db().then(function (d) {
+            return new Promise(function (res) {
+              var out = {}, t = d.transaction("files", "readonly"), c = t.objectStore("files").openCursor();
+              c.onsuccess = function () { var cur = c.result; if (cur) { out[cur.key] = cur.value; cur.continue(); } };
+              t.oncomplete = function () { res(out); }; t.onerror = function () { res({}); };
+            });
+          }).catch(function () { return {}; });
+        }
+      };
+    })();
+    function addPending(path, blob) {
+      return blobToDataURL(blob).then(function (url) {
+        pending[path] = { blob: blob, url: url };
+        IDB.put(path, blob);
+      });
+    }
+    function slug(name) {
+      var base = String(name || "").replace(/\.[^.]+$/, "").toLowerCase().replace(/[^a-z0-9_-]+/g, "-").replace(/^-+|-+$/g, "");
+      return base || "image-" + Date.now().toString(36);
+    }
+    function makePath(spec, fixed, original, ext) {
+      var dir = "assets/" + (spec.folder ? spec.folder + "/" : "");
+      var base = fixed || slug(original);
+      var path = dir + base + "." + ext, i = 2;
+      if (!fixed) while (pending[path]) path = dir + base + "-" + (i++) + "." + ext;
+      return path;
+    }
+    function loadImage(file) {
+      return new Promise(function (res, rej) {
+        var u = URL.createObjectURL(file), img = new Image();
+        img.onload = function () { res(img); setTimeout(function () { URL.revokeObjectURL(u); }, 0); };
+        img.onerror = function () { rej(new Error("این فایل خوانده نشد؛ یک عکس PNG، JPG، WebP یا SVG انتخاب کن.")); };
+        img.src = u;
+      });
+    }
+    function hasAlpha(ctx, w, h) {
+      var d = ctx.getImageData(0, 0, w, h).data, step = Math.max(4, Math.floor(d.length / 4 / 20000) * 4);
+      for (var i = 3; i < d.length; i += step) if (d[i] < 250) return true;
+      return false;
+    }
+    function canvasBlob(c, type, q) { return new Promise(function (res) { c.toBlob(res, type, q); }); }
+    function processImage(file, spec) {
+      if (spec.raw) {
+        if (file.type !== spec.raw && !/\.pdf$/i.test(file.name)) return Promise.reject(new Error("فقط فایل PDF قابل قبول است."));
+        var big = file.size / 1024 > spec.maxKB;
+        return Promise.resolve({ blob: file, ext: "pdf", notes: big ? ["حجمش بیشتر از حد پیشنهادی است؛ موقع خروجی گرفتن از فیگما یا Word گزینهٔ فشرده‌سازی را بزن."] : [], warn: big });
+      }
+      var isSvg = file.type === "image/svg+xml" || /\.svg$/i.test(file.name);
+      if (isSvg) {
+        var n = [];
+        if (spec.accept.indexOf("svg") < 0) n.push("برای این بخش SVG مناسب نیست، بهتر است JPG بدهی.");
+        if (file.size / 1024 > spec.maxKB) n.push("حجمش بیشتر از حد پیشنهادی است.");
+        return Promise.resolve({ blob: file, ext: "svg", notes: n, warn: n.length > 0 });
+      }
+      if (!/^image\//.test(file.type)) return Promise.reject(new Error("این فایل عکس نیست."));
+      return loadImage(file).then(function (img) {
+        var w = img.naturalWidth, h = img.naturalHeight, notes = [], warn = false;
+        if ((spec.minW && w < spec.minW) || (spec.minH && h < spec.minH)) {
+          notes.push("کوچک‌تر از اندازهٔ پیشنهادی است و ممکن است روی صفحه‌های رتینا تار دیده شود.");
+          warn = true;
+        }
+        var scale = Math.min(1, spec.maxW ? spec.maxW / w : 1, spec.maxH ? spec.maxH / h : 1);
+        var tw = Math.max(1, Math.round(w * scale)), th = Math.max(1, Math.round(h * scale));
+        var okType = /^image\/(png|jpeg|webp)$/.test(file.type);
+        if (scale === 1 && okType && file.size / 1024 <= spec.maxKB) {
+          return { blob: file, ext: file.type === "image/jpeg" ? "jpg" : file.type.split("/")[1], w: w, h: h, notes: notes, warn: warn };
+        }
+        var c = document.createElement("canvas"); c.width = tw; c.height = th;
+        var ctx = c.getContext("2d");
+        ctx.imageSmoothingQuality = "high";
+        ctx.drawImage(img, 0, 0, tw, th);
+        var alpha = file.type !== "image/jpeg" && hasAlpha(ctx, tw, th);
+        if (scale < 1) notes.push("از " + fa(w) + "×" + fa(h) + " کوچک شد.");
+        if (alpha) {
+          return canvasBlob(c, "image/png").then(function (b) {
+            if (b.size / 1024 > spec.maxKB) { notes.push("هنوز سنگین است؛ بهتر است از فیگما با حجم کمتر یا SVG خروجی بگیری."); warn = true; }
+            return { blob: b, ext: "png", w: tw, h: th, notes: notes, warn: warn };
+          });
+        }
+        var bg = document.createElement("canvas"); bg.width = tw; bg.height = th;
+        var bctx = bg.getContext("2d"); bctx.fillStyle = "#fff"; bctx.fillRect(0, 0, tw, th); bctx.drawImage(c, 0, 0);
+        var tries = [0.86, 0.78, 0.7, 0.6];
+        function attempt(i) {
+          return canvasBlob(bg, "image/jpeg", tries[i]).then(function (b) {
+            if (b.size / 1024 > spec.maxKB && i < tries.length - 1) return attempt(i + 1);
+            if (i > 0 || file.size !== b.size) notes.push("فشرده شد.");
+            return { blob: b, ext: "jpg", w: tw, h: th, notes: notes, warn: warn || b.size / 1024 > spec.maxKB };
+          });
+        }
+        return attempt(0);
+      });
+    }
+
+    // Minimal ZIP writer (stored, no compression — images are already compressed)
+    var CRC_T = (function () { var t = new Uint32Array(256); for (var n = 0; n < 256; n++) { var c = n; for (var k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+    function crc32(u8) { var c = 0xFFFFFFFF; for (var i = 0; i < u8.length; i++) c = CRC_T[(c ^ u8[i]) & 0xFF] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; }
+    function makeZip(files) {
+      var enc = new TextEncoder(), parts = [], central = [], offset = 0, cdSize = 0;
+      files.forEach(function (f) {
+        var name = enc.encode(f.name), crc = crc32(f.data), size = f.data.length;
+        var lh = new DataView(new ArrayBuffer(30));
+        lh.setUint32(0, 0x04034b50, true); lh.setUint16(4, 20, true); lh.setUint16(6, 0x0800, true);
+        lh.setUint16(12, 0x21, true); lh.setUint32(14, crc, true); lh.setUint32(18, size, true); lh.setUint32(22, size, true);
+        lh.setUint16(26, name.length, true);
+        parts.push(lh.buffer, name, f.data);
+        var ch = new DataView(new ArrayBuffer(46));
+        ch.setUint32(0, 0x02014b50, true); ch.setUint16(4, 20, true); ch.setUint16(6, 20, true); ch.setUint16(8, 0x0800, true);
+        ch.setUint16(14, 0x21, true); ch.setUint32(16, crc, true); ch.setUint32(20, size, true); ch.setUint32(24, size, true);
+        ch.setUint16(28, name.length, true); ch.setUint32(42, offset, true);
+        central.push(ch.buffer, name);
+        cdSize += 46 + name.length;
+        offset += 30 + name.length + size;
+      });
+      var end = new DataView(new ArrayBuffer(22));
+      end.setUint32(0, 0x06054b50, true); end.setUint16(8, files.length, true); end.setUint16(10, files.length, true);
+      end.setUint32(12, cdSize, true); end.setUint32(16, offset, true);
+      return new Blob(parts.concat(central, [end.buffer]), { type: "application/zip" });
+    }
+    function usedPending() {
+      var json = JSON.stringify(data);
+      return Object.keys(pending).filter(function (p) { return json.indexOf(JSON.stringify(p)) > -1; });
+    }
+    function withPending(o) {
+      if (typeof o === "string") return pending[o] ? pending[o].url : o;
+      if (Array.isArray(o)) return o.map(withPending);
+      if (o && typeof o === "object") { var r = {}; Object.keys(o).forEach(function (k) { r[k] = withPending(o[k]); }); return r; }
+      return o;
+    }
+
+    /* ---------- field rendering ---------- */
+    function renderFields(fields, target, box, onTitle) {
+      fields.forEach(function (f) {
+        if (f.type === "heading") {
+          var hd = el("div", { class: "sub-heading" }, [el("strong", { text: f.label })]);
+          if (f.hint) hd.appendChild(el("div", { class: "hint", text: f.hint }));
+          box.appendChild(hd);
+          return;
+        }
+        if (f.type === "action") {
+          var ab = el("button", { type: "button", class: "btn btn--small action-btn", text: f.label });
+          ab.addEventListener("click", function () { f.run(target, ab); });
+          box.appendChild(ab);
+          return;
+        }
+        box.appendChild(f.type === "list" ? renderList(f, target) : renderField(f, target, onTitle));
+      });
+    }
+
+    function renderI18n(f, target, onTitle) {
+      var val = get(target, f.key);
+      if (!val || typeof val !== "object") { val = { en: val == null ? "" : String(val), fa: "" }; set(target, f.key, val); }
+      var wrap = el("div", { class: "field" }, [el("label", { text: f.label })]);
+      var pair = el("div", { class: "pair" });
+      [["en", "EN", "ltr"], ["fa", "فا", "rtl"]].forEach(function (lg) {
+        var input = f.type === "textarea" ? el("textarea", { dir: lg[2], "aria-label": f.label + " " + lg[1] }) : el("input", { type: "text", dir: lg[2], "aria-label": f.label + " " + lg[1] });
+        input.className = lg[0] === "en" ? "ltr" : "rtl";
+        input.value = val[lg[0]] || "";
+        input.addEventListener("input", function () {
+          val[lg[0]] = input.value;
+          if (onTitle) onTitle();
+          touch();
+        });
+        input.addEventListener("focus", function () { setPreviewLang(lg[0]); });
+        pair.appendChild(el("div", { class: "pair-item" + (lg[0] === "fa" ? " is-fa" : "") }, [input, el("span", { class: "lang-tag", text: lg[1] })]));
+      });
+      wrap.appendChild(pair);
+      if (f.hint) wrap.appendChild(el("div", { class: "hint", text: f.hint }));
+      return wrap;
+    }
+
+    function renderField(f, target, onTitle) {
+      if (f.i18n) return renderI18n(f, target, onTitle);
+      var id = "f" + (++uid);
+      var val = get(target, f.key);
+      var wrap = el("div", { class: "field" }, [el("label", { for: id, text: f.label })]);
+      var input;
+
+      function changed(v) {
+        set(target, f.key, v);
+        if (onTitle) onTitle();
+        touch();
+      }
+
+      if (f.type === "textarea") {
+        input = el("textarea", { id: id, dir: "auto", class: "ltr" });
+        input.value = val || "";
+        input.addEventListener("input", function () { changed(input.value); });
+        wrap.appendChild(input);
+      } else if (f.type === "select") {
+        input = el("select", { id: id });
+        f.options.forEach(function (o) {
+          var opt = el("option", { value: o[0], text: o[1] });
+          if (o[0] === val) opt.selected = true;
+          input.appendChild(opt);
+        });
+        input.addEventListener("change", function () { changed(input.value); });
+        wrap.appendChild(input);
+      } else if (f.type === "color") {
+        var picker = el("input", { type: "color", "aria-label": f.label });
+        input = el("input", { id: id, type: "text", class: "ltr" });
+        picker.value = /^#[0-9a-f]{6}$/i.test(val) ? val : "#007fff";
+        input.value = val || "";
+        picker.addEventListener("input", function () { input.value = picker.value; changed(picker.value); });
+        input.addEventListener("input", function () {
+          if (/^#[0-9a-f]{6}$/i.test(input.value)) picker.value = input.value;
+          changed(input.value);
+        });
+        wrap.appendChild(el("div", { class: "row color-row" }, [picker, input]));
+      } else if (f.type === "image") {
+        var spec = SPECS[f.spec] || SPECS.screenshot;
+        var thumb = el("div", { class: "thumb" });
+        input = el("input", { id: id, type: "text", class: "ltr", placeholder: "assets/..." });
+        input.value = val || "";
+        var fileIn = el("input", { type: "file", accept: spec.accept, hidden: "" });
+        var status = el("div", { class: "upload-status", "aria-live": "polite" });
+        var showThumb = function () {
+          var path = input.value.trim();
+          var src = srcFor(path);
+          thumb.textContent = "";
+          thumb.style.backgroundImage = "";
+          if (!path) { thumb.textContent = "—"; return; }
+          if (/\.pdf$/i.test(path)) { thumb.textContent = "PDF"; return; }
+          var img = new Image();
+          img.onload = function () { thumb.style.backgroundImage = "url('" + src.replace(/'/g, "\\'") + "')"; };
+          img.onerror = function () { thumb.textContent = "پیدا نشد"; };
+          img.src = src;
+        };
+        var setStatus = function (text, cls) { status.textContent = text; status.className = "upload-status " + (cls || ""); };
+        var handle = function (file) {
+          if (!file) return;
+          setStatus("در حال آماده‌سازی…");
+          processImage(file, spec).then(function (res) {
+            var path = makePath(spec, f.fileName || spec.fileName, file.name, res.ext);
+            return addPending(path, res.blob).then(function () {
+              input.value = path;
+              changed(path);
+              showThumb();
+              var kb = Math.round(res.blob.size / 1024);
+              var parts = [];
+              if (res.w) parts.push(fa(res.w) + " × " + fa(res.h) + " پیکسل");
+              parts.push(fa(kb) + " کیلوبایت");
+              var line = "✓ " + parts.join(" · ") + (res.notes.length ? " — " + res.notes.join(" ") : "");
+              setStatus(line, res.warn || kb > spec.maxKB ? "warn" : "ok");
+            });
+          }).catch(function (err) { setStatus(String(err && err.message || err), "err"); });
+        };
+        fileIn.addEventListener("change", function () { handle(fileIn.files[0]); fileIn.value = ""; });
+        var pickBtn = el("button", { type: "button", class: "btn btn--small", text: "بارگذاری فایل", onclick: function () { fileIn.click(); } });
+        var clearBtn = el("button", { type: "button", class: "btn btn--small btn--ghost btn--danger", text: "حذف", onclick: function () {
+          input.value = ""; changed(""); showThumb(); setStatus("");
+        } });
+        input.addEventListener("input", function () { changed(input.value); showThumb(); setStatus(""); });
+        var drop = el("div", { class: "drop" }, [
+          thumb,
+          el("div", { class: "drop-main" }, [input, el("div", { class: "row drop-actions" }, [pickBtn, clearBtn, el("span", { class: "drop-tip", text: "یا فایل را اینجا رها کن" }), fileIn])])
+        ]);
+        ["dragenter", "dragover"].forEach(function (ev) {
+          drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.add("is-over"); });
+        });
+        ["dragleave", "drop"].forEach(function (ev) {
+          drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.remove("is-over"); });
+        });
+        drop.addEventListener("drop", function (e) { handle(e.dataTransfer.files[0]); });
+        showThumb();
+        if (pending[input.value.trim()]) setStatus("آپلودنشده روی سایت؛ در بستهٔ دانلود قرار می‌گیرد.", "ok");
+        wrap.appendChild(drop);
+        var specBox = el("div", { class: "spec" });
+        specBox.innerHTML = "<b>اندازه:</b> " + spec.size + "<br><b>فرمت:</b> " + spec.format + " · <b>حداکثر حجم:</b> " + spec.kb;
+        wrap.appendChild(specBox);
+        wrap.appendChild(status);
+      } else if (f.type === "number") {
+        input = el("input", { id: id, type: "number", min: "10", max: "200", class: "ltr" });
+        input.value = val == null ? "" : val;
+        input.addEventListener("input", function () { changed(input.value === "" ? "" : Number(input.value)); });
+        wrap.appendChild(input);
+      } else {
+        input = el("input", { id: id, type: "text", dir: "auto", class: "ltr" });
+        input.value = val == null ? "" : val;
+        input.addEventListener("input", function () { changed(input.value); });
+        wrap.appendChild(input);
+      }
+      if (f.hint) wrap.appendChild(el("div", { class: "hint", text: f.hint }));
+      return wrap;
+    }
+
+    function renderList(f, target) {
+      var wrap = el("div", { class: "field" }, [el("label", { text: f.label })]);
+      var list = el("div", { class: "list" });
+      wrap.appendChild(list);
+      var openIndex = -1;
+
+      function arr() {
+        var a = get(target, f.key);
+        if (!Array.isArray(a)) { a = []; set(target, f.key, a); }
+        return a;
+      }
+
+      function draw() {
+        list.innerHTML = "";
+        var a = arr();
+        a.forEach(function (item, i) {
+          var titleSpan = el("span", { class: "item-title" });
+          var setTitle = function () {
+            var v = item[f.titleKey];
+            if (v && typeof v === "object") v = v.fa || v.en;
+            titleSpan.textContent = (v || "").toString().trim() || "(بدون عنوان)";
+          };
+          setTitle();
+
+          function move(d) {
+            return function (e) {
+              e.preventDefault();
+              var j = i + d;
+              if (j < 0 || j >= a.length) return;
+              var t = a[i]; a[i] = a[j]; a[j] = t;
+              openIndex = j; draw(); touch();
+            };
+          }
+          var tools = el("span", { class: "item-tools" }, [
+            el("button", { type: "button", class: "icon-btn", title: "بالا", "aria-label": "انتقال به بالا", text: "↑", onclick: move(-1) }),
+            el("button", { type: "button", class: "icon-btn", title: "پایین", "aria-label": "انتقال به پایین", text: "↓", onclick: move(1) }),
+            el("button", { type: "button", class: "icon-btn del", title: "حذف", "aria-label": "حذف", text: "✕", onclick: function (e) {
+              e.preventDefault();
+              if (!confirm("«" + titleSpan.textContent + "» حذف شود؟")) return;
+              a.splice(i, 1); openIndex = -1; draw(); touch();
+            } })
+          ]);
+          var body = el("div", { class: "item-body" });
+          renderFields(f.fields, item, body, setTitle);
+          var det = el("details", { class: "item" }, [el("summary", {}, [titleSpan, tools]), body]);
+          if (i === openIndex) det.open = true;
+          list.appendChild(det);
+        });
+        if (!f.max || a.length < f.max) {
+          list.appendChild(el("button", { type: "button", class: "add-btn", text: "+ افزودن", onclick: function () {
+            a.push(typeof f.blank === "function" ? f.blank() : JSON.parse(JSON.stringify(f.blank || {})));
+            openIndex = a.length - 1; draw(); touch();
+          } }));
+        }
+      }
+      draw();
+      return wrap;
+    }
+
+    function buildForm() {
+      var form = document.getElementById("form");
+      form.innerHTML = "";
+      SCHEMA.forEach(function (s, i) {
+        var body = el("div", { class: "section-body" });
+        renderFields(s.fields, data, body);
+        var det = el("details", { class: "section" }, [
+          el("summary", {}, [
+            el("span", { text: s.title }),
+            el("span", { class: "page-tag", text: s.page === "about.html" ? "درباره من" : "صفحهٔ اصلی" })
+          ]),
+          body
+        ]);
+        if (i === 0) det.open = true;
+        det.addEventListener("toggle", function () { if (det.open) showPage(s.page); });
+        form.appendChild(det);
+      });
+    }
+
+    /* ---------- state ---------- */
+    var dirty = false, timer = null;
+    function touch() {
+      dirty = true;
+      document.getElementById("status").textContent = "تغییرات دانلود نشده";
+      document.getElementById("status").className = "status dirty";
+      try { localStorage.setItem(DRAFT_KEY, JSON.stringify(data)); } catch (e) {}
+      clearTimeout(timer);
+      timer = setTimeout(send, 120);
+    }
+    function markClean(text) {
+      dirty = false;
+      var s = document.getElementById("status");
+      s.textContent = text || "بدون تغییر";
+      s.className = "status";
+    }
+
+    /* ---------- preview ---------- */
+    var frame = document.getElementById("frame");
+    var wrap = document.getElementById("frame-wrap");
+    var stage = document.getElementById("stage");
+    var deviceW = 1440;
+    var previewLang = "en";
+    function setPreviewLang(l) {
+      if (l === previewLang) return;
+      previewLang = l;
+      document.querySelectorAll("#lang-seg button").forEach(function (b) {
+        b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === l));
+      });
+      send();
+    }
+    document.getElementById("lang-seg").addEventListener("click", function (e) {
+      var b = e.target.closest("button"); if (b) setPreviewLang(b.getAttribute("data-lang"));
+    });
+
+    function previewCase(item) {
+      var i = (data.projects || []).indexOf(item);
+      if (i < 0) return;
+      showPage("index.html");
+      var go = function () { try { frame.contentWindow.postMessage({ type: "open-case", index: i }, "*"); } catch (e) {} };
+      setTimeout(go, frame.getAttribute("src") === "index.html" ? 50 : 600);
+    }
+    function send() {
+      try { frame.contentWindow.postMessage({ type: "preview-content", content: withPending(data), lang: previewLang }, "*"); } catch (e) {}
+    }
+    window.addEventListener("message", function (e) {
+      if (e.data && e.data.type === "preview-ready" && e.source === frame.contentWindow) send();
+    });
+    frame.addEventListener("load", send);
+
+    function fit() {
+      var sw = stage.clientWidth, sh = stage.clientHeight;
+      var scale = Math.min(1, (sw - 32) / deviceW);
+      wrap.style.width = deviceW + "px";
+      wrap.style.height = (sh / scale) + "px";
+      wrap.style.transform = "scale(" + scale + ")";
+      wrap.style.right = Math.max(0, (sw - deviceW * scale) / 2) + "px";
+    }
+    window.addEventListener("resize", fit);
+
+    function showPage(p) {
+      if (frame.getAttribute("src") !== p) frame.setAttribute("src", p);
+      document.querySelectorAll("#page-seg button").forEach(function (b) {
+        b.setAttribute("aria-pressed", String(b.getAttribute("data-page") === p));
+      });
+    }
+    document.getElementById("page-seg").addEventListener("click", function (e) {
+      var b = e.target.closest("button"); if (b) showPage(b.getAttribute("data-page"));
+    });
+    document.getElementById("device-seg").addEventListener("click", function (e) {
+      var b = e.target.closest("button"); if (!b) return;
+      deviceW = +b.getAttribute("data-w");
+      this.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+      fit();
+    });
+
+    /* ---------- export / import / reset ---------- */
+    function download(blob, name) {
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = name;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function () { URL.revokeObjectURL(a.href); }, 1500);
+    }
+    function showDone(title, steps, note) {
+      document.getElementById("done-title").textContent = title;
+      document.getElementById("done-steps").innerHTML = steps.map(function (x) { return "<li>" + x + "</li>"; }).join("");
+      document.getElementById("done-note").innerHTML = note || "";
+      document.getElementById("done-dialog").showModal();
+    }
+    document.getElementById("download").addEventListener("click", function () {
+      var js = "/* Site content — edit with admin.html, then upload this file to GitHub. */\n" +
+        "window.SITE_CONTENT = " + JSON.stringify(data, null, 2) + ";\n";
+      var files = usedPending();
+      if (!files.length) {
+        download(new Blob([js], { type: "text/javascript" }), "content.js");
+        markClean("دانلود شد");
+        showDone("فایل دانلود شد", [
+          "در گیت‌هاب ریپازیتوری سایت را باز کن.",
+          "روی <b>Add file</b> و بعد <b>Upload files</b> بزن.",
+          "فایل <code>content.js</code> را بکش و رها کن (جای قبلی را می‌گیرد).",
+          "<b>Commit changes</b> را بزن. چند دقیقه بعد سایت به‌روز می‌شود."
+        ]);
+        return;
+      }
+      Promise.all(files.map(function (p) {
+        return pending[p].blob.arrayBuffer().then(function (buf) { return { name: p, data: new Uint8Array(buf) }; });
+      })).then(function (entries) {
+        entries.unshift({ name: "content.js", data: new TextEncoder().encode(js) });
+        download(makeZip(entries), "site-update.zip");
+        markClean("دانلود شد");
+        showDone("بستهٔ به‌روزرسانی دانلود شد", [
+          "فایل <code>site-update.zip</code> را از حالت فشرده خارج کن. داخلش <code>content.js</code> و پوشهٔ <code>assets</code> است.",
+          "در گیت‌هاب ریپازیتوری سایت را باز کن و <b>Add file</b> ← <b>Upload files</b> را بزن.",
+          "<code>content.js</code> و پوشهٔ <code>assets</code> را <b>با هم</b> بکش و رها کن. گیت‌هاب ساختار پوشه‌ها را نگه می‌دارد و فایل‌های هم‌نام را جایگزین می‌کند.",
+          "<b>Commit changes</b> را بزن. چند دقیقه بعد سایت به‌روز می‌شود."
+        ], fa(files.length) + " فایل جدید داخل بسته است. عکسی که از فرم حذف کرده‌ای روی گیت‌هاب می‌ماند؛ اگر خواستی، از داخل پوشهٔ <code>assets</code> در گیت‌هاب پاکش کن.");
+      });
+    });
+
+    document.getElementById("import-file").addEventListener("change", function () {
+      var file = this.files[0]; if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function () {
+        try {
+          var t = String(reader.result);
+          var start = t.indexOf("{"), end = t.lastIndexOf("}");
+          data = JSON.parse(t.slice(start, end + 1));
+          buildForm(); touch();
+        } catch (err) {
+          alert("این فایل خوانده نشد. فقط content.js یا یک فایل JSON با همان ساختار را باز کن.");
+        }
+      };
+      reader.readAsText(file);
+      this.value = "";
+    });
+
+    function resetToOriginal() {
+      data = JSON.parse(JSON.stringify(original));
+      pending = {}; IDB.clear();
+      try { localStorage.removeItem(DRAFT_KEY); } catch (e) {}
+      document.getElementById("draft-banner").classList.remove("show");
+      buildForm(); send(); markClean();
+    }
+    document.getElementById("reset").addEventListener("click", function () {
+      if (dirty && !confirm("همهٔ تغییرات این صفحه پاک شود و محتوای فعلی سایت برگردد؟")) return;
+      resetToOriginal();
+    });
+    document.getElementById("discard-draft").addEventListener("click", resetToOriginal);
+
+    window.addEventListener("beforeunload", function (e) {
+      if (dirty) { e.preventDefault(); e.returnValue = ""; }
+    });
+
+    /* ---------- init ---------- */
+    var draft = null;
+    try { draft = JSON.parse(localStorage.getItem(DRAFT_KEY) || "null"); } catch (e) {}
+    // Ignore drafts saved by the older single-language admin
+    if (draft && !(draft.nav && draft.nav.caseStudies)) { draft = null; try { localStorage.removeItem(DRAFT_KEY); } catch (e) {} }
+    if (draft && JSON.stringify(draft) !== JSON.stringify(original)) {
+      data = draft;
+      document.getElementById("draft-banner").classList.add("show");
+      dirty = true;
+      document.getElementById("status").textContent = "تغییرات دانلود نشده";
+      document.getElementById("status").className = "status dirty";
+    } else {
+      data = JSON.parse(JSON.stringify(original));
+    }
+    IDB.all().then(function (stored) {
+      var keys = Object.keys(stored);
+      return Promise.all(keys.map(function (p) {
+        // Drop an upload once the same file is live on the site (same size); keep it otherwise.
+        return fetch(p + "?v=" + Date.now(), { cache: "no-store" }).then(function (r) {
+          if (!r.ok) throw 0;
+          return r.blob();
+        }).then(function (live) {
+          var referenced = JSON.stringify(original).indexOf(JSON.stringify(p)) > -1;
+          if (referenced && live.size === stored[p].size) { IDB.del(p); return; }
+          return addPending(p, stored[p]);
+        }).catch(function () { return addPending(p, stored[p]); });
+      }));
+    }).then(function () {
+      buildForm();
+      fit();
+      send();
+    });
+    buildForm();
+    fit();
+  })();
+  </script>
+</body>
+</html>
