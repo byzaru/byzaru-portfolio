@@ -18,9 +18,9 @@ window.SITE_CONTENT = {
     "cv": ""
   },
   "social": {
-    "linkedin": "#",
+    "linkedin": "https://www.linkedin.com/in/zahraarafati/",
     "behance": "#",
-    "dribbble": "#",
+    "dribbble": "https://dribbble.com/zahraarafati",
     "icons": {
       "linkedin": "assets/icons/linkedin.svg",
       "behance": "assets/icons/behance.svg",
@@ -158,12 +158,12 @@ window.SITE_CONTENT = {
   "projects": [
     {
       "title": {
-        "en": "Online Lab Booking Flow Redesign",
-        "fa": "بازطراحی فرایند رزرو آزمایشگاه آنلاین"
+        "en": "Online Laboratory Appointment Flow",
+        "fa": "فرایند رزرو آنلاین نوبت آزمایشگاه"
       },
       "description": {
-        "en": "Redesigned Doctoreto's lab booking flow from request to test result, based on an analysis of cancellation data.",
-        "fa": "بازطراحی فرایند رزرو آزمایشگاه دکترتو، از ثبت درخواست تا دریافت جواب آزمایش، بر پایه‌ی تحلیل داده‌های لغو."
+        "en": "End-to-end redesign of online lab booking: landing page, multi-step booking wizard, pre- and post-test flows and checkout.",
+        "fa": "بازطراحی سرتاسری نوبت‌دهی آنلاین آزمایشگاه: صفحهٔ فرود، ویزارد چندمرحله‌ای رزرو، مراحل پیش و پس از آزمایش و پرداخت."
       },
       "company": {
         "en": "Doctoreto",
@@ -174,186 +174,15 @@ window.SITE_CONTENT = {
         "fa": "۲۰۲۴"
       },
       "tags": {
-        "en": "Booking flow\nData analysis\nUX writing",
-        "fa": "فلو رزرو\nتحلیل داده\nUX Writing"
+        "en": "Booking flow\nLanding page\nWeb & app",
+        "fa": "فلو رزرو\nصفحهٔ فرود\nوب و اپ"
       },
       "image": "assets/projects/lab-appointment.png",
       "logo": "assets/logos/doctoreto.png",
       "accent": "#4187ff",
       "link": "",
-      "caseStudy": {
-        "summary": {
-          "en": "Only about one in three online lab requests at Doctoreto ended in a completed test. As the product designer and UX writer, I redesigned the flow from request to test result, based on an analysis of cancellation data.",
-          "fa": "در دکترتو تنها حدود یک‌سوم درخواست‌های رزرو آنلاین آزمایشگاه به انجام آزمایش منجر می‌شد. در نقش طراح محصول و UX Writer، فرایند ثبت درخواست تا دریافت جواب آزمایش را بر پایه‌ی تحلیل داده‌های لغو بازطراحی کردم."
-        },
-        "role": {
-          "en": "Product designer & UX writer — data analysis, UX, UI and all copy",
-          "fa": "طراح محصول و UX Writer؛ تحلیل داده، طراحی تجربه، رابط کاربری و تمام متن‌ها"
-        },
-        "timeline": {
-          "en": "",
-          "fa": ""
-        },
-        "team": {
-          "en": "Zahra Arafati (product designer), project manager, head of lab line",
-          "fa": "زهرا عرفاتی (طراح محصول)، مدیر پروژه، مدیر لاین آزمایشگاه"
-        },
-        "tools": {
-          "en": "Web & mobile · Figma, FigJam, Microsoft Clarity",
-          "fa": "وب و موبایل · Figma، FigJam، Microsoft Clarity"
-        },
-        "cover": "assets/projects/lab-booking/after-waiting.png",
-        "blocks": [
-          {
-            "title": {
-              "en": "Overview",
-              "fa": "مرور کلی"
-            },
-            "body": {
-              "en": "Doctoreto is an online booking platform for medical services. Its online lab service lets patients request tests at partner labs without visiting in person.\nThe patient picks a lab, submits a paper or electronic prescription and insurance details, and chooses sampling at the lab or at home. After the lab reviews the documents, the patient pays online, picks a time and receives the result in their profile.\nThe service has two sides: patients who submit requests, and lab reception staff who review and approve them.\n# Scope\n- From choosing a lab to receiving the test result\n- Booking form, profile appointment cards, checkout and SMS messages\n- The landing page and lab search are covered in a separate case study",
-              "fa": "دکترتو پلتفرم نوبت‌دهی آنلاین خدمات پزشکی است و سرویس آزمایشگاه آنلاین آن، امکان ثبت درخواست آزمایش در آزمایشگاه‌های طرف قرارداد را بدون مراجعه‌ی حضوری فراهم می‌کند.\nکاربر آزمایشگاه را انتخاب می‌کند، نسخه‌ی کاغذی یا الکترونیک و اطلاعات بیمه را ثبت می‌کند و بین نمونه‌گیری در آزمایشگاه یا در محل انتخاب می‌کند. پس از بررسی مدارک توسط پذیرش آزمایشگاه، هزینه را آنلاین پرداخت می‌کند، زمان مراجعه را انتخاب می‌کند و در پایان جواب آزمایش را در پروفایل خود دریافت می‌کند.\nاین سرویس با دو گروه کاربر سر و کار دارد: بیمارانی که درخواست ثبت می‌کنند و پذیرش آزمایشگاه‌ها که درخواست‌ها را بررسی و تأیید می‌کنند.\n# محدوده‌ی کار\n- از انتخاب آزمایشگاه تا دریافت جواب آزمایش\n- فرم درخواست، کارت‌های نوبت در پروفایل، پرداخت و پیامک‌ها\n- صفحه‌ی لندینگ و جستجوی آزمایشگاه در کیس‌استادی جداگانه آمده است"
-            },
-            "metrics": {
-              "en": "",
-              "fa": ""
-            },
-            "images": []
-          },
-          {
-            "title": {
-              "en": "The problem",
-              "fa": "مسئله"
-            },
-            "body": {
-              "en": "Out of every three requests, roughly two never turned into a completed test.\nBooking lab tests online was not yet a common habit, and traffic from Google and in-lab ads was limited — so every user who reached the request form was valuable.\nThe old flow was split in two and asynchronous: the patient submitted the form, waited for the lab operator's approval, then had to come back to see the price, pay and pick a time.\n> The form accepted requests the lab could not fulfil, and the information people decide on — price and time — only appeared at the very end. The result was a high cancellation rate and a heavy manual load on lab reception.",
-              "fa": "از هر سه درخواست ثبت‌شده، تقریباً دو مورد به انجام آزمایش نمی‌رسید.\nرزرو آنلاین آزمایشگاه هنوز رفتار رایجی میان کاربران نبود و ورودی این سرویس، از جستجوی گوگل و تبلیغات داخل آزمایشگاه‌ها، محدود بود. بنابراین از دست رفتن هر کاربری که به مرحله‌ی ثبت درخواست می‌رسید، هزینه‌ی بالایی داشت.\nفرایند پیشین دومرحله‌ای و ناهمزمان بود: کاربر فرم را ثبت می‌کرد، منتظر تأیید اپراتور آزمایشگاه می‌ماند و سپس برای مشاهده‌ی هزینه، پرداخت و انتخاب زمان نوبت به سامانه بازمی‌گشت.\n> فرم، درخواست‌هایی را می‌پذیرفت که آزمایشگاه امکان انجام آن‌ها را نداشت، و اطلاعات تصمیم‌ساز، یعنی هزینه و زمان، در انتهای مسیر به کاربر نمایش داده می‌شد. پیامد این وضعیت، نرخ بالای لغو و بار کاری سنگین برای پذیرش آزمایشگاه‌ها بود."
-            },
-            "metrics": {
-              "en": "",
-              "fa": ""
-            },
-            "images": []
-          },
-          {
-            "title": {
-              "en": "Research & insights",
-              "fa": "داده‌ها و یافته‌ها"
-            },
-            "body": {
-              "en": "I received the raw lab-panel data from the project manager and did the analysis myself. Out of roughly 12,000 requests, 32% ended in a completed test, 66% were cancelled or rejected and 2% needed follow-up.\n# Why requests were cancelled\n- Missing prescription or insurance — 29%\n- Invalid tracking code or identity details — 18%\n- Price or insurance not covering the test — 14%\n- Scheduling problems — 14%\n- User withdrew — 8%\n- Test or package not accepted by the lab — 6%\n- Other (lab closed, user error) — 12%\nNearly half of all cancellations came from information that could have been checked in the form itself.\n# Key insights\n- The screening load fell on the lab: about 90% of cancellations were made by lab reception, only 10% by patients. The form did not filter out requests that could not be fulfilled.\n- Request peaks matched the lab's busiest hours: most requests came Saturday to Monday between 9 and 12 — exactly when reception is busiest with walk-in patients.\n- There was no way back after a rejection: only about 2.5% of rejected requests were edited again, because fixing the form required a support call and admin access.\n- Most requests came from Shiraz, Tehran, Mashhad, Karaj and Isfahan.",
-              "fa": "داده‌های خام پنل آزمایشگاه را از مدیر پروژه دریافت کردم و تحلیل و استخراج یافته‌ها را خودم انجام دادم. از حدود ۱۲ هزار درخواست ثبت‌شده، ۳۲٪ به انجام آزمایش منجر شد، ۶۶٪ لغو یا رد شد و ۲٪ نیازمند پیگیری بود.\n# علت‌های لغو یا عدم پذیرش\n- نداشتن نسخه یا بیمه — ۲۹٪\n- کد رهگیری یا اطلاعات هویتی نادرست — ۱۸٪\n- قیمت یا پوشش ندادن بیمه — ۱۴٪\n- مشکلات زمان‌بندی نوبت — ۱۴٪\n- انصراف کاربر — ۸٪\n- پذیرفته نشدن آزمایش یا پکیج خاص — ۶٪\n- سایر (تعطیلی آزمایشگاه، خطای کاربر) — ۱۲٪\nنزدیک به نیمی از لغوها به اطلاعاتی برمی‌گشت که می‌توانست در همان مرحله‌ی تکمیل فرم بررسی شود.\n# یافته‌های کلیدی\n- انتقال بار غربالگری به آزمایشگاه: حدود ۹۰٪ لغوها توسط پذیرش آزمایشگاه و تنها ۱۰٪ توسط کاربر انجام می‌شد. فرم درخواست‌های غیرقابل‌انجام را فیلتر نمی‌کرد و غربالگری کاملاً دستی بود.\n- هم‌زمانی اوج درخواست‌ها با اوج کار آزمایشگاه: بیشترین درخواست‌ها از شنبه تا دوشنبه و بین ساعت ۹ تا ۱۲ ثبت می‌شد؛ همان ساعاتی که پذیرش آزمایشگاه بیشترین مراجعه‌ی حضوری را دارد.\n- نبود مسیر بازگشت پس از رد درخواست: تنها حدود ۲.۵٪ درخواست‌های ردشده دوباره ویرایش شدند؛ زیرا اصلاح فرم تنها از طریق تماس پشتیبانی و دسترسی ادمین امکان‌پذیر بود.\n- بیشترین درخواست‌ها به ترتیب از شیراز، تهران، مشهد، کرج و اصفهان ثبت می‌شد."
-            },
-            "metrics": {
-              "en": "32% | of requests ended in a completed test\n66% | cancelled or rejected\n90% | of cancellations made by lab reception\n2.5% | of rejected requests were edited again",
-              "fa": "۳۲٪ | درخواست‌ها به انجام آزمایش رسید\n۶۶٪ | لغو یا رد شد\n۹۰٪ | لغوها توسط پذیرش آزمایشگاه\n۲.۵٪ | درخواست‌های ردشده دوباره ویرایش شد"
-            },
-            "images": []
-          },
-          {
-            "title": {
-              "en": "Design process",
-              "fa": "تحلیل فرایند پیشین"
-            },
-            "body": {
-              "en": "A manual approval step in the middle split the booking in two, and everything the patient needed to decide was pushed behind it. Mapping the old flow surfaced five pain points:\n- No validation in the form: tracking codes were not checked, and users were never told that a request without a valid prescription or insurance would be rejected.\n- Waiting with no horizon: after submitting, users only saw \"under review\" with no response time. At peak hours the wait grew and some users went to the lab in person.\n- Editing depended on support: users could not fix a rejected request themselves; it took a support call and admin access.\n- Price shown too late: the cost was only sent by SMS and not shown on the appointment card; users first saw it in the bill after approval.\n- Time picked at the very end: users only found out whether a suitable slot existed after every step and every wait.\nOn top of that, the progress bar restarted from zero in the middle of the flow, making the journey feel even longer.",
-              "fa": "یک مرحله‌ی تأیید دستی در میانه‌ی مسیر، فرایند رزرو را به دو بخش جدا تقسیم می‌کرد و تمام اطلاعات تصمیم‌ساز برای کاربر به پس از این مرحله موکول می‌شد. ترسیم فلوی پیشین، پنج مشکل اصلی را نشان داد:\n- نبود اعتبارسنجی در فرم: کد رهگیری بررسی نمی‌شد و پیش از ثبت، به کاربر اعلام نمی‌شد که درخواست بدون نسخه یا بیمه‌ی معتبر رد خواهد شد.\n- انتظار بدون چشم‌انداز: پس از ثبت، کاربر تنها با پیام «در حال بررسی» مواجه بود و زمان پاسخ مشخص نبود. در ساعات اوج این انتظار طولانی‌تر می‌شد و بخشی از کاربران حضوری به آزمایشگاه مراجعه می‌کردند.\n- وابستگی اصلاح به پشتیبانی: کاربر امکان اصلاح مستقیم درخواست ردشده را نداشت و این کار نیازمند تماس پشتیبانی و دسترسی ادمین بود.\n- نمایش دیرهنگام هزینه: هزینه تنها از طریق پیامک اعلام می‌شد و در کارت نوبت نمایش داده نمی‌شد؛ کاربر نخستین بار آن را در صورتحساب پس از تأیید می‌دید.\n- انتخاب زمان در انتهای مسیر: کاربر پس از طی همه‌ی مراحل و انتظارها متوجه می‌شد که زمان مناسبی در دسترس هست یا خیر.\nعلاوه بر این، نوار پیشرفت در میانه‌ی فرایند از ابتدا آغاز می‌شد و طولانی‌بودن مسیر را برای کاربر برجسته‌تر می‌کرد."
-            },
-            "metrics": {
-              "en": "",
-              "fa": ""
-            },
-            "images": []
-          },
-          {
-            "title": {
-              "en": "Solution",
-              "fa": "تصمیم‌های طراحی"
-            },
-            "body": {
-              "en": "Each decision answers one of the five pain points. The core of the redesign was the appointment card in the user's profile: one clear card per state, showing where the patient is and what to do next.\n# 1. A form that fits each lab\n- The user first picks the prescription type: paper shows an image upload, electronic shows a tracking-code field — never both.\n- Prescription upload is only active for labs that require it; labs that accept requests without one ask \"Which test do you need?\" instead.\n- A national ID card upload was added to reduce identity errors.\n# 2. A transparent wait\n- An \"under review\" card with a countdown and the message \"no need to visit the lab in person\".\n- Labs have up to one hour to respond; if it takes longer, the card and an SMS apologise to the user.\n- Outside working hours, the card states exactly when the request will be reviewed.\n- A confirmation SMS with a tracking number right after submitting.\n# 3. Self-service editing\n- The lab calls the user and the card switches to \"Needs editing\", listing what to fix in writing so it is not forgotten. The user re-uploads and resubmits without admin or support.\n# 4. Transparent pricing\n- The payable amount is shown on the card itself; the approval SMS breaks down test cost, basic and supplementary insurance and the final amount, with a separate state for full insurance coverage.\n# 5. Flexible scheduling\n- Users choose a visit window at checkout; in a second model the lab arranges the time by phone and the user only confirms and pays.\n# Other changes\n- Sign-up and login happen inside the flow, and after submitting the user lands directly on the profile cards.\n- Consistent terms: \"sampling time\" for at-home tests and \"visit time\" for in-lab tests.\n- The \"awaiting sampling\" card brings time, address, amount paid and pre-test instructions together.\n- Separate cards, with the reason, for cancellation by the user and rejection by the lab.\n- Discount code, wallet and instalment payment were added to checkout.\n- The test result appears on the same card with a free AI interpretation, and users can rate their appointment.",
-              "fa": "هر تصمیم طراحی به یکی از پنج مشکل فرایند پیشین پاسخ می‌دهد. محور اصلی بازطراحی، کارت‌های نوبت در پروفایل کاربر بود: برای هر وضعیت، کارتی مشخص که جایگاه کاربر در فرایند و اقدام بعدی او را نشان می‌دهد.\n# ۱. فرم متناسب با شرایط هر آزمایشگاه\n- کاربر ابتدا نوع نسخه را انتخاب می‌کند: برای نسخه‌ی کاغذی بخش آپلود تصویر و برای نسخه‌ی الکترونیک فیلد کد رهگیری نمایش داده می‌شود و این دو هرگز هم‌زمان ظاهر نمی‌شوند.\n- آپلود نسخه تنها برای آزمایشگاه‌هایی فعال است که آن را الزامی می‌دانند؛ برای پذیرش بدون نسخه، پرسش «قصد انجام چه آزمایشی را دارید؟» جایگزین آن می‌شود.\n- آپلود تصویر کارت ملی برای کاهش خطاهای هویتی افزوده شد.\n# ۲. شفاف‌سازی زمان انتظار\n- کارت «در حال بررسی» همراه با شمارنده و پیام «نیازی به مراجعه حضوری نیست».\n- سقف یک‌ساعته برای پاسخ آزمایشگاه و نمایش کارت و پیام عذرخواهی در صورت تأخیر.\n- کارت ویژه‌ی خارج از ساعات کاری با زمان دقیق بررسی.\n- پیامک ثبت درخواست همراه با شماره‌ی پیگیری.\n# ۳. اصلاح درخواست توسط خود کاربر\n- آزمایشگاه با کاربر تماس می‌گیرد و کارت او به وضعیت «نیازمند ویرایش» تغییر می‌کند. موارد نیازمند اصلاح به‌صورت مکتوب روی کارت باقی می‌ماند و کاربر بدون نیاز به ادمین یا پشتیبانی، مدارک را دوباره بارگذاری و ثبت می‌کند.\n# ۴. شفافیت هزینه با جزئیات\n- نمایش مبلغ قابل پرداخت روی کارت؛ پیامک تأیید شامل هزینه‌ی آزمایش، سهم بیمه‌ی پایه و تکمیلی و مبلغ نهایی؛ وضعیت جداگانه برای پوشش کامل بیمه بدون نیاز به پرداخت.\n# ۵. انعطاف در زمان‌بندی\n- انتخاب بازه‌ی مراجعه در مرحله‌ی پرداخت؛ در مدل دوم، آزمایشگاه زمان را از طریق تماس هماهنگ می‌کند و کاربر تنها آن را تأیید و پرداخت می‌کند.\n# سایر تغییرات\n- ورود و ساخت حساب کاربری درون همان فرایند انجام می‌شود و کاربر پس از ثبت فرم مستقیماً به کارت‌های پروفایل هدایت می‌شود.\n- اصطلاحات یکدست شد: «زمان نمونه‌گیری» برای آزمایش در محل و «زمان مراجعه» برای آزمایش در آزمایشگاه.\n- کارت «در انتظار نمونه‌گیری» زمان، آدرس، مبلغ پرداخت‌شده و ملاحظات پیش از آزمایش را یکجا نمایش می‌دهد.\n- برای لغو توسط کاربر و رد توسط آزمایشگاه، کارت‌های جداگانه همراه با علت طراحی شد.\n- کد تخفیف، کیف پول و پرداخت اقساطی به مرحله‌ی پرداخت افزوده شد.\n- جواب آزمایش همراه با تفسیر رایگان هوش مصنوعی در همان کارت نمایش داده می‌شود و کاربر می‌تواند به نوبت خود امتیاز دهد."
-            },
-            "metrics": {
-              "en": "",
-              "fa": ""
-            },
-            "images": [
-              {
-                "image": "assets/projects/lab-booking/before-waiting.png",
-                "caption": {
-                  "en": "Before — waiting for approval: status only, no time or next step",
-                  "fa": "قبل — انتظار برای تأیید: فقط وضعیت، بدون زمان یا قدم بعدی"
-                }
-              },
-              {
-                "image": "assets/projects/lab-booking/after-waiting.png",
-                "caption": {
-                  "en": "After — countdown and \"no need to visit in person\"",
-                  "fa": "بعد — شمارنده و پیام «نیازی به مراجعه حضوری نیست»"
-                }
-              },
-              {
-                "image": "assets/projects/lab-booking/before-edit.png",
-                "caption": {
-                  "en": "Before — rejected documents, fixed only through support",
-                  "fa": "قبل — رد مدارک، اصلاح فقط از طریق پشتیبانی"
-                }
-              },
-              {
-                "image": "assets/projects/lab-booking/after-edit.png",
-                "caption": {
-                  "en": "After — \"Needs editing\" with a written list and a direct edit button",
-                  "fa": "بعد — «نیازمند ویرایش» با فهرست مکتوب و دکمه‌ی ویرایش مستقیم"
-                }
-              },
-              {
-                "image": "assets/projects/lab-booking/before-approved.png",
-                "caption": {
-                  "en": "Before — after approval: no price on the card",
-                  "fa": "قبل — پس از تأیید: بدون نمایش هزینه روی کارت"
-                }
-              },
-              {
-                "image": "assets/projects/lab-booking/after-approved.png",
-                "caption": {
-                  "en": "After — payable amount on the card and one clear next action",
-                  "fa": "بعد — مبلغ قابل پرداخت روی کارت و یک اقدام اصلی مشخص"
-                }
-              }
-            ]
-          },
-          {
-            "title": {
-              "en": "UX writing",
-              "fa": "نوشتار رابط کاربری (UX Writing)"
-            },
-            "body": {
-              "en": "Part of the problem was the words themselves: the old copy focused on restrictions, not on what the user should do next. I rewrote all microcopy across the flow, the profile cards and the SMS messages.\n# Before → after\n- Waiting: \"Avoid visiting the lab until it approves…\" → \"You can book once the lab approves, and there's no need to visit in person.\"\n- Rejection: \"Your documents were not approved for the reasons below.\" → \"Needs editing\" + \"The items below need fixing, please complete the form again.\"\n- Time before approval: \"Sampling time: not set\" → \"Booking is now open for you\" + \"Your documents were reviewed, please choose a sampling time.\"\n- Price: amount only by SMS → an SMS with test cost, insurance shares and \"your payable amount\", and the same amount on the card.\n# Principles\n- State the next step, not the restriction.\n- Exact time instead of vague time: \"Your request will be reviewed at 8 a.m. on Saturday.\"\n- Focus on the action, not the error: from \"not approved\" to \"needs fixing\".\n- Own the delay: \"We're sorry for the delay, our team is following up.\"\n- Consistent terms: \"visit time\" for in-lab tests and \"sampling time\" for at-home tests.\n- One SMS, one purpose: tracking number, status, next step and a direct link — e.g. \"Your share is 0 tomans and no payment is needed.\"",
-              "fa": "بخشی از مشکل در خود متن‌ها بود: متن‌های پیشین بر محدودیت‌ها تأکید داشتند، نه بر اقدام بعدی کاربر. تمام میکروکپی‌های فرایند، کارت‌های پروفایل و پیامک‌ها را بازنویسی کردم.\n# قبل ← بعد\n- انتظار برای تأیید: «تا زمان تأیید آزمایشگاه از مراجعه حضوری خودداری کنید…» ← «ثبت نوبت پس از تایید آزمایشگاه امکان‌پذیر است و نیازی به مراجعه حضوری به آزمایشگاه نیست.»\n- رد مدارک: «مدارک شما به دلایل زیر توسط آزمایشگاه تایید نشده است.» ← «نیازمند ویرایش» + «موارد زیر نیاز به اصلاح دارد، لطفاً فرم را مجدداً تکمیل نمایید.»\n- زمان نوبت پیش از تأیید: «زمان نمونه‌گیری: تعیین نشده» ← «امکان نوبت‌گیری برای شما فعال شد» + «مدارک شما بررسی شد، لطفاً زمان نمونه‌گیری را انتخاب کنید.»\n- اعلام هزینه: فقط مبلغ در پیامک ← پیامک با هزینه‌ی آزمایش، سهم بیمه‌ها و «مبلغ قابل پرداخت شما»، و همان مبلغ روی کارت.\n# اصول نگارشی\n- بیان اقدام بعدی به‌جای ممنوعیت.\n- زمان دقیق به‌جای زمان مبهم: «درخواست شما ساعت ۸ صبح روز شنبه بررسی خواهد شد.»\n- تمرکز بر اقدام به‌جای خطا: از «تأیید نشده» به «نیاز به اصلاح دارد».\n- پذیرش مسئولیت تأخیر: «از تأخیر پیش‌آمده عذرخواهی می‌کنیم، کارشناسان ما در حال پیگیری هستند.»\n- اصطلاحات یکدست: «زمان مراجعه» برای آزمایش در آزمایشگاه و «زمان نمونه‌گیری» برای آزمایش در محل.\n- یک پیامک، یک هدف: شماره‌ی پیگیری، وضعیت، اقدام بعدی و لینک مستقیم؛ مثلاً «سهم پرداختی شما ۰ تومان است و نیازی به پرداخت ندارید.»"
-            },
-            "metrics": {
-              "en": "",
-              "fa": ""
-            },
-            "images": []
-          },
-          {
-            "title": {
-              "en": "Impact",
-              "fa": "نتیجه و اثر"
-            },
-            "body": {
-              "en": "The redesign has been live for about a year. Pre-launch comparison data is not available, so its effect is assessed through how people use it today.\nMicrosoft Clarity data shows the lab cards in the profile have become the place patients come back to: most visits are from returning users and there are almost no signs of frustration on the page. Over 80% of these sessions are on mobile browsers, which confirms the mobile-first priority.\n# Next step: the lab landing page\nImproving the booking flow was only half the journey. Data showed that only about 5% of landing page visitors reached the form — most users were lost before booking even started. The next case study tackles this: redesigning the lab landing page and adding a wizard that guides users to the right lab and removes unnecessary steps.",
-              "fa": "این طراحی حدود یک سال است که در دسترس کاربران قرار دارد. داده‌های مقایسه‌ای قبل و بعد از لانچ در دسترس نیست؛ بنابراین اثر طراحی از طریق رفتار فعلی کاربران بررسی شده است.\nداده‌های Microsoft Clarity نشان می‌دهد که کارت‌های آزمایش در پروفایل به مرکز پیگیری کاربران تبدیل شده‌اند: بیشتر بازدیدها از سوی کاربران بازگشتی است و نشانه‌ای از سردرگمی در این صفحه دیده نمی‌شود. بیش از ۸۰٪ این سشن‌ها از مرورگرهای موبایل است؛ موضوعی که اولویت طراحی موبایل را تأیید می‌کند.\n# گام بعدی: لندینگ آزمایشگاه\nبهبود فرایند رزرو تنها نیمی از مسیر بود. داده‌ها نشان می‌داد که تنها حدود ۵٪ بازدیدکنندگان لندینگ به فرم می‌رسیدند؛ یعنی بیشتر کاربران پیش از شروع رزرو از دست می‌رفتند. کیس‌استادی بعدی به این مسئله می‌پردازد: بازطراحی لندینگ آزمایشگاه و افزودن ویزاردی که کاربر را به آزمایشگاه مناسب هدایت می‌کند و مراحل غیرضروری را حذف می‌کند."
-            },
-            "metrics": {
-              "en": "~4,200 | weekly sessions on the profile lab cards\n77% | of those sessions from returning users\n<1% | rage clicks on the lab cards\n80%+ | of sessions on mobile browsers",
-              "fa": "۴٬۲۰۰ | سشن هفتگی (تقریبی) روی کارت‌های آزمایش در پروفایل\n۷۷٪ | این سشن‌ها از کاربران بازگشتی\nزیر ۱٪ | Rage click روی کارت‌های آزمایش\nبیش از ۸۰٪ | سشن‌ها از مرورگرهای موبایل"
-            },
-            "images": []
-          }
-        ]
-      }
+      "protected": true,
+      "locked": "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"
     },
     {
       "title": {
@@ -1268,5 +1097,10 @@ window.SITE_CONTENT = {
   "projectsIntro": {
     "en": "A few projects I led from research to shipped UI.",
     "fa": "چند پروژه که از پژوهش تا رابط نهایی پیش برده‌ام."
+  },
+  "protection": {
+    "salt": "4+aJ2iVDWkwuQQAiqjIfkA==",
+    "iterations": 250000,
+    "check": "64q0bKtqSg1aj1JNYkr5P4sZr2ZSIxWWDIGHBRpP"
   }
 };
