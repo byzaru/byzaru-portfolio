@@ -146,6 +146,14 @@
     .sub-heading strong { font-size: 14px; }
     .action-btn { align-self: flex-start; }
 
+    .banner--lock { background: #f3f0ff; border-bottom-color: #e2dafc; flex-wrap: wrap; }
+    .banner--lock input { border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; font: inherit; min-width: 180px; }
+    .lock-msg { font-size: 12px; color: var(--danger); }
+    .secret-box { display: flex; flex-direction: column; gap: 6px; padding: 12px; border-radius: 12px; background: #f6f3ff; }
+    .secret-box input { border: 1px solid var(--line); border-radius: 10px; padding: 9px 11px; font: inherit; background: #fff; direction: ltr; }
+    .check { display: flex; align-items: center; gap: 8px; font-weight: 500; font-size: 13px; cursor: pointer; }
+    .check input { width: 18px; height: 18px; accent-color: #262626; }
+
     /* upload field */
     .drop {
       display: flex; gap: 12px; align-items: stretch;
@@ -209,6 +217,12 @@
     <button class="btn btn--primary" id="download">دانلود برای آپلود</button>
   </div>
 
+  <div class="banner banner--lock" id="lock-banner">
+    <span>چند کیس‌استادی رمزدار است. برای ویرایش‌شان رمز را وارد کن (بقیهٔ بخش‌ها بدون رمز هم قابل ویرایش‌اند).</span>
+    <input type="password" id="lock-pass" placeholder="رمز کیس‌استادی‌ها" autocomplete="current-password">
+    <button class="btn btn--small" id="lock-open">باز کردن</button>
+    <span class="lock-msg" id="lock-msg"></span>
+  </div>
   <div class="banner" id="draft-banner">
     <span>تغییرات ذخیره‌نشدهٔ قبلی‌ات پیدا و بارگذاری شد.</span>
     <button class="btn btn--small" id="discard-draft">کنار گذاشتن و شروع از نسخهٔ سایت</button>
@@ -260,6 +274,8 @@
         size: "عرض ۸۴۰ پیکسل، ارتفاع آزاد (اسکرین‌شات کامل صفحه، مثلاً ۲۰۰۰ تا ۴۰۰۰ پیکسل)", format: "JPG یا WebP", kb: "۵۰۰ کیلوبایت" },
       caseImage: { folder: "projects", maxW: 2000, maxKB: 600, minW: 1200, accept: "image/png,image/jpeg,image/webp",
         size: "عرض ۱۶۰۰ پیکسل (دو برابر عرض متن مودال)؛ برای دو تصویر کنار هم ۸۰۰ پیکسل کافی است", format: "JPG یا WebP", kb: "۶۰۰ کیلوبایت" },
+      siteLogo: { folder: "", fileName: "logo", maxH: 120, maxKB: 60, minH: 50, alpha: true, accept: "image/svg+xml,image/png,image/webp",
+        size: "ارتفاع ۵۶ پیکسل (نمایش ۲۸ پیکسل)، حداکثر عرض ۳۶۰ پیکسل، لوگوی افقی", format: "SVG (بهترین) یا PNG با پس‌زمینهٔ شفاف", kb: "۶۰ کیلوبایت" },
       cardLogo: { folder: "logos", maxH: 80, maxKB: 60, minH: 36, alpha: true, accept: "image/png,image/svg+xml,image/webp",
         size: "ارتفاع ۳۶ پیکسل (نمایش ۱۸ پیکسل)، لوگوی افقی", format: "SVG یا PNG با پس‌زمینهٔ شفاف", kb: "۶۰ کیلوبایت" },
       badge: { folder: "logos", maxH: 200, maxKB: 100, minH: 100, alpha: true, accept: "image/png,image/svg+xml,image/webp",
@@ -288,8 +304,9 @@
     var SCHEMA = [
       { title: "اطلاعات کلی و منو", page: "index.html", fields: [
         { key: "site.defaultLanguage", label: "زبان پیش‌فرض سایت", type: "select", options: [["en", "English"], ["fa", "فارسی"]], hint: "بازدیدکننده با این زبان وارد می‌شود و با دکمهٔ EN/فا عوضش می‌کند." },
-        { key: "site.logoHome", label: "لوگوی صفحهٔ اصلی", i18n: true },
-        { key: "site.logoAbout", label: "لوگوی صفحهٔ درباره من", i18n: true, hint: "کلمهٔ اول پررنگ و بقیه نازک نمایش داده می‌شود." },
+        { key: "site.logoImage", label: "لوگو (عکس یا SVG)", type: "image", spec: "siteLogo", hint: "اگر بگذاری، در هر دو صفحه به‌جای لوگوی متنی نمایش داده می‌شود. برای برگشت به لوگوی متنی، «حذف» را بزن." },
+        { key: "site.logoHome", label: "لوگوی متنی صفحهٔ اصلی", i18n: true, hint: "وقتی لوگوی تصویری گذاشته شده، این متن برای صفحه‌خوان‌ها و موتورهای جست‌وجو استفاده می‌شود." },
+        { key: "site.logoAbout", label: "لوگوی متنی صفحهٔ درباره من", i18n: true, hint: "کلمهٔ اول پررنگ و بقیه نازک نمایش داده می‌شود." },
         { key: "site.pageTitle", label: "عنوان تب مرورگر", i18n: true },
         { key: "site.email", label: "ایمیل" },
         { key: "site.cv", label: "فایل رزومه", type: "image", spec: "cv", hint: "دکمهٔ «دانلود رزومه» فقط وقتی فایل گذاشته شده باشد، در کارت About و فوتر نشان داده می‌شود." },
@@ -317,6 +334,7 @@
           ] }
       ]},
       { title: "کیس‌استادی‌ها", page: "index.html", fields: [
+        { type: "secret", label: "رمز کیس‌استادی‌های محافظت‌شده", hint: "یک رمز برای همهٔ کیس‌استادی‌هایی که تیک «محافظت با رمز» دارند. موقع دانلود، محتوایشان با این رمز رمزنگاری می‌شود و فقط کسی که رمز را دارد می‌تواند بخواندشان. رمز در فایل‌های سایت ذخیره نمی‌شود؛ جایی یادداشتش کن. حداقل ۱۰ کاراکتر، ترکیبی از حروف و عدد." },
         { key: "projectsTitle", label: "عنوان بخش", i18n: true },
         { key: "projectsIntro", label: "توضیح کوتاه کنار عنوان", i18n: true },
         { key: "projects", label: "کارت‌ها", type: "list", titleKey: "title",
@@ -331,6 +349,7 @@
             { key: "image", label: "اسکرین‌شات", type: "image", spec: "screenshot", hint: "با هاور، عکس از بالا تا پایین اسکرول می‌خورد. تا وقتی عکس نباشد، یک اسکلت ساده جایش دیده می‌شود." },
             { key: "logo", label: "لوگوی روی کارت (اختیاری)", type: "image", spec: "cardLogo" },
             { key: "link", label: "لینک بیرونی (اختیاری)", hint: "فقط اگر این کیس‌استادی جای دیگری است (مثلاً بیهنس). اگر محتوای مودال را پر کنی، مودال اولویت دارد. اگر هیچ‌کدام نباشد، «به‌زودی» نشان داده می‌شود." },
+            { key: "protected", label: "محافظت با رمز", type: "checkbox", hint: "متن و تصویرهای داخل مودال رمزنگاری می‌شوند. عنوان، توضیح، تگ‌ها و اسکرین‌شات خود کارت عمومی می‌مانند؛ اگر اسکرین‌شات محرمانه است، برای کارت یک تصویر عمومی یا خالی بگذار." },
             { type: "heading", label: "صفحهٔ کیس‌استادی (مودال)", hint: "با کلیک روی کارت باز می‌شود. هر بخشی که خالی بماند، روی سایت دیده نمی‌شود؛ پس لازم نیست همه را پر کنی." },
             { type: "action", label: "باز کردن مودال در پیش‌نمایش", run: function (item, btn) {
                 var filled = ((item.caseStudy || {}).blocks || []).some(function (b) {
@@ -481,7 +500,7 @@
     /* ---------- uploaded files (kept until they exist on the site) ---------- */
     var pending = {}; // path -> { blob, url }
     function fa(n) { try { return Number(n).toLocaleString("fa-IR"); } catch (e) { return String(n); } }
-    function srcFor(path) { return pending[path] ? pending[path].url : path; }
+    function srcFor(path) { return pending[path] ? pending[path].url : (typeof encUrls !== "undefined" && encUrls[path]) || path; }
     function blobToDataURL(blob) {
       return new Promise(function (res, rej) { var r = new FileReader(); r.onload = function () { res(r.result); }; r.onerror = rej; r.readAsDataURL(blob); });
     }
@@ -627,12 +646,160 @@
       end.setUint32(12, cdSize, true); end.setUint32(16, offset, true);
       return new Blob(parts.concat(central, [end.buffer]), { type: "application/zip" });
     }
-    function usedPending() {
-      var json = JSON.stringify(data);
+    /* ---------- protection (AES-GCM 256, key = PBKDF2-SHA256 of the password) ---------- */
+    var ITER = 250000;
+    var secret = { password: (function () { try { return sessionStorage.getItem("admin-case-pass") || ""; } catch (e) { return ""; } })() };
+    var unlockedWith = null;          // { password, key, salt } once existing locked content is opened
+    var encCache = {}, encUrls = {};  // "enc:..." ref -> decrypted Blob / object URL
+    function toB64(u8) { var s = ""; for (var i = 0; i < u8.length; i += 0x8000) s += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000)); return btoa(s); }
+    function fromB64(s) { var b = atob(s), u = new Uint8Array(b.length); for (var i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; }
+    function deriveKey(password, saltB64) {
+      return crypto.subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveKey"]).then(function (base) {
+        return crypto.subtle.deriveKey({ name: "PBKDF2", salt: fromB64(saltB64), iterations: ITER, hash: "SHA-256" }, base,
+          { name: "AES-GCM", length: 256 }, false, ["encrypt", "decrypt"]);
+      });
+    }
+    function encryptBytes(key, bytes) {
+      var iv = crypto.getRandomValues(new Uint8Array(12));
+      return crypto.subtle.encrypt({ name: "AES-GCM", iv: iv }, key, bytes).then(function (ct) {
+        var out = new Uint8Array(12 + ct.byteLength); out.set(iv, 0); out.set(new Uint8Array(ct), 12); return out;
+      });
+    }
+    function decryptBytes(key, bytes) { return crypto.subtle.decrypt({ name: "AES-GCM", iv: bytes.slice(0, 12) }, key, bytes.slice(12)); }
+    function encryptText(key, text) { return encryptBytes(key, new TextEncoder().encode(text)).then(toB64); }
+    function decryptText(key, b64s) { return decryptBytes(key, fromB64(b64s)).then(function (b) { return new TextDecoder().decode(b); }); }
+    function randomHex(n) { return Array.prototype.map.call(crypto.getRandomValues(new Uint8Array(n)), function (x) { return ("0" + x.toString(16)).slice(-2); }).join(""); }
+    function caseImageRefs(cs) {
+      var refs = [];
+      if (cs.cover) refs.push({ get: function () { return cs.cover; }, set: function (v) { cs.cover = v; } });
+      (cs.blocks || []).forEach(function (b) {
+        (b.images || []).forEach(function (im) { if (im.image) refs.push({ get: function () { return im.image; }, set: function (v) { im.image = v; } }); });
+      });
+      return refs;
+    }
+    function stillLocked() { return (data.projects || []).some(function (p) { return p.locked; }); }
+
+    function unlockAll(password) {
+      var prot = data.protection;
+      return deriveKey(password, prot.salt).then(function (key) {
+        return decryptText(key, prot.check).then(function (txt) {
+          if (txt !== "ok") throw new Error("wrong");
+          var jobs = [];
+          (data.projects || []).forEach(function (p) {
+            if (!p.locked) return;
+            jobs.push(decryptText(key, p.locked).then(function (json) {
+              var cs = JSON.parse(json);
+              var imgJobs = caseImageRefs(cs).map(function (r) {
+                var ref = r.get();
+                if (ref.indexOf("enc:") !== 0 || encCache[ref]) return null;
+                var parts = ref.slice(4).split("|");
+                return fetch(parts[0], { cache: "no-store" }).then(function (res) { if (!res.ok) throw 0; return res.arrayBuffer(); })
+                  .then(function (buf) { return decryptBytes(key, new Uint8Array(buf)); })
+                  .then(function (plain) { var b = new Blob([plain], { type: parts[1] || "image/jpeg" }); encCache[ref] = b; encUrls[ref] = URL.createObjectURL(b); })
+                  .catch(function () {});
+              });
+              return Promise.all(imgJobs).then(function () { p.caseStudy = cs; p.protected = true; delete p.locked; });
+            }));
+          });
+          return Promise.all(jobs).then(function () { unlockedWith = { password: password, key: key, salt: prot.salt }; secret.password = password; });
+        });
+      });
+    }
+
+    // Build the content that goes to GitHub: protected cases encrypted, their images as encrypted files.
+    function buildExport() {
+      var out = JSON.parse(JSON.stringify(data));
+      var files = [], publicLeft = [];
+      // Still-locked cases travel as they are (their form fields were never filled).
+      (out.projects || []).forEach(function (p) { if (p.locked) delete p.caseStudy; });
+      // A case that was unprotected again: turn its encrypted images back into normal files.
+      var unprotectJobs = [];
+      (out.projects || []).forEach(function (p) {
+        if (p.protected || p.locked || !p.caseStudy) return;
+        caseImageRefs(p.caseStudy).forEach(function (r) {
+          var ref = r.get();
+          if (ref.indexOf("enc:") !== 0) return;
+          var blob = encCache[ref];
+          if (!blob) { r.set(""); return; }
+          var ext = (blob.type.split("/")[1] || "jpg").replace("jpeg", "jpg");
+          var path = "assets/projects/" + randomHex(8) + "." + ext;
+          unprotectJobs.push(blob.arrayBuffer().then(function (buf) { files.push({ name: path, data: new Uint8Array(buf) }); r.set(path); }));
+        });
+      });
+      var anyProtected = (out.projects || []).some(function (p) { return p.protected && !p.locked; });
+      if (!anyProtected) return Promise.all(unprotectJobs).then(function () { return { out: out, files: files, publicLeft: publicLeft }; });
+      if (!window.crypto || !crypto.subtle) return Promise.reject(new Error("برای رمزنگاری، ادمین باید از آدرس سایت (https) یا روی کامپیوتر باز شود."));
+      var pw = secret.password || "";
+      if (pw.length < 10) return Promise.reject(new Error("اول در بخش «کیس‌استادی‌ها» یک رمز حداقل ۱۰ کاراکتری بگذار."));
+
+      var keyP;
+      var rekey = false;
+      if (unlockedWith && unlockedWith.password === pw) {
+        keyP = Promise.resolve({ key: unlockedWith.key, salt: unlockedWith.salt });
+      } else if (out.protection) {
+        keyP = deriveKey(pw, out.protection.salt).then(function (k) {
+          return decryptText(k, out.protection.check).then(function () { return { key: k, salt: out.protection.salt }; }, function () {
+            if (stillLocked()) throw new Error("این رمز با رمز قبلی یکی نیست. اول از نوار بالای صفحه با رمز قبلی قفل را باز کن؛ بعد می‌توانی رمز را عوض کنی.");
+            rekey = true;
+            var salt = toB64(crypto.getRandomValues(new Uint8Array(16)));
+            return deriveKey(pw, salt).then(function (k2) { return { key: k2, salt: salt }; });
+          });
+        });
+      } else {
+        rekey = true;
+        var salt = toB64(crypto.getRandomValues(new Uint8Array(16)));
+        keyP = deriveKey(pw, salt).then(function (k) { return { key: k, salt: salt }; });
+      }
+
+      return Promise.all(unprotectJobs).then(function () { return keyP; }).then(function (kk) {
+        var key = kk.key;
+        var jobs = (out.projects || []).map(function (p, pi) {
+          if (!p.protected || p.locked) return null;
+          var cs = p.caseStudy || {};
+          var refJobs = caseImageRefs(cs).map(function (r) {
+            var ref = r.get();
+            if (ref.indexOf("enc:") === 0 && !rekey) return null;
+            var blobP;
+            if (ref.indexOf("enc:") === 0) blobP = Promise.resolve(encCache[ref] || null);
+            else if (pending[ref]) blobP = Promise.resolve(pending[ref].blob);
+            else {
+              publicLeft.push(ref);
+              blobP = fetch(ref, { cache: "no-store" }).then(function (res) { return res.ok ? res.blob() : null; }).catch(function () { return null; });
+            }
+            return blobP.then(function (blob) {
+              if (!blob) { r.set(""); return; }
+              return blob.arrayBuffer().then(function (buf) { return encryptBytes(key, new Uint8Array(buf)); }).then(function (bytes) {
+                var path = "assets/private/" + randomHex(12) + ".bin";
+                files.push({ name: path, data: bytes });
+                r.set("enc:" + path + "|" + (blob.type || "image/jpeg"));
+              });
+            });
+          });
+          return Promise.all(refJobs).then(function () {
+            return encryptText(key, JSON.stringify(cs)).then(function (locked) {
+              var q = {};
+              Object.keys(p).forEach(function (k) { if (k !== "caseStudy") q[k] = p[k]; });
+              q.locked = locked;
+              out.projects[pi] = q;
+            });
+          });
+        });
+        return Promise.all(jobs).then(function () {
+          return encryptText(key, "ok").then(function (check) {
+            out.protection = { salt: kk.salt, iterations: ITER, check: check };
+            if (rekey) unlockedWith = { password: pw, key: key, salt: kk.salt };
+            return { out: out, files: files, publicLeft: publicLeft };
+          });
+        });
+      });
+    }
+
+    function usedPending(src) {
+      var json = JSON.stringify(src || data);
       return Object.keys(pending).filter(function (p) { return json.indexOf(JSON.stringify(p)) > -1; });
     }
     function withPending(o) {
-      if (typeof o === "string") return pending[o] ? pending[o].url : o;
+      if (typeof o === "string") return pending[o] ? pending[o].url : encUrls[o] || o;
       if (Array.isArray(o)) return o.map(withPending);
       if (o && typeof o === "object") { var r = {}; Object.keys(o).forEach(function (k) { r[k] = withPending(o[k]); }); return r; }
       return o;
@@ -645,6 +812,27 @@
           var hd = el("div", { class: "sub-heading" }, [el("strong", { text: f.label })]);
           if (f.hint) hd.appendChild(el("div", { class: "hint", text: f.hint }));
           box.appendChild(hd);
+          return;
+        }
+        if (f.type === "secret") {
+          var sb = el("div", { class: "secret-box" }, [el("strong", { text: f.label })]);
+          var si = el("input", { type: "password", autocomplete: "new-password", placeholder: "••••••••••" });
+          si.value = secret.password || "";
+          si.addEventListener("input", function () { secret.password = si.value; try { sessionStorage.setItem("admin-case-pass", si.value); } catch (e) {} });
+          var show = el("label", { class: "check" }, [el("input", { type: "checkbox" }), el("span", { text: "نمایش رمز" })]);
+          show.querySelector("input").addEventListener("change", function () { si.type = this.checked ? "text" : "password"; });
+          sb.appendChild(si); sb.appendChild(show);
+          if (f.hint) sb.appendChild(el("div", { class: "hint", text: f.hint }));
+          box.appendChild(sb);
+          return;
+        }
+        if (f.type === "checkbox") {
+          var cb = el("input", { type: "checkbox" });
+          cb.checked = !!get(target, f.key);
+          cb.addEventListener("change", function () { set(target, f.key, cb.checked); touch(); });
+          var fw = el("div", { class: "field" }, [el("label", { class: "check" }, [cb, el("span", { text: f.label })])]);
+          if (f.hint) fw.appendChild(el("div", { class: "hint", text: f.hint }));
+          box.appendChild(fw);
           return;
         }
         if (f.type === "action") {
@@ -746,7 +934,7 @@
               input.value = path;
               changed(path);
               showThumb();
-              var kb = Math.round(res.blob.size / 1024);
+              var kb = Math.max(1, Math.round(res.blob.size / 1024));
               var parts = [];
               if (res.w) parts.push(fa(res.w) + " × " + fa(res.h) + " پیکسل");
               parts.push(fa(kb) + " کیلوبایت");
@@ -963,33 +1151,45 @@
       document.getElementById("done-dialog").showModal();
     }
     document.getElementById("download").addEventListener("click", function () {
-      var js = "/* Site content — edit with admin.html, then upload this file to GitHub. */\n" +
-        "window.SITE_CONTENT = " + JSON.stringify(data, null, 2) + ";\n";
-      var files = usedPending();
-      if (!files.length) {
-        download(new Blob([js], { type: "text/javascript" }), "content.js");
-        markClean("دانلود شد");
-        showDone("فایل دانلود شد", [
-          "در گیت‌هاب ریپازیتوری سایت را باز کن.",
-          "روی <b>Add file</b> و بعد <b>Upload files</b> بزن.",
-          "فایل <code>content.js</code> را بکش و رها کن (جای قبلی را می‌گیرد).",
-          "<b>Commit changes</b> را بزن. چند دقیقه بعد سایت به‌روز می‌شود."
-        ]);
-        return;
-      }
-      Promise.all(files.map(function (p) {
-        return pending[p].blob.arrayBuffer().then(function (buf) { return { name: p, data: new Uint8Array(buf) }; });
-      })).then(function (entries) {
-        entries.unshift({ name: "content.js", data: new TextEncoder().encode(js) });
-        download(makeZip(entries), "site-update.zip");
-        markClean("دانلود شد");
-        showDone("بستهٔ به‌روزرسانی دانلود شد", [
-          "فایل <code>site-update.zip</code> را از حالت فشرده خارج کن. داخلش <code>content.js</code> و پوشهٔ <code>assets</code> است.",
-          "در گیت‌هاب ریپازیتوری سایت را باز کن و <b>Add file</b> ← <b>Upload files</b> را بزن.",
-          "<code>content.js</code> و پوشهٔ <code>assets</code> را <b>با هم</b> بکش و رها کن. گیت‌هاب ساختار پوشه‌ها را نگه می‌دارد و فایل‌های هم‌نام را جایگزین می‌کند.",
-          "<b>Commit changes</b> را بزن. چند دقیقه بعد سایت به‌روز می‌شود."
-        ], fa(files.length) + " فایل جدید داخل بسته است. عکسی که از فرم حذف کرده‌ای روی گیت‌هاب می‌ماند؛ اگر خواستی، از داخل پوشهٔ <code>assets</code> در گیت‌هاب پاکش کن.");
-      });
+      var btn = this;
+      btn.disabled = true;
+      var label = btn.textContent;
+      btn.textContent = "در حال آماده‌سازی…";
+      buildExport().then(function (res) {
+        var js = "/* Site content — edit with admin.html, then upload this file to GitHub. */\n" +
+          "window.SITE_CONTENT = " + JSON.stringify(res.out, null, 2) + ";\n";
+        var plain = usedPending(res.out);
+        var leftNote = res.publicLeft.length
+          ? "<br><br><b>مهم:</b> این تصویرها قبلاً بدون رمز روی گیت‌هاب گذاشته شده‌اند و هنوز عمومی‌اند. نسخهٔ رمزدارشان داخل بسته است؛ بعد از آپلود، خود این فایل‌ها را از گیت‌هاب پاک کن:<br><code>" + res.publicLeft.join("</code><br><code>") + "</code>"
+          : "";
+        if (!plain.length && !res.files.length) {
+          download(new Blob([js], { type: "text/javascript" }), "content.js");
+          markClean("دانلود شد");
+          showDone("فایل دانلود شد", [
+            "در گیت‌هاب ریپازیتوری سایت را باز کن.",
+            "روی <b>Add file</b> و بعد <b>Upload files</b> بزن.",
+            "فایل <code>content.js</code> را بکش و رها کن (جای قبلی را می‌گیرد).",
+            "<b>Commit changes</b> را بزن. چند دقیقه بعد سایت به‌روز می‌شود."
+          ], leftNote);
+          return;
+        }
+        return Promise.all(plain.map(function (p) {
+          return pending[p].blob.arrayBuffer().then(function (buf) { return { name: p, data: new Uint8Array(buf) }; });
+        })).then(function (entries) {
+          entries.unshift({ name: "content.js", data: new TextEncoder().encode(js) });
+          entries = entries.concat(res.files);
+          download(makeZip(entries), "site-update.zip");
+          markClean("دانلود شد");
+          showDone("بستهٔ به‌روزرسانی دانلود شد", [
+            "فایل <code>site-update.zip</code> را از حالت فشرده خارج کن. داخلش <code>content.js</code> و پوشهٔ <code>assets</code> است.",
+            "در گیت‌هاب ریپازیتوری سایت را باز کن و <b>Add file</b> ← <b>Upload files</b> را بزن.",
+            "<code>content.js</code> و پوشهٔ <code>assets</code> را <b>با هم</b> بکش و رها کن. گیت‌هاب ساختار پوشه‌ها را نگه می‌دارد و فایل‌های هم‌نام را جایگزین می‌کند.",
+            "<b>Commit changes</b> را بزن. چند دقیقه بعد سایت به‌روز می‌شود."
+          ], fa(entries.length - 1) + " فایل داخل بسته است" + (res.files.length ? " (" + fa(res.files.length) + " تصویر رمزنگاری‌شده در <code>assets/private</code>)" : "") + ". عکسی که از فرم حذف کرده‌ای روی گیت‌هاب می‌ماند؛ اگر خواستی، از داخل پوشهٔ <code>assets</code> در گیت‌هاب پاکش کن." + leftNote);
+        });
+      }).catch(function (err) {
+        alert(err && err.message ? err.message : "مشکلی پیش آمد؛ دوباره امتحان کن.");
+      }).then(function () { btn.disabled = false; btn.textContent = label; });
     });
 
     document.getElementById("import-file").addEventListener("change", function () {
@@ -1040,6 +1240,25 @@
     } else {
       data = JSON.parse(JSON.stringify(original));
     }
+    function refreshLockBanner() {
+      document.getElementById("lock-banner").classList.toggle("show", stillLocked());
+    }
+    document.getElementById("lock-open").addEventListener("click", function () {
+      var pw = document.getElementById("lock-pass").value, msg = document.getElementById("lock-msg");
+      if (!pw) return;
+      msg.textContent = "…";
+      unlockAll(pw).then(function () {
+        msg.textContent = "";
+        try { sessionStorage.setItem("admin-case-pass", pw); } catch (e) {}
+        refreshLockBanner(); buildForm(); send();
+      }, function () { msg.textContent = "رمز درست نیست."; });
+    });
+    document.getElementById("lock-pass").addEventListener("keydown", function (e) { if (e.key === "Enter") document.getElementById("lock-open").click(); });
+    refreshLockBanner();
+    if (stillLocked() && secret.password && data.protection) {
+      unlockAll(secret.password).then(function () { refreshLockBanner(); buildForm(); send(); }, function () {});
+    }
+
     IDB.all().then(function (stored) {
       var keys = Object.keys(stored);
       return Promise.all(keys.map(function (p) {

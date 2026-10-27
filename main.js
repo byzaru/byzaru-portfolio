@@ -25,7 +25,9 @@
     return String(t(v) || "").split("\n").map(function (s) { return s.trim(); }).filter(Boolean);
   }
   function linkOr(u) { return u && String(u).trim() ? String(u).trim() : "#"; }
-  function ui(key) { var c = window.SITE_CONTENT; return t(c.ui && c.ui[key]); }
+  // Built-in labels, used when content.js predates a feature
+  var DEFAULT_UI = {"myRole": {"en": "My role:", "fa": "نقش من:"}, "accomplishments": {"en": "Accomplishments:", "fa": "دستاوردها:"}, "showMore": {"en": "Show more", "fa": "بیشتر"}, "showLess": {"en": "Show less", "fa": "کمتر"}, "copy": {"en": "Copy", "fa": "کپی"}, "copied": {"en": "Copied", "fa": "کپی شد"}, "close": {"en": "Close", "fa": "بستن"}, "soon": {"en": "Coming soon", "fa": "به‌زودی"}, "downloadCv": {"en": "Download CV", "fa": "دانلود رزومه"}, "caseRole": {"en": "Role", "fa": "نقش من"}, "caseTimeline": {"en": "Timeline", "fa": "زمان"}, "caseTeam": {"en": "Team", "fa": "تیم"}, "caseTools": {"en": "Platform & tools", "fa": "پلتفرم و ابزار"}, "nextCase": {"en": "Next case study", "fa": "کیس‌استادی بعدی"}, "protected": {"en": "Password protected", "fa": "محافظت‌شده با رمز"}, "lockText": {"en": "This case study includes confidential work. Enter the password I shared with you to view it.", "fa": "این کیس‌استادی شامل کارهای محرمانه است. برای دیدنش رمزی را که برایت فرستاده‌ام وارد کن."}, "passwordLabel": {"en": "Password", "fa": "رمز"}, "unlock": {"en": "View case study", "fa": "دیدن کیس‌استادی"}, "wrongPassword": {"en": "That password didn’t work. Please try again.", "fa": "رمز درست نیست. دوباره امتحان کن."}, "requestAccess": {"en": "Don’t have the password? Request access", "fa": "رمز نداری؟ درخواست دسترسی بده"}};
+  function ui(key) { var c = window.SITE_CONTENT; return t(c.ui && c.ui[key]) || t(DEFAULT_UI[key]); }
 
   var BUBBLE_SLOTS = [
     { top: 0, start: 262, tail: 13 },
@@ -61,7 +63,9 @@
 
   function header(c) {
     var logo;
-    if (page === "about") {
+    if (c.site.logoImage) {
+      logo = '<img class="logo__img" src="' + esc(c.site.logoImage) + '" alt="' + T(c.site.logoHome) + '">';
+    } else if (page === "about") {
       var parts = String(t(c.site.logoAbout)).split(" ");
       logo = esc(parts.shift()) + (parts.length ? ' <span class="logo__light">' + esc(parts.join(" ")) + "</span>" : "");
     } else {
@@ -129,7 +133,9 @@
         ? '<button type="button" class="cs-open" data-case="' + i + '">' + T(p.title) + "</button>"
         : p.link ? '<a class="cs-open" href="' + esc(p.link) + '" target="_blank" rel="noopener">' + T(p.title) + "</a>"
         : T(p.title);
-      var side = (open || p.link)
+      var side = isProtected(p) && open
+        ? '<span class="cs-lock" title="' + esc(ui("protected")) + '">' + LOCK + '<span class="sr-only">' + esc(ui("protected")) + "</span></span>"
+        : (open || p.link)
         ? '<span class="cs-arrow" aria-hidden="true">' + ARROW + "</span>"
         : (ui("soon") ? '<span class="cs-soon">' + esc(ui("soon")) + "</span>" : "");
       return '<article class="cs-card' + (open || p.link ? " is-clickable" : "") + '" style="--accent:' + accentOf(p) + '">' +
@@ -194,14 +200,82 @@
       '<button type="button" class="lb-btn lb-next" aria-label="Next">›</button></dialog>';
   }
 
+  var LOCK = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="7" width="9.6" height="6.8" rx="1.6"/><path d="M5.4 7V5.2a2.6 2.6 0 0 1 5.2 0V7"/></svg>';
+
   /* ---------- case study modal ---------- */
   function accentOf(p) { return /^#[0-9a-f]{3,8}$/i.test(p.accent || "") ? p.accent : "#007fff"; }
   function blockHasContent(b) {
     return !!(b && (t(b.body) || t(b.metrics) || (b.images || []).some(function (im) { return im && im.image; })));
   }
   function hasCase(p) {
+    if (p && p.locked) return true;
     var cs = p && p.caseStudy;
     return !!(cs && (cs.blocks || []).some(blockHasContent));
+  }
+  function isProtected(p) { return !!(p && (p.locked || p.protected)); }
+
+  /* ---------- password-protected case studies (AES-GCM, key from PBKDF2) ---------- */
+  var PW_KEY = "case-pass";
+  var unlocked = {};      // project index -> decrypted caseStudy
+  var siteKey = null;     // CryptoKey after a correct password
+  function b64(s) { var bin = atob(s), u = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); return u; }
+  function deriveKey(password, prot) {
+    var enc = new TextEncoder();
+    return crypto.subtle.importKey("raw", enc.encode(password), "PBKDF2", false, ["deriveKey"]).then(function (base) {
+      return crypto.subtle.deriveKey({ name: "PBKDF2", salt: b64(prot.salt), iterations: prot.iterations || 250000, hash: "SHA-256" },
+        base, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
+    });
+  }
+  function decryptBytes(key, bytes) {
+    return crypto.subtle.decrypt({ name: "AES-GCM", iv: bytes.slice(0, 12) }, key, bytes.slice(12));
+  }
+  function decryptText(key, s) {
+    return decryptBytes(key, b64(s)).then(function (buf) { return new TextDecoder().decode(buf); });
+  }
+  var blobCache = {};
+  function resolveImage(key, ref) {
+    // "enc:assets/private/x.bin|image/jpeg" -> object URL of the decrypted image
+    if (!ref || ref.indexOf("enc:") !== 0) return Promise.resolve(ref);
+    if (blobCache[ref]) return Promise.resolve(blobCache[ref]);
+    var parts = ref.slice(4).split("|");
+    return fetch(parts[0]).then(function (r) { if (!r.ok) throw 0; return r.arrayBuffer(); })
+      .then(function (buf) { return decryptBytes(key, new Uint8Array(buf)); })
+      .then(function (plain) { return (blobCache[ref] = URL.createObjectURL(new Blob([plain], { type: parts[1] || "image/jpeg" }))); })
+      .catch(function () { return ""; });
+  }
+  function unlockCase(i, password) {
+    var c = window.SITE_CONTENT, prot = c.protection, p = c.projects[i];
+    if (!prot || !p.locked || !window.crypto || !crypto.subtle) return Promise.reject("unsupported");
+    var keyP = siteKey ? Promise.resolve(siteKey) : deriveKey(password, prot).then(function (k) {
+      return decryptText(k, prot.check).then(function (txt) { if (txt !== "ok") throw "wrong"; siteKey = k; return k; });
+    });
+    return keyP.then(function (key) {
+      return decryptText(key, p.locked).then(function (json) {
+        var cs = JSON.parse(json), jobs = [];
+        if (cs.cover) jobs.push(resolveImage(key, cs.cover).then(function (u) { cs.cover = u; }));
+        (cs.blocks || []).forEach(function (b) {
+          (b.images || []).forEach(function (im) { jobs.push(resolveImage(key, im.image).then(function (u) { im.image = u; })); });
+        });
+        return Promise.all(jobs).then(function () { unlocked[i] = cs; try { sessionStorage.setItem(PW_KEY, password); } catch (e) {} });
+      });
+    });
+  }
+  function lockHTML(c, i) {
+    var p = c.projects[i], email = c.site.email || "";
+    var meta = [t(p.company), t(p.year)].filter(Boolean).map(esc).join(" · ");
+    return '<div class="cm-lock">' +
+      '<div class="cm-lock-icon" aria-hidden="true">' + LOCK + "</div>" +
+      (meta ? '<div class="cs-meta">' + meta + "</div>" : "") +
+      '<h2 id="cm-title">' + T(p.title) + "</h2>" +
+      "<p>" + esc(ui("lockText")) + "</p>" +
+      '<form class="cm-lock-form" data-case="' + i + '" novalidate>' +
+        '<label class="sr-only" for="cm-pass">' + esc(ui("passwordLabel")) + "</label>" +
+        '<input id="cm-pass" type="password" autocomplete="current-password" placeholder="' + esc(ui("passwordLabel")) + '" required>' +
+        '<button type="submit" class="btn btn--dark">' + esc(ui("unlock")) + "</button>" +
+      "</form>" +
+      '<p class="cm-lock-error" role="alert"></p>' +
+      (email ? '<a class="cm-lock-request" href="mailto:' + esc(email) + "?subject=" + encodeURIComponent(t(p.title)) + '">' + esc(ui("requestAccess")) + "</a>" : "") +
+      "</div>";
   }
   function richText(v) {
     var out = "", list = [];
@@ -217,11 +291,11 @@
     return out;
   }
   function caseHTML(c, i) {
-    var p = c.projects[i], cs = p.caseStudy || {};
+    var p = c.projects[i], cs = (p.locked ? unlocked[i] : p.caseStudy) || {};
     var facts = [["role", "caseRole"], ["timeline", "caseTimeline"], ["team", "caseTeam"], ["tools", "caseTools"]]
       .filter(function (f) { return t(cs[f[0]]); })
       .map(function (f) { return "<div><dt>" + esc(ui(f[1])) + "</dt><dd>" + T(cs[f[0]]) + "</dd></div>"; }).join("");
-    var cover = cs.cover || p.image;
+    var cover = cs.cover || (isProtected(p) ? "" : p.image);
     var meta = [t(p.company), t(p.year)].filter(Boolean).map(esc).join(" · ");
     var blocks = (cs.blocks || []).filter(blockHasContent).map(function (b) {
       var metrics = lines(b.metrics).map(function (l) {
@@ -262,6 +336,16 @@
     var scroller = dlg.querySelector(".cm-scroll");
     var y = keepScroll ? scroller.scrollTop : 0;
     dlg.style.setProperty("--accent", accentOf(c.projects[i]));
+    var p = c.projects[i];
+    if (p.locked && !unlocked[i]) {
+      var saved = ""; try { saved = sessionStorage.getItem(PW_KEY) || ""; } catch (e) {}
+      if (saved || siteKey) {
+        unlockCase(i, saved).then(function () { openCase(i); }, function () { try { sessionStorage.removeItem(PW_KEY); } catch (e) {} siteKey = null; showLock(i); });
+        return;
+      }
+      showLock(i);
+      return;
+    }
     dlg.querySelector(".cm-content").innerHTML = caseHTML(c, i);
     dlg.querySelector(".cm-bar-title").textContent = t(c.projects[i].title);
     // images not uploaded yet: drop them instead of showing empty frames
@@ -277,6 +361,33 @@
     openCaseIndex = i;
     if (!isPreview && location.hash !== "#case-" + (i + 1)) history.replaceState(null, "", "#case-" + (i + 1));
   }
+  function showLock(i) {
+    var c = window.SITE_CONTENT, dlg = document.getElementById("case-modal");
+    dlg.querySelector(".cm-content").innerHTML = lockHTML(c, i);
+    dlg.querySelector(".cm-bar-title").textContent = t(c.projects[i].title);
+    if (!dlg.open) dlg.showModal();
+    document.documentElement.classList.add("cm-open");
+    dlg.querySelector(".cm-scroll").scrollTop = 0;
+    openCaseIndex = i;
+    var input = dlg.querySelector("#cm-pass");
+    if (input) setTimeout(function () { input.focus(); }, 50);
+  }
+  document.addEventListener("submit", function (e) {
+    var form = e.target.closest(".cm-lock-form");
+    if (!form) return;
+    e.preventDefault();
+    var i = +form.getAttribute("data-case"), input = form.querySelector("input"), btn = form.querySelector("button");
+    var err = form.parentNode.querySelector(".cm-lock-error");
+    if (!input.value) { input.focus(); return; }
+    btn.disabled = true; err.textContent = "";
+    siteKey = null;
+    unlockCase(i, input.value).then(function () { openCase(i); }, function () {
+      btn.disabled = false;
+      err.textContent = ui("wrongPassword");
+      input.select();
+    });
+  });
+
   function closeCase() {
     var dlg = document.getElementById("case-modal");
     if (dlg && dlg.open) dlg.close();
@@ -392,6 +503,12 @@
       probe.onerror = miss;
       probe.src = img.src;
     });
+    // logo image not reachable: fall back to the text logo
+    document.querySelectorAll(".logo__img").forEach(function (img) {
+      function miss() { img.replaceWith(document.createTextNode(img.alt)); }
+      if (img.complete && img.naturalWidth === 0) miss();
+      img.addEventListener("error", miss);
+    });
     document.querySelectorAll(".socials img").forEach(function (img) {
       function miss() { var a = img.closest("a"); if (a) a.hidden = true; }
       if (img.complete && img.naturalWidth === 0) miss();
@@ -506,7 +623,7 @@
       } else { fallbackCopy(text); done(); }
       return;
     }
-    var opener = e.target.closest("[data-case]");
+    var opener = e.target.closest("button[data-case]:not([type=submit])");
     if (opener) { openCase(+opener.getAttribute("data-case")); if (opener.classList.contains("cm-next")) document.querySelector("#case-modal .cm-scroll").scrollTop = 0; return; }
     if (e.target.closest(".cm-close")) { closeCase(); return; }
     var cm = e.target.closest(".case-modal");
