@@ -60,6 +60,10 @@
         return '<div class="gk-crop" style="left:' + x + "px;top:" + y + "px;width:" + w + "px;height:" + h + 'px">' +
           '<img src="' + A + 'character-4.webp" alt="" loading="lazy" style="left:0;top:-17.54%;width:100%;height:148.25%"></div>';
       }
+      function heart(pos) {
+        return '<div class="gk-crop gk-flip-x" style="' + pos + ';width:32px;height:32px">' +
+          '<img src="' + A + 'heart.webp" alt="" loading="lazy" style="left:-3.65%;top:-3.09%;width:107.85%;height:107.54%"></div>';
+      }
       function member(x, w, nameX, roleX, name, role, ringX, extra) {
         return '<div class="gk-member" style="left:' + x + "px;width:" + w + 'px">' +
           '<p class="gk-name" style="left:' + nameX + 'px">' + name + "</p>" +
@@ -126,9 +130,10 @@
 
         /* frame 6: thanks (4888–5285) */
         '<section class="gk-sec gk-bg-down" style="top:4888px;height:397px">' +
-          '<h3 class="gk-h gk-h-25" style="left:378px;top:182px">' + s.thanks + "</h3>" +
-          '<div class="gk-crop gk-flip-x" style="left:238px;top:182px;width:32px;height:32px">' +
-            '<img src="' + A + 'heart.webp" alt="" loading="lazy" style="left:-3.65%;top:-3.09%;width:107.85%;height:107.54%"></div>' +
+          (lang === "fa"
+            ? '<h3 class="gk-h gk-h-25" style="left:378px;top:182px">' + s.thanks + "</h3>" + heart("left:238px;top:182px")
+            /* English text is wider: keep text + heart together as one centered row so they never overlap */
+            : '<div class="gk-thanks">' + '<h3 class="gk-h-25">' + s.thanks + "</h3>" + heart("position:relative;flex:none") + "</div>") +
           '<div class="gk-crop" style="left:669px;top:20px;width:92px;height:92px">' +
             '<img src="' + A + 'img-7696.webp" alt="" loading="lazy" style="left:-12.25%;top:-18.87%;width:128.15%;height:128.15%"></div>' +
           cloud(42, 0, 164, 89) + cloud(-78, 55, 188, 127) + cloud(606, 66, 188, 127) +

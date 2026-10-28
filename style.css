@@ -985,6 +985,8 @@ html[lang="fa"] .freelance .tl-text { font-size: 15px; }
 .gk-h-18 { font-size: 18px; }
 .gk-h-20 { font-size: 20px; height: 21px; }
 .gk-h-25 { font-size: 25px; height: 33px; }
+.gk-thanks { position: absolute; left: 0; right: 0; top: 182px; display: flex; justify-content: center; align-items: center; gap: 10px; }
+.gk-thanks h3 { font-weight: 700; line-height: normal; color: #ff2e51; white-space: nowrap; }
 
 .gk-member { position: absolute; top: 135px; height: 61px; }
 .gk-name, .gk-role { position: absolute; transform: translateX(-50%); white-space: nowrap; text-align: center; line-height: normal; }
