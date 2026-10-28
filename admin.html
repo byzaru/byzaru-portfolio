@@ -368,17 +368,20 @@
                 }
                 previewCase(item);
               } },
+            { key: "caseStudy.eyebrow", label: "خط بالای عنوان (اختیاری)", i18n: true, hint: "مثلاً «Doctoreto / Design Team». اگر خالی باشد، شرکت · سال نمایش داده می‌شود." },
+            { key: "caseStudy.title", label: "عنوان داخل مودال (اختیاری)", i18n: true, hint: "اگر خالی باشد، عنوان کارت استفاده می‌شود." },
             { key: "caseStudy.summary", label: "خلاصهٔ بالای صفحه", type: "textarea", i18n: true, hint: "یک تا دو جمله: چه چیزی، برای چه کسی، با چه نتیجه‌ای. اگر خالی باشد، توضیح کارت استفاده می‌شود." },
             { key: "caseStudy.role", label: "نقش من", i18n: true, hint: "مثلاً: طراح محصول، مسئول کل فرایند از پژوهش تا تحویل" },
             { key: "caseStudy.timeline", label: "زمان", i18n: true, hint: "مثلاً: ۴ ماه، بهار ۲۰۲۵" },
             { key: "caseStudy.team", label: "تیم", i18n: true, hint: "مثلاً: ۱ PM، ۲ توسعه‌دهنده، ۱ پژوهشگر" },
             { key: "caseStudy.tools", label: "پلتفرم و ابزار", i18n: true, hint: "مثلاً: وب و iOS · Figma, Maze" },
+            { key: "caseStudy.facts", label: "ردیف اطلاعات سفارشی (اختیاری)", type: "textarea", i18n: true, hint: "هر خط «عنوان | مقدار»؛ مثلاً «وضعیت | در حال انجام». اگر پر باشد، جای ردیف نقش/زمان/تیم/ابزار را می‌گیرد." },
             { key: "caseStudy.cover", label: "تصویر کاور (اختیاری)", type: "image", spec: "caseImage", hint: "اگر خالی باشد، اسکرین‌شات کارت به‌عنوان کاور استفاده می‌شود." },
             { key: "caseStudy.blocks", label: "بخش‌ها", type: "list", titleKey: "title",
               blank: function () { return { title: L("New section", "بخش جدید"), body: L(), metrics: L(), images: [] }; },
               fields: [
                 { key: "title", label: "عنوان بخش", i18n: true },
-                { key: "body", label: "متن", type: "textarea", i18n: true, hint: "هر خط یک پاراگراف. «- » در ابتدای خط = بولت، «> » = نقل‌قول (مثلاً حرف یک کاربر)، «# » = تیتر کوچک." },
+                { key: "body", label: "متن", type: "textarea", i18n: true, hint: "هر خط یک پاراگراف. «- » = بولت، «-- » = بولت زیرمجموعه، «1. » = لیست شماره‌دار، «# » = تیتر کوچک، «> » = نقل‌قول، **متن** = پررنگ، «[[image 1]]» = تصویر اول همین بخش دقیقاً همین‌جا." },
                 { key: "metrics", label: "اعداد کلیدی", type: "textarea", i18n: true, hint: "هر خط یک عدد به شکل «مقدار | توضیح»؛ مثلاً «۳۲٪ | افزایش تکمیل رزرو». فقط عدد واقعی و قابل دفاع بنویس." },
                 { key: "images", label: "تصویرها", type: "list", titleKey: "caption",
                   blank: function () { return { image: "", caption: L() }; },

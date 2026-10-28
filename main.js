@@ -293,39 +293,78 @@
       (email ? '<a class="cm-lock-request" href="mailto:' + esc(email) + "?subject=" + encodeURIComponent(t(p.title)) + '">' + esc(ui("requestAccess")) + "</a>" : "") +
       "</div>";
   }
-  function richText(v) {
-    var out = "", list = [];
-    function flush() { if (list.length) { out += "<ul>" + list.join("") + "</ul>"; list = []; } }
+  // inline formatting: **bold**
+  function inl(v) { return esc(v).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>"); }
+  function figureHTML(im, cls) {
+    return '<figure' + (cls ? ' class="' + cls + '"' : "") + '><img src="' + esc(im.image) + '" alt="' + T(im.caption) + '" loading="lazy">' +
+      (t(im.caption) ? "<figcaption>" + T(im.caption) + "</figcaption>" : "") + "</figure>";
+  }
+  // Body syntax (one paragraph per line):
+  //   "- " bullet · "-- " nested bullet · "1. " numbered item · "# " small heading · "> " quote
+  //   "[[image 2]]" places the section's 2nd image at that exact spot (others go to the gallery below)
+  function richText(v, imgs, used) {
+    var out = "", list = null;
+    function flush() {
+      if (!list) return;
+      out += "<" + list.tag + ">" + list.items.map(function (it) {
+        return "<li>" + it.html + (it.sub.length ? "<ul>" + it.sub.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ul>" : "") + "</li>";
+      }).join("") + "</" + list.tag + ">";
+      list = null;
+    }
+    function item(tag, html) {
+      if (!list || list.tag !== tag) { flush(); list = { tag: tag, items: [] }; }
+      list.items.push({ html: html, sub: [] });
+    }
     lines(v).forEach(function (l) {
-      if (/^[-•]\s+/.test(l)) { list.push("<li>" + esc(l.replace(/^[-•]\s+/, "")) + "</li>"); return; }
+      var m;
+      if (/^--\s+/.test(l)) {
+        var txt = inl(l.replace(/^--\s+/, ""));
+        if (list && list.items.length) list.items[list.items.length - 1].sub.push(txt); else item("ul", txt);
+        return;
+      }
+      if (/^[-•]\s+/.test(l)) { item("ul", inl(l.replace(/^[-•]\s+/, ""))); return; }
+      if (/^[0-9۰-۹]+[.)]\s+/.test(l)) { item("ol", inl(l.replace(/^[0-9۰-۹]+[.)]\s+/, ""))); return; }
       flush();
-      if (l.indexOf("> ") === 0) out += "<blockquote>" + esc(l.slice(2)) + "</blockquote>";
-      else if (l.indexOf("# ") === 0) out += "<h4>" + esc(l.slice(2)) + "</h4>";
-      else out += "<p>" + esc(l) + "</p>";
+      if ((m = l.match(/^\[\[\s*image\s+(\d+)\s*\]\]$/i))) {
+        var im = imgs && imgs[+m[1] - 1];
+        if (im) { if (used) used[+m[1] - 1] = true; out += '<div class="cm-gallery cm-inline">' + figureHTML(im) + "</div>"; }
+        return;
+      }
+      if (l.indexOf("> ") === 0) out += "<blockquote>" + inl(l.slice(2)) + "</blockquote>";
+      else if (l.indexOf("# ") === 0) out += "<h4>" + inl(l.slice(2)) + "</h4>";
+      else out += "<p>" + inl(l) + "</p>";
     });
     flush();
     return out;
   }
   function caseHTML(c, i) {
     var p = c.projects[i], cs = (p.locked ? unlocked[i] : p.caseStudy) || {};
-    var facts = [["role", "caseRole"], ["timeline", "caseTimeline"], ["team", "caseTeam"], ["tools", "caseTools"]]
+    // custom facts ("label | value" per line) replace the standard role/timeline/team/tools row
+    var facts = t(cs.facts)
+      ? lines(cs.facts).map(function (l) {
+          var parts = l.split("|");
+          return (parts[1] || "").trim() ? "<div><dt>" + esc(parts[0].trim()) + "</dt><dd>" + esc(parts.slice(1).join("|").trim()) + "</dd></div>" : "";
+        }).join("")
+      : [["role", "caseRole"], ["timeline", "caseTimeline"], ["team", "caseTeam"], ["tools", "caseTools"]]
       .filter(function (f) { return t(cs[f[0]]); })
       .map(function (f) { return "<div><dt>" + esc(ui(f[1])) + "</dt><dd>" + T(cs[f[0]]) + "</dd></div>"; }).join("");
     var custom = customLayout(cs);
     var cover = cs.cover || (isProtected(p) ? "" : p.image);
-    var meta = [t(p.company), t(p.year)].filter(Boolean).map(esc).join(" · ");
-    var blocks = (cs.blocks || []).filter(blockHasContent).map(function (b) {
+    var meta = t(cs.eyebrow) ? T(cs.eyebrow) : [t(p.company), t(p.year)].filter(Boolean).map(esc).join(" · ");
+    var blocks = (cs.blocks || []).filter(function (b) { return blockHasContent(b) || (cs.keepEmpty && t(b.title)); }).map(function (b) {
+      if (!blockHasContent(b)) return '<section class="cm-block is-empty"><h3>' + T(b.title) + '</h3><div class="cm-block-body"><p class="cm-empty">' + esc(ui("soon")) + "</p></div></section>";
       var metrics = lines(b.metrics).map(function (l) {
         var parts = l.split("|");
         return '<div class="cm-metric"><strong>' + esc(parts[0].trim()) + "</strong><span>" + esc((parts[1] || "").trim()) + "</span></div>";
       }).join("");
       var imgs = (b.images || []).filter(function (im) { return im && im.image; });
-      var gallery = imgs.map(function (im) {
-        return '<figure><img src="' + esc(im.image) + '" alt="' + T(im.caption) + '" loading="lazy">' +
-          (t(im.caption) ? "<figcaption>" + T(im.caption) + "</figcaption>" : "") + "</figure>";
-      }).join("");
+      var used = {};
+      var body = richText(b.body, imgs, used);
+      var rest = imgs.filter(function (im, k) { return !used[k]; });
+      var gallery = rest.map(function (im) { return figureHTML(im); }).join("");
+      imgs = rest;
       return '<section class="cm-block"><h3>' + T(b.title) + '</h3><div class="cm-block-body">' +
-        richText(b.body) +
+        body +
         (metrics ? '<div class="cm-metrics">' + metrics + "</div>" : "") +
         (gallery ? '<div class="cm-gallery' + (imgs.length > 1 ? " is-grid" : "") + '">' + gallery + "</div>" : "") +
         "</div></section>";
@@ -339,8 +378,8 @@
     if (custom) return custom.html(lang) + nextBtn;
     return '<header class="cm-hero">' +
         (meta ? '<div class="cs-meta">' + meta + "</div>" : "") +
-        '<h2 id="cm-title">' + T(p.title) + "</h2>" +
-        '<p class="cm-summary">' + (t(cs.summary) ? T(cs.summary) : T(p.description)) + "</p>" +
+        '<h2 id="cm-title">' + T(t(cs.title) ? cs.title : p.title) + "</h2>" +
+        (cs.hideSummary && !t(cs.summary) ? "" : '<p class="cm-summary">' + (t(cs.summary) ? T(cs.summary) : T(p.description)) + "</p>") +
         (facts ? '<dl class="cm-facts">' + facts + "</dl>" : "") +
       "</header>" +
       (cover ? '<div class="cm-cover"><img src="' + esc(cover) + '" alt=""></div>' : "") +

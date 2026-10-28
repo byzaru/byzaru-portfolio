@@ -526,6 +526,12 @@ html[lang="fa"] .cm-block-body { line-height: 2; }
 .cm-block-body h4 { font-size: 16px; font-weight: 700; margin-top: 8px; }
 .cm-block-body ul { margin: 0; padding-inline-start: 20px; display: flex; flex-direction: column; gap: 6px; }
 .cm-block-body li::marker { color: var(--accent); }
+.cm-block-body ol { margin: 0; padding-inline-start: 22px; display: flex; flex-direction: column; gap: 6px; }
+.cm-block-body li ul { margin-top: 6px; }
+.cm-block-body li li::marker { color: var(--muted-2); }
+.cm-block-body strong { font-weight: 700; color: var(--ink-2); }
+.cm-block-body .cm-inline { margin: 4px 0; }
+.cm-empty { color: var(--muted-2); font-size: 14px; }
 .cm-block-body blockquote {
   margin: 4px 0;
   padding: 4px 0;
