@@ -410,6 +410,7 @@ window.SITE_CONTENT = {
       "accent": "#e41a5d",
       "link": "",
       "caseStudy": {
+        "layout": "gholak",
         "summary": {
           "en": "",
           "fa": ""

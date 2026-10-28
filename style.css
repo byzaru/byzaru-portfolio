@@ -952,3 +952,64 @@ html[lang="fa"] .freelance .tl-text { font-size: 15px; }
 
 /* Admin live preview: skip entrance animations on every edit */
 .is-preview .reveal, .is-preview .bubble-wrap { animation: none; }
+
+/* ===== Custom case study layout: Online Gholak (1:1 from Figma, scaled to fit) ===== */
+.cm-content.is-custom { max-width: none; padding: 0; }
+.cm-content.is-custom .cm-next { margin: 40px auto 56px; width: calc(100% - 80px); max-width: 800px; }
+.gk { position: relative; width: 100%; overflow: hidden; direction: ltr; --k: 1; height: calc(5285px * var(--k)); }
+.gk-stage {
+  position: absolute; left: 0; top: 0; width: 721px; height: 5285px; overflow: hidden;
+  transform: scale(var(--k)); transform-origin: 0 0;
+  font-family: "IRANYekanX", "Vazirmatn", system-ui, sans-serif; font-style: normal; color: #000;
+}
+.gk-stage p, .gk-stage h2, .gk-stage h3 { margin: 0; }
+.gk-sec { position: absolute; left: 0; width: 721px; overflow: hidden; }
+.gk-bg-down { background: linear-gradient(to bottom, #daf0ff, #fff); }
+.gk-bg-up { background: linear-gradient(to bottom, #fff, #daf0ff); }
+.gk-abs { position: absolute; display: block; max-width: none; }
+.gk-flip-y { transform: scaleY(-1); }
+.gk-flip-x { transform: scaleX(-1); }
+.gk-crop { position: absolute; overflow: hidden; }
+.gk-crop > img { position: absolute; display: block; max-width: none; }
+.gk-cover { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; border-radius: inherit; }
+
+.gk-title { position: absolute; left: 270.5px; top: 403.824px; width: 179px; height: 52px; }
+.gk-title img { display: block; width: 179px; height: 52px; }
+.gk-phone { position: absolute; width: 140px; border-radius: 32px; overflow: hidden; }
+.gk-phone.has-shadow { box-shadow: 9px 17px 36px 0 rgba(0, 0, 0, .15); }
+
+.gk-h {
+  position: absolute; transform: translateX(-50%); white-space: nowrap; text-align: center;
+  font-weight: 700; line-height: normal; color: #ff2e51;
+}
+.gk-h-18 { font-size: 18px; }
+.gk-h-20 { font-size: 20px; height: 21px; }
+.gk-h-25 { font-size: 25px; height: 33px; }
+
+.gk-member { position: absolute; top: 135px; height: 61px; }
+.gk-name, .gk-role { position: absolute; transform: translateX(-50%); white-space: nowrap; text-align: center; line-height: normal; }
+.gk-name { top: 8px; font-size: 16px; font-weight: 700; }
+.gk-role { top: 37px; font-size: 13px; font-weight: 400; }
+.gk-ring { position: absolute; top: 0; width: 61px; height: 61px; }
+.gk-avatar { position: absolute; top: 2px; width: 57px; height: 57px; object-fit: cover; }
+.gk-parsa { position: absolute; left: 162px; top: 0; width: 59px; height: 59px; border-radius: 50%; overflow: hidden; }
+
+.gk-brief {
+  position: absolute; left: 85px; top: 748px; width: 552px; box-sizing: border-box;
+  display: flex; flex-direction: column; align-items: center; gap: 24px;
+  padding: 20px 20px 40px; border-radius: 20px; background: #fff; overflow: hidden;
+}
+.gk-brief-title { font-size: 20px; font-weight: 700; line-height: normal; color: #ff2e51; text-align: center; }
+.gk-brief-body { width: 512px; display: flex; flex-direction: column; gap: 16px; font-size: 10px; line-height: 1.5; text-align: start; }
+.gk-brief-body b { font-weight: 600; color: #ff6582; }
+
+.gk-card { position: absolute; border-radius: 24px; overflow: hidden; }
+.gk-card.is-white { background: #fff; }
+
+.gk-final {
+  position: absolute; left: 83px; top: 48px; width: 555px;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  padding-top: 20px; border-radius: 24px; background: #fff; overflow: hidden;
+}
+.gk-final-title { width: 100%; height: 21px; font-size: 20px; font-weight: 700; line-height: normal; color: #ff2e51; text-align: center; }
+.gk-final-img { position: relative; width: 100%; height: 828px; border-radius: 24px; }

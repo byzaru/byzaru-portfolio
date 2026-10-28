@@ -212,8 +212,20 @@
   function hasCase(p) {
     if (p && p.locked) return true;
     var cs = p && p.caseStudy;
-    return !!(cs && (cs.blocks || []).some(blockHasContent));
+    return !!(cs && (customLayout(cs) || (cs.blocks || []).some(blockHasContent)));
   }
+  function customLayout(cs) {
+    var L = window.CASE_LAYOUTS;
+    return cs && cs.layout && L && L[cs.layout] ? L[cs.layout] : null;
+  }
+  // custom layouts are fixed-width artboards: scale them to the modal width
+  function fitLayouts(root) {
+    (root || document).querySelectorAll(".gk").forEach(function (el) {
+      var w = el.clientWidth;
+      if (w) el.style.setProperty("--k", (w / 721).toFixed(5));
+    });
+  }
+  window.addEventListener("resize", function () { fitLayouts(); });
   function isProtected(p) { return !!(p && (p.locked || p.protected)); }
 
   /* ---------- password-protected case studies (AES-GCM, key from PBKDF2) ---------- */
@@ -299,6 +311,7 @@
     var facts = [["role", "caseRole"], ["timeline", "caseTimeline"], ["team", "caseTeam"], ["tools", "caseTools"]]
       .filter(function (f) { return t(cs[f[0]]); })
       .map(function (f) { return "<div><dt>" + esc(ui(f[1])) + "</dt><dd>" + T(cs[f[0]]) + "</dd></div>"; }).join("");
+    var custom = customLayout(cs);
     var cover = cs.cover || (isProtected(p) ? "" : p.image);
     var meta = [t(p.company), t(p.year)].filter(Boolean).map(esc).join(" · ");
     var blocks = (cs.blocks || []).filter(blockHasContent).map(function (b) {
@@ -322,6 +335,8 @@
       var j = (i + k) % c.projects.length;
       if (hasCase(c.projects[j])) { next = j; break; }
     }
+    var nextBtn = next > -1 ? '<button type="button" class="cm-next" data-case="' + next + '"><span>' + esc(ui("nextCase")) + "</span><strong>" + T(c.projects[next].title) + "</strong></button>" : "";
+    if (custom) return custom.html(lang) + nextBtn;
     return '<header class="cm-hero">' +
         (meta ? '<div class="cs-meta">' + meta + "</div>" : "") +
         '<h2 id="cm-title">' + T(p.title) + "</h2>" +
@@ -350,7 +365,9 @@
       showLock(i);
       return;
     }
-    dlg.querySelector(".cm-content").innerHTML = caseHTML(c, i);
+    var content = dlg.querySelector(".cm-content");
+    content.innerHTML = caseHTML(c, i);
+    content.classList.toggle("is-custom", !!customLayout((p.locked ? unlocked[i] : p.caseStudy) || {}));
     dlg.querySelector(".cm-bar-title").textContent = t(c.projects[i].title);
     // images not uploaded yet: drop them instead of showing empty frames
     dlg.querySelectorAll(".cm-cover img, .cm-gallery img").forEach(function (img) {
@@ -360,6 +377,7 @@
       probe.src = img.src;
     });
     if (!dlg.open) dlg.showModal();
+    fitLayouts(dlg);
     document.documentElement.classList.add("cm-open");
     scroller.scrollTop = y;
     openCaseIndex = i;
@@ -367,6 +385,7 @@
   }
   function showLock(i) {
     var c = window.SITE_CONTENT, dlg = document.getElementById("case-modal");
+    dlg.querySelector(".cm-content").classList.remove("is-custom");
     dlg.querySelector(".cm-content").innerHTML = lockHTML(c, i);
     dlg.querySelector(".cm-bar-title").textContent = t(c.projects[i].title);
     if (!dlg.open) dlg.showModal();
