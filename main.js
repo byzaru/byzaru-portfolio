@@ -63,6 +63,7 @@
 
   function header(c) {
     var logo;
+    var mini = c.site.avatar ? '<img class="logo__avatar" src="' + esc(c.site.avatar) + '" alt="">' : "";
     if (c.site.logoImage) {
       logo = '<img class="logo__img" src="' + esc(c.site.logoImage) + '" alt="' + T(c.site.logoHome) + '">';
     } else if (page === "about") {
@@ -74,7 +75,7 @@
     var n = c.nav || {};
     var other = lang === "fa" ? "en" : "fa";
     return '<div class="site-header__inner">' +
-      '<a href="index.html" class="logo">' + logo + "</a>" +
+      '<a href="index.html" class="logo">' + (c.site.logoImage ? "" : mini) + logo + "</a>" +
       '<div class="header-right"><nav class="nav" aria-label="Main">' +
       '<a href="index.html"' + (page === "home" ? ' aria-current="page"' : "") + ">" + T(n.home) + "</a>" +
       '<a href="about.html"' + (page === "about" ? ' aria-current="page"' : "") + ">" + T(n.about) + "</a>" +
@@ -95,14 +96,15 @@
 
   function footer(c) {
     var email = c.site.email || "";
-    return '<div class="blob blob--purple" style="left:7%;top:-20px;width:179px;height:157px"></div>' +
+    return '<div class="footer-bg" aria-hidden="true"><div class="blob blob--purple" style="left:7%;top:-20px;width:179px;height:157px"></div>' +
       '<div class="blob blob--blue" style="left:12%;top:231px;width:185px;height:158px"></div>' +
       '<div class="blob blob--blue" style="left:2%;top:163px;width:185px;height:158px"></div>' +
       '<div class="blob blob--orange" style="left:0;top:29px;width:186px;height:158px"></div>' +
       '<div class="blob blob--purple" style="right:5%;top:-9px;width:179px;height:157px"></div>' +
       '<div class="blob blob--blue" style="right:10%;top:242px;width:185px;height:158px"></div>' +
       '<div class="blob blob--blue" style="right:-1%;top:174px;width:185px;height:158px"></div>' +
-      '<div class="blob blob--orange" style="right:-3%;top:40px;width:186px;height:158px"></div>' +
+      '<div class="blob blob--orange" style="right:-3%;top:40px;width:186px;height:158px"></div>' + '</div>' +
+      (c.site.avatar ? '<img class="footer-avatar" src="' + esc(c.site.avatar) + '" alt="">' : "") +
       '<div class="site-footer__inner">' +
       "<h2>" + T(c.contactTitle) + "</h2>" +
       '<div class="email-row"><a class="email" dir="ltr" href="mailto:' + esc(email) + '">' + esc(email) + "</a>" +
@@ -264,7 +266,9 @@
     var p = c.projects[i], email = c.site.email || "";
     var meta = [t(p.company), t(p.year)].filter(Boolean).map(esc).join(" · ");
     return '<div class="cm-lock">' +
-      '<div class="cm-lock-icon" aria-hidden="true">' + LOCK + "</div>" +
+      (c.site.avatar
+        ? '<div class="cm-lock-avatar" aria-hidden="true"><img src="' + esc(c.site.avatar) + '" alt=""><span>' + LOCK + "</span></div>"
+        : '<div class="cm-lock-icon" aria-hidden="true">' + LOCK + "</div>") +
       (meta ? '<div class="cs-meta">' + meta + "</div>" : "") +
       '<h2 id="cm-title">' + T(p.title) + "</h2>" +
       "<p>" + esc(ui("lockText")) + "</p>" +

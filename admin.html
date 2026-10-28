@@ -276,6 +276,8 @@
         size: "عرض ۱۶۰۰ پیکسل (دو برابر عرض متن مودال)؛ برای دو تصویر کنار هم ۸۰۰ پیکسل کافی است", format: "JPG یا WebP", kb: "۶۰۰ کیلوبایت" },
       siteLogo: { folder: "", fileName: "logo", maxH: 120, maxKB: 60, minH: 50, alpha: true, accept: "image/svg+xml,image/png,image/webp",
         size: "ارتفاع ۵۶ پیکسل (نمایش ۲۸ پیکسل)، حداکثر عرض ۳۶۰ پیکسل، لوگوی افقی", format: "SVG (بهترین) یا PNG با پس‌زمینهٔ شفاف", kb: "۶۰ کیلوبایت" },
+      avatar: { folder: "", fileName: "avatar", maxW: 400, maxH: 400, maxKB: 120, minW: 200, alpha: true, accept: "image/png,image/webp,image/svg+xml",
+        size: "۳۲۰ × ۳۲۰ پیکسل، دایره‌ای با پس‌زمینهٔ شفاف بیرون دایره", format: "PNG یا WebP شفاف", kb: "۱۲۰ کیلوبایت" },
       cardLogo: { folder: "logos", maxH: 80, maxKB: 60, minH: 36, alpha: true, accept: "image/png,image/svg+xml,image/webp",
         size: "ارتفاع ۳۶ پیکسل (نمایش ۱۸ پیکسل)، لوگوی افقی", format: "SVG یا PNG با پس‌زمینهٔ شفاف", kb: "۶۰ کیلوبایت" },
       badge: { folder: "logos", maxH: 200, maxKB: 100, minH: 100, alpha: true, accept: "image/png,image/svg+xml,image/webp",
@@ -304,6 +306,9 @@
     var SCHEMA = [
       { title: "اطلاعات کلی و منو", page: "index.html", fields: [
         { key: "site.defaultLanguage", label: "زبان پیش‌فرض سایت", type: "select", options: [["en", "English"], ["fa", "فارسی"]], hint: "بازدیدکننده با این زبان وارد می‌شود و با دکمهٔ EN/فا عوضش می‌کند." },
+        { type: "heading", label: "شخصیت تصویرسازی‌شده", hint: "اختیاری است. خالی بگذاری، سایت بدون شخصیت نمایش داده می‌شود." },
+        { key: "site.avatar", label: "آواتار دایره‌ای", type: "image", spec: "avatar", hint: "کنار لوگو در هدر، بالای فوتر و در صفحهٔ رمز کیس‌استادی‌ها نمایش داده می‌شود." },
+        { type: "heading", label: "لوگو" },
         { key: "site.logoImage", label: "لوگو (عکس یا SVG)", type: "image", spec: "siteLogo", hint: "اگر بگذاری، در هر دو صفحه به‌جای لوگوی متنی نمایش داده می‌شود. برای برگشت به لوگوی متنی، «حذف» را بزن." },
         { key: "site.logoHome", label: "لوگوی متنی صفحهٔ اصلی", i18n: true, hint: "وقتی لوگوی تصویری گذاشته شده، این متن برای صفحه‌خوان‌ها و موتورهای جست‌وجو استفاده می‌شود." },
         { key: "site.logoAbout", label: "لوگوی متنی صفحهٔ درباره من", i18n: true, hint: "کلمهٔ اول پررنگ و بقیه نازک نمایش داده می‌شود." },
@@ -335,6 +340,7 @@
       ]},
       { title: "کیس‌استادی‌ها", page: "index.html", fields: [
         { type: "secret", label: "رمز کیس‌استادی‌های محافظت‌شده", hint: "یک رمز برای همهٔ کیس‌استادی‌هایی که تیک «محافظت با رمز» دارند. موقع دانلود، محتوایشان با این رمز رمزنگاری می‌شود و فقط کسی که رمز را دارد می‌تواند بخواندشان. رمز در فایل‌های سایت ذخیره نمی‌شود؛ جایی یادداشتش کن. حداقل ۱۰ کاراکتر، ترکیبی از حروف و عدد." },
+        { type: "action", label: "+ افزودن کیس‌استادی از فایل", run: function (target, btn) { importProject(btn); } },
         { key: "projectsTitle", label: "عنوان بخش", i18n: true },
         { key: "projectsIntro", label: "توضیح کوتاه کنار عنوان", i18n: true },
         { key: "projects", label: "کارت‌ها", type: "list", titleKey: "title",
@@ -1095,6 +1101,44 @@
       var b = e.target.closest("button"); if (b) setPreviewLang(b.getAttribute("data-lang"));
     });
 
+    // Add one ready-made case study (a .json file) to the list, keeping everything else as is.
+    function importProject(btn) {
+      var inp = document.createElement("input");
+      inp.type = "file"; inp.accept = ".json,application/json";
+      inp.addEventListener("change", function () {
+        var file = inp.files[0]; if (!file) return;
+        file.text().then(function (txt) {
+          var p = JSON.parse(txt);
+          if (p && p.project) p = p.project;
+          if (!p || typeof p !== "object" || !p.title) throw new Error("bad");
+          // Images embedded in the file (data URLs) become normal uploads, so protected cases encrypt them on export.
+          var jobs = [];
+          (function walk(o) {
+            if (!o || typeof o !== "object") return;
+            Object.keys(o).forEach(function (k) {
+              var v = o[k];
+              if (typeof v === "string" && v.indexOf("data:image/") === 0) {
+                jobs.push(fetch(v).then(function (r) { return r.blob(); }).then(function (blob) {
+                  var ext = (blob.type.split("/")[1] || "png").replace("jpeg", "jpg").replace("svg+xml", "svg");
+                  var path = makePath(SPECS.caseImage, null, (o.name || "case-image"), ext);
+                  return addPending(path, blob).then(function () { o[k] = path; });
+                }));
+              } else walk(v);
+            });
+          })(p);
+          return Promise.all(jobs).then(function () { return p; });
+        }).then(function (p) {
+          data.projects = data.projects || [];
+          data.projects.push(p);
+          buildForm(); touch();
+          var label = (p.title.fa || p.title.en || "");
+          btn = document.querySelector(".action-btn");
+          alert("«" + label + "» به کیس‌استادی‌ها اضافه شد." + (p.protected ? " این کیس‌استادی «محافظت با رمز» دارد؛ قبل از دانلود، رمز را در بخش کیس‌استادی‌ها بگذار." : ""));
+          setTimeout(function () { previewCase(p); }, 400);
+        }).catch(function () { alert("این فایل یک کیس‌استادی معتبر نیست."); });
+      });
+      inp.click();
+    }
     function previewCase(item) {
       var i = (data.projects || []).indexOf(item);
       if (i < 0) return;
