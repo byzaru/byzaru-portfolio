@@ -358,7 +358,7 @@
             { key: "protected", label: "محافظت با رمز", type: "checkbox", hint: "متن و تصویرهای داخل مودال رمزنگاری می‌شوند. عنوان، توضیح، تگ‌ها و اسکرین‌شات خود کارت عمومی می‌مانند؛ اگر اسکرین‌شات محرمانه است، برای کارت یک تصویر عمومی یا خالی بگذار." },
             { type: "heading", label: "صفحهٔ کیس‌استادی (مودال)", hint: "با کلیک روی کارت باز می‌شود. هر بخشی که خالی بماند، روی سایت دیده نمی‌شود؛ پس لازم نیست همه را پر کنی." },
             { type: "action", label: "باز کردن مودال در پیش‌نمایش", run: function (item, btn) {
-                var filled = ((item.caseStudy || {}).blocks || []).some(function (b) {
+                var filled = !!(item.caseStudy && item.caseStudy.layout) || ((item.caseStudy || {}).blocks || []).some(function (b) {
                   return ["body", "metrics"].some(function (k) { return b[k] && (b[k].en || b[k].fa); }) || (b.images || []).some(function (im) { return im.image; });
                 });
                 if (!filled) {
@@ -743,18 +743,22 @@
 
       var keyP;
       var rekey = false;
+      // a new key would orphan any case study that is still locked (encrypted with the old key)
+      var lockedLeft = (out.projects || []).some(function (p) { return p.locked; });
+      var lockedErr = "هنوز کیس‌استادی قفل‌شده‌ای هست. اول از نوار بالای صفحه با رمز فعلی قفل را باز کن، بعد دانلود کن.";
       if (unlockedWith && unlockedWith.password === pw) {
         keyP = Promise.resolve({ key: unlockedWith.key, salt: unlockedWith.salt });
       } else if (out.protection) {
         keyP = deriveKey(pw, out.protection.salt).then(function (k) {
           return decryptText(k, out.protection.check).then(function () { return { key: k, salt: out.protection.salt }; }, function () {
-            if (stillLocked()) throw new Error("این رمز با رمز قبلی یکی نیست. اول از نوار بالای صفحه با رمز قبلی قفل را باز کن؛ بعد می‌توانی رمز را عوض کنی.");
+            if (stillLocked() || lockedLeft) throw new Error("این رمز با رمز قبلی یکی نیست. اول از نوار بالای صفحه با رمز قبلی قفل را باز کن؛ بعد می‌توانی رمز را عوض کنی.");
             rekey = true;
             var salt = toB64(crypto.getRandomValues(new Uint8Array(16)));
             return deriveKey(pw, salt).then(function (k2) { return { key: k2, salt: salt }; });
           });
         });
       } else {
+        if (lockedLeft) return Promise.reject(new Error(lockedErr));
         rekey = true;
         var salt = toB64(crypto.getRandomValues(new Uint8Array(16)));
         keyP = deriveKey(pw, salt).then(function (k) { return { key: k, salt: salt }; });
