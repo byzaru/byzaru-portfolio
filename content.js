@@ -44,6 +44,10 @@ window.SITE_CONTENT = {
     "illustrations": {
       "en": "Illustrations",
       "fa": "تصویرسازی‌ها"
+    },
+    "gallery": {
+      "en": "Gallery",
+      "fa": "گالری"
     }
   },
   "ui": {
@@ -102,6 +106,14 @@ window.SITE_CONTENT = {
     "nextCase": {
       "en": "Next case study",
       "fa": "کیس‌استادی بعدی"
+    },
+    "viewOnObjkt": {
+      "en": "View on objkt",
+      "fa": "دیدن در objkt"
+    },
+    "galleryProtected": {
+      "en": "Images in this gallery are protected.",
+      "fa": "تصویرهای این گالری محافظت‌شده‌اند."
     }
   },
   "hero": {
@@ -816,6 +828,708 @@ window.SITE_CONTENT = {
       }
     }
   ],
+  "gallery": {
+    "title": {
+      "en": "Gallery",
+      "fa": "گالری"
+    },
+    "intro": {
+      "en": "A curated selection of my paintings and illustrations, grouped by collection. Every piece is minted on objkt.",
+      "fa": "گزیده‌ای از نقاشی‌ها و تصویرسازی‌هایم، به تفکیک کالکشن. همهٔ این آثار در objkt منتشر شده‌اند."
+    },
+    "collections": [
+      {
+        "title": {
+          "en": "Zaru 2026",
+          "fa": "زارو ۲۰۲۶"
+        },
+        "text": {
+          "en": "",
+          "fa": ""
+        },
+        "items": [
+          {
+            "image": "assets/gallery/little-ducks-10.webp",
+            "title": {
+              "en": "little ducks",
+              "fa": "little ducks"
+            },
+            "year": "2026",
+            "link": "https://objkt.com/tokens/KT1NUa6HsjEHab9EME9iaBZQN1fPoAbfgjM2/10"
+          },
+          {
+            "image": "assets/gallery/my-weird-fishes-9.webp",
+            "title": {
+              "en": "My weird fishes",
+              "fa": "My weird fishes"
+            },
+            "year": "2026",
+            "link": "https://objkt.com/tokens/KT1NUa6HsjEHab9EME9iaBZQN1fPoAbfgjM2/9"
+          },
+          {
+            "image": "assets/gallery/to-be-found-8.webp",
+            "title": {
+              "en": "To Be Found",
+              "fa": "To Be Found"
+            },
+            "year": "2026",
+            "link": "https://objkt.com/tokens/KT1NUa6HsjEHab9EME9iaBZQN1fPoAbfgjM2/8"
+          },
+          {
+            "image": "assets/gallery/walking-with-suns-7.webp",
+            "title": {
+              "en": "Walking with Suns",
+              "fa": "Walking with Suns"
+            },
+            "year": "2026",
+            "link": "https://objkt.com/tokens/KT1NUa6HsjEHab9EME9iaBZQN1fPoAbfgjM2/7"
+          },
+          {
+            "image": "assets/gallery/pink-gathering-6.webp",
+            "title": {
+              "en": "Pink gathering",
+              "fa": "Pink gathering"
+            },
+            "year": "2026",
+            "link": "https://objkt.com/tokens/KT1NUa6HsjEHab9EME9iaBZQN1fPoAbfgjM2/6"
+          },
+          {
+            "image": "assets/gallery/hope-takes-flight-4.webp",
+            "title": {
+              "en": "Hope takes flight",
+              "fa": "Hope takes flight"
+            },
+            "year": "2026",
+            "link": "https://objkt.com/tokens/KT1NUa6HsjEHab9EME9iaBZQN1fPoAbfgjM2/4"
+          },
+          {
+            "image": "assets/gallery/insomnia-3.webp",
+            "title": {
+              "en": "Insomnia",
+              "fa": "Insomnia"
+            },
+            "year": "2026",
+            "link": "https://objkt.com/tokens/KT1NUa6HsjEHab9EME9iaBZQN1fPoAbfgjM2/3"
+          },
+          {
+            "image": "assets/gallery/still-we-hold-on-2.webp",
+            "title": {
+              "en": "Still, We Hold On",
+              "fa": "Still, We Hold On"
+            },
+            "year": "2026",
+            "link": "https://objkt.com/tokens/KT1NUa6HsjEHab9EME9iaBZQN1fPoAbfgjM2/2"
+          },
+          {
+            "image": "assets/gallery/grief-and-hope-1.webp",
+            "title": {
+              "en": "Grief and Hope",
+              "fa": "Grief and Hope"
+            },
+            "year": "2026",
+            "link": "https://objkt.com/tokens/KT1NUa6HsjEHab9EME9iaBZQN1fPoAbfgjM2/1"
+          }
+        ]
+      },
+      {
+        "title": {
+          "en": "Blue Archive",
+          "fa": "Blue Archive"
+        },
+        "text": {
+          "en": "",
+          "fa": ""
+        },
+        "items": [
+          {
+            "image": "assets/gallery/it-will-pass-4.webp",
+            "title": {
+              "en": "It will pass.",
+              "fa": "It will pass."
+            },
+            "year": "2026",
+            "link": "https://objkt.com/tokens/KT1V9T24tNtCD58X5iEPLy8HU4e4a1tV96N4/4"
+          },
+          {
+            "image": "assets/gallery/a-safe-world-3.webp",
+            "title": {
+              "en": "A Safe World",
+              "fa": "A Safe World"
+            },
+            "year": "2026",
+            "link": "https://objkt.com/tokens/KT1V9T24tNtCD58X5iEPLy8HU4e4a1tV96N4/3"
+          },
+          {
+            "image": "assets/gallery/bound-by-moonlight-2.webp",
+            "title": {
+              "en": "Bound by moonlight",
+              "fa": "Bound by moonlight"
+            },
+            "year": "2026",
+            "link": "https://objkt.com/tokens/KT1V9T24tNtCD58X5iEPLy8HU4e4a1tV96N4/2"
+          },
+          {
+            "image": "assets/gallery/same-shadows-1.webp",
+            "title": {
+              "en": "Same shadows",
+              "fa": "Same shadows"
+            },
+            "year": "2026",
+            "link": "https://objkt.com/tokens/KT1V9T24tNtCD58X5iEPLy8HU4e4a1tV96N4/1"
+          }
+        ]
+      },
+      {
+        "title": {
+          "en": "Zaru 2025",
+          "fa": "زارو ۲۰۲۵"
+        },
+        "text": {
+          "en": "",
+          "fa": ""
+        },
+        "items": [
+          {
+            "image": "assets/gallery/fearless-in-blue-12.webp",
+            "title": {
+              "en": "Fearless in blue",
+              "fa": "Fearless in blue"
+            },
+            "year": "2026",
+            "link": "https://objkt.com/tokens/KT1FEddgJEaKb1ckN3JUBRTeL5hNtZPc1HCS/12"
+          },
+          {
+            "image": "assets/gallery/whispers-of-the-wind-11.webp",
+            "title": {
+              "en": "Whispers of the Wind",
+              "fa": "Whispers of the Wind"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1FEddgJEaKb1ckN3JUBRTeL5hNtZPc1HCS/11"
+          },
+          {
+            "image": "assets/gallery/everyday-life-10.webp",
+            "title": {
+              "en": "Everyday life",
+              "fa": "Everyday life"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1FEddgJEaKb1ckN3JUBRTeL5hNtZPc1HCS/10"
+          },
+          {
+            "image": "assets/gallery/peace-in-the-hills-9.webp",
+            "title": {
+              "en": "Peace in the Hills",
+              "fa": "Peace in the Hills"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1FEddgJEaKb1ckN3JUBRTeL5hNtZPc1HCS/9"
+          },
+          {
+            "image": "assets/gallery/fall-into-the-deep-8.webp",
+            "title": {
+              "en": "Fall into the deep",
+              "fa": "Fall into the deep"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1FEddgJEaKb1ckN3JUBRTeL5hNtZPc1HCS/8"
+          },
+          {
+            "image": "assets/gallery/the-quiet-that-stayed-7.webp",
+            "title": {
+              "en": "The Quiet That Stayed",
+              "fa": "The Quiet That Stayed"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1FEddgJEaKb1ckN3JUBRTeL5hNtZPc1HCS/7"
+          },
+          {
+            "image": "assets/gallery/where-the-world-can-t-reach-me-6.webp",
+            "title": {
+              "en": "Where the World Can’t Reach Me",
+              "fa": "Where the World Can’t Reach Me"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1FEddgJEaKb1ckN3JUBRTeL5hNtZPc1HCS/6"
+          },
+          {
+            "image": "assets/gallery/an-inner-flight-5.webp",
+            "title": {
+              "en": "An Inner Flight",
+              "fa": "An Inner Flight"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1FEddgJEaKb1ckN3JUBRTeL5hNtZPc1HCS/5"
+          },
+          {
+            "image": "assets/gallery/my-safe-haven-4.webp",
+            "title": {
+              "en": "My safe Haven",
+              "fa": "My safe Haven"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1FEddgJEaKb1ckN3JUBRTeL5hNtZPc1HCS/4"
+          },
+          {
+            "image": "assets/gallery/too-big-to-carry-3.webp",
+            "title": {
+              "en": "Too Big to Carry",
+              "fa": "Too Big to Carry"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1FEddgJEaKb1ckN3JUBRTeL5hNtZPc1HCS/3"
+          },
+          {
+            "image": "assets/gallery/my-home-always-on-my-back-2.webp",
+            "title": {
+              "en": "My Home, Always on My Back",
+              "fa": "My Home, Always on My Back"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1FEddgJEaKb1ckN3JUBRTeL5hNtZPc1HCS/2"
+          },
+          {
+            "image": "assets/gallery/have-you-seen-zaru-1.webp",
+            "title": {
+              "en": "Have you seen Zaru?",
+              "fa": "Have you seen Zaru?"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1FEddgJEaKb1ckN3JUBRTeL5hNtZPc1HCS/1"
+          }
+        ]
+      },
+      {
+        "title": {
+          "en": "Inktober 2025",
+          "fa": "اینکتوبر ۲۰۲۵"
+        },
+        "text": {
+          "en": "",
+          "fa": ""
+        },
+        "items": [
+          {
+            "image": "assets/gallery/awards-23.webp",
+            "title": {
+              "en": "Awards",
+              "fa": "Awards"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/23"
+          },
+          {
+            "image": "assets/gallery/vacant-22.webp",
+            "title": {
+              "en": "Vacant",
+              "fa": "Vacant"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/22"
+          },
+          {
+            "image": "assets/gallery/blast-21.webp",
+            "title": {
+              "en": "Blast",
+              "fa": "Blast"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/21"
+          },
+          {
+            "image": "assets/gallery/rivals-20.webp",
+            "title": {
+              "en": "Rivals",
+              "fa": "Rivals"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/20"
+          },
+          {
+            "image": "assets/gallery/arctic-19.webp",
+            "title": {
+              "en": "Arctic",
+              "fa": "Arctic"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/19"
+          },
+          {
+            "image": "assets/gallery/deal-18.webp",
+            "title": {
+              "en": "Deal",
+              "fa": "Deal"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/18"
+          },
+          {
+            "image": "assets/gallery/ornate-17.webp",
+            "title": {
+              "en": "Ornate",
+              "fa": "Ornate"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/17"
+          },
+          {
+            "image": "assets/gallery/blunder-16.webp",
+            "title": {
+              "en": "Blunder",
+              "fa": "Blunder"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/16"
+          },
+          {
+            "image": "assets/gallery/ragged-15.webp",
+            "title": {
+              "en": "Ragged",
+              "fa": "Ragged"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/15"
+          },
+          {
+            "image": "assets/gallery/trunk-14.webp",
+            "title": {
+              "en": "Trunk",
+              "fa": "Trunk"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/14"
+          },
+          {
+            "image": "assets/gallery/drink-13.webp",
+            "title": {
+              "en": "Drink",
+              "fa": "Drink"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/13"
+          },
+          {
+            "image": "assets/gallery/shredded-12.webp",
+            "title": {
+              "en": "Shredded",
+              "fa": "Shredded"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/12"
+          },
+          {
+            "image": "assets/gallery/sting-11.webp",
+            "title": {
+              "en": "Sting",
+              "fa": "Sting"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/11"
+          },
+          {
+            "image": "assets/gallery/sweep-10.webp",
+            "title": {
+              "en": "Sweep",
+              "fa": "Sweep"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/10"
+          },
+          {
+            "image": "assets/gallery/heavy-9.webp",
+            "title": {
+              "en": "Heavy",
+              "fa": "Heavy"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/9"
+          },
+          {
+            "image": "assets/gallery/reckless-8.webp",
+            "title": {
+              "en": "Reckless",
+              "fa": "Reckless"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/8"
+          },
+          {
+            "image": "assets/gallery/starfish-7.webp",
+            "title": {
+              "en": "Starfish",
+              "fa": "Starfish"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/7"
+          },
+          {
+            "image": "assets/gallery/pierce-6.webp",
+            "title": {
+              "en": "Pierce",
+              "fa": "Pierce"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/6"
+          },
+          {
+            "image": "assets/gallery/deer-5.webp",
+            "title": {
+              "en": "Deer",
+              "fa": "Deer"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/5"
+          },
+          {
+            "image": "assets/gallery/murky-4.webp",
+            "title": {
+              "en": "Murky",
+              "fa": "Murky"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/4"
+          },
+          {
+            "image": "assets/gallery/crown-3.webp",
+            "title": {
+              "en": "Crown",
+              "fa": "Crown"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/3"
+          },
+          {
+            "image": "assets/gallery/weave-2.webp",
+            "title": {
+              "en": "Weave",
+              "fa": "Weave"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/2"
+          },
+          {
+            "image": "assets/gallery/mustache-1.webp",
+            "title": {
+              "en": "Mustache",
+              "fa": "Mustache"
+            },
+            "year": "2025",
+            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/1"
+          }
+        ]
+      },
+      {
+        "title": {
+          "en": "VISION",
+          "fa": "VISION"
+        },
+        "text": {
+          "en": "",
+          "fa": ""
+        },
+        "items": [
+          {
+            "image": "assets/gallery/snowy-hills-23.webp",
+            "title": {
+              "en": "Snowy hills",
+              "fa": "Snowy hills"
+            },
+            "year": "2024",
+            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/23"
+          },
+          {
+            "image": "assets/gallery/the-japan-dream-22.webp",
+            "title": {
+              "en": "The Japan dream",
+              "fa": "The Japan dream"
+            },
+            "year": "2024",
+            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/22"
+          },
+          {
+            "image": "assets/gallery/merry-and-bright-21.webp",
+            "title": {
+              "en": "Merry and Bright!",
+              "fa": "Merry and Bright!"
+            },
+            "year": "2024",
+            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/21"
+          },
+          {
+            "image": "assets/gallery/lost-in-loneliness-20.webp",
+            "title": {
+              "en": "Lost in Loneliness",
+              "fa": "Lost in Loneliness"
+            },
+            "year": "2024",
+            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/20"
+          },
+          {
+            "image": "assets/gallery/cherry-bloom-19.webp",
+            "title": {
+              "en": "Cherry Bloom",
+              "fa": "Cherry Bloom"
+            },
+            "year": "2024",
+            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/19"
+          },
+          {
+            "image": "assets/gallery/life-goes-on-18.webp",
+            "title": {
+              "en": "Life Goes On",
+              "fa": "Life Goes On"
+            },
+            "year": "2024",
+            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/18"
+          },
+          {
+            "image": "assets/gallery/from-my-window-17.webp",
+            "title": {
+              "en": "From my window",
+              "fa": "From my window"
+            },
+            "year": "2024",
+            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/17"
+          },
+          {
+            "image": "assets/gallery/to-my-dear-younger-self-16.webp",
+            "title": {
+              "en": "To my dear younger self",
+              "fa": "To my dear younger self"
+            },
+            "year": "2024",
+            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/16"
+          },
+          {
+            "image": "assets/gallery/the-village-among-the-hills-15.webp",
+            "title": {
+              "en": "The Village Among the Hills",
+              "fa": "The Village Among the Hills"
+            },
+            "year": "2024",
+            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/15"
+          },
+          {
+            "image": "assets/gallery/the-journey-14.webp",
+            "title": {
+              "en": "The journey",
+              "fa": "The journey"
+            },
+            "year": "2024",
+            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/14"
+          },
+          {
+            "image": "assets/gallery/remote-work-life-13.webp",
+            "title": {
+              "en": "Remote work life",
+              "fa": "Remote work life"
+            },
+            "year": "2024",
+            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/13"
+          },
+          {
+            "image": "assets/gallery/me-my-playlist-and-myself-12.webp",
+            "title": {
+              "en": "Me, my playlist and myself.",
+              "fa": "Me, my playlist and myself."
+            },
+            "year": "2024",
+            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/12"
+          },
+          {
+            "image": "assets/gallery/midnight-vibes-10.webp",
+            "title": {
+              "en": "Midnight vibes",
+              "fa": "Midnight vibes"
+            },
+            "year": "2024",
+            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/10"
+          },
+          {
+            "image": "assets/gallery/summer-breakfast-9.webp",
+            "title": {
+              "en": "Summer Breakfast",
+              "fa": "Summer Breakfast"
+            },
+            "year": "2024",
+            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/9"
+          },
+          {
+            "image": "assets/gallery/breath-8.webp",
+            "title": {
+              "en": "Breath",
+              "fa": "Breath"
+            },
+            "year": "2024",
+            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/8"
+          },
+          {
+            "image": "assets/gallery/serenity-s-embrace-7.webp",
+            "title": {
+              "en": "Serenity's Embrace",
+              "fa": "Serenity's Embrace"
+            },
+            "year": "2024",
+            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/7"
+          },
+          {
+            "image": "assets/gallery/solitude-island-6.webp",
+            "title": {
+              "en": "Solitude island",
+              "fa": "Solitude island"
+            },
+            "year": "2024",
+            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/6"
+          },
+          {
+            "image": "assets/gallery/sunny-delight-5.webp",
+            "title": {
+              "en": "Sunny Delight",
+              "fa": "Sunny Delight"
+            },
+            "year": "2024",
+            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/5"
+          },
+          {
+            "image": "assets/gallery/nighttime-reflections-4.webp",
+            "title": {
+              "en": "Nighttime Reflections",
+              "fa": "Nighttime Reflections"
+            },
+            "year": "2024",
+            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/4"
+          },
+          {
+            "image": "assets/gallery/moments-in-time-a-television-gallery-3.webp",
+            "title": {
+              "en": "Moments in Time: A Television Gallery",
+              "fa": "Moments in Time: A Television Gallery"
+            },
+            "year": "2024",
+            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/3"
+          },
+          {
+            "image": "assets/gallery/the-human-pipeline-2.webp",
+            "title": {
+              "en": "the human pipeline",
+              "fa": "the human pipeline"
+            },
+            "year": "2024",
+            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/2"
+          },
+          {
+            "image": "assets/gallery/the-calm-within-the-chaos-1.webp",
+            "title": {
+              "en": "The Calm Within the Chaos",
+              "fa": "The Calm Within the Chaos"
+            },
+            "year": "2024",
+            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/1"
+          }
+        ]
+      }
+    ]
+  },
   "servicesTitle": {
     "en": "What can I do for you:",
     "fa": "چه کاری برایتان انجام می‌دهم:"

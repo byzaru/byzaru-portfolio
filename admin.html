@@ -236,6 +236,7 @@
         <div class="seg" id="page-seg">
           <button type="button" data-page="index.html" aria-pressed="true">صفحهٔ اصلی</button>
           <button type="button" data-page="about.html" aria-pressed="false">درباره من</button>
+          <button type="button" data-page="gallery.html" aria-pressed="false">گالری</button>
         </div>
         <div class="seg" id="lang-seg">
           <button type="button" data-lang="en" aria-pressed="true">EN</button>
@@ -290,6 +291,8 @@
         size: "عرض ۱۶۰۰ تا ۲۴۰۰ پیکسل، هر نسبتی", format: "JPG یا WebP", kb: "۸۰۰ کیلوبایت" },
       cv: { folder: "", fileName: "cv", maxKB: 3000, raw: "application/pdf", accept: "application/pdf",
         size: "رزومهٔ یک یا دو صفحه‌ای", format: "PDF", kb: "۳ مگابایت" },
+      artwork: { folder: "gallery", maxW: 1024, maxH: 1024, maxKB: 400, minW: 600, accept: "image/png,image/jpeg,image/webp",
+        size: "ضلع بلندتر ۱۰۲۴ پیکسل (بزرگ‌تر لازم نیست؛ هرچه کوچک‌تر، برداشتنش بی‌ارزش‌تر)", format: "WebP یا JPG", kb: "۴۰۰ کیلوبایت" },
       icon: { folder: "icons", maxW: 128, maxH: 128, maxKB: 20, alpha: true, accept: "image/svg+xml,image/png",
         size: "۶۴ × ۶۴ پیکسل (نمایش ۳۲ پیکسل)", format: "SVG (یا PNG شفاف)", kb: "۲۰ کیلوبایت" }
     };
@@ -400,6 +403,25 @@
           fields: [
             { key: "image", label: "عکس", type: "image", spec: "illustration", hint: "تا وقتی عکس نباشد، یک کاشی خاکستری جایش نشان داده می‌شود." },
             { key: "title", label: "عنوان", i18n: true }
+          ] }
+      ]},
+      { title: "گالری", page: "gallery.html", fields: [
+        { key: "nav.gallery", label: "اسم گالری در منو", i18n: true, hint: "لینک «گالری» فقط وقتی در منو دیده می‌شود که حداقل یک اثر در گالری باشد." },
+        { key: "gallery.title", label: "عنوان صفحه", i18n: true },
+        { key: "gallery.intro", label: "توضیح کوتاه زیر عنوان", type: "textarea", i18n: true },
+        { key: "gallery.collections", label: "کالکشن‌ها", type: "list", titleKey: "title",
+          blank: function () { return { title: L("New collection", "کالکشن جدید"), text: L(), items: [] }; },
+          fields: [
+            { key: "title", label: "اسم کالکشن", i18n: true },
+            { key: "text", label: "توضیح کالکشن (اختیاری)", type: "textarea", i18n: true },
+            { key: "items", label: "آثار", type: "list", titleKey: "title",
+              blank: function () { return { image: "", title: L("Untitled", "بدون عنوان"), year: "", link: "" }; },
+              fields: [
+                { key: "image", label: "تصویر اثر", type: "image", spec: "artwork", hint: "روی سایت داخل canvas نمایش داده می‌شود و ذخیره، کشیدن، پرینت و کلیک راست رویش بسته است." },
+                { key: "title", label: "عنوان اثر", i18n: true },
+                { key: "year", label: "سال" },
+                { key: "link", label: "لینک objkt", hint: "مثلاً https://objkt.com/tokens/KT1…/12" }
+              ] }
           ] }
       ]},
       { title: "خدمات", page: "index.html", fields: [
@@ -1063,7 +1085,7 @@
         var det = el("details", { class: "section" }, [
           el("summary", {}, [
             el("span", { text: s.title }),
-            el("span", { class: "page-tag", text: s.page === "about.html" ? "درباره من" : "صفحهٔ اصلی" })
+            el("span", { class: "page-tag", text: s.page === "about.html" ? "درباره من" : s.page === "gallery.html" ? "گالری" : "صفحهٔ اصلی" })
           ]),
           body
         ]);
