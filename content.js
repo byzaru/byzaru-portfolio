@@ -844,8 +844,8 @@ window.SITE_CONTENT = {
           "fa": "زارو ۲۰۲۶"
         },
         "text": {
-          "en": "My 2026 illustrations. Every piece is hand-drawn and digital, filled with personal stories from deep within — a collection made in the hope of Iran's freedom.",
-          "fa": "تصویرسازی‌های سال ۲۰۲۶ من. همهٔ آثار با دست و به‌صورت دیجیتال کشیده شده‌اند و پر از روایت‌های شخصی‌اند؛ کالکشنی به امید آزادی ایران."
+          "en": "My 2026 illustrations. Every piece is hand-drawn and digital, filled with personal stories from deep within.",
+          "fa": "تصویرسازی‌های سال ۲۰۲۶ من. همهٔ آثار با دست و به‌صورت دیجیتال کشیده شده‌اند و پر از روایت‌های شخصی‌اند."
         },
         "when": {
           "en": "February – October 2026 (ongoing)",
@@ -855,24 +855,12 @@ window.SITE_CONTENT = {
           "en": "Personal collection, released on objkt",
           "fa": "کالکشن شخصی، منتشرشده در objkt"
         },
-        "sales": {
-          "en": "6 of 9 pieces sold",
-          "fa": "۶ اثر از ۹ اثر فروش رفته"
-        },
         "items": [
           {
             "image": "assets/gallery/little-ducks-10.webp",
             "title": {
               "en": "little ducks",
               "fa": "little ducks"
-            },
-            "year": "2026"
-          },
-          {
-            "image": "assets/gallery/my-weird-fishes-9.webp",
-            "title": {
-              "en": "My weird fishes",
-              "fa": "My weird fishes"
             },
             "year": "2026"
           },
@@ -951,10 +939,6 @@ window.SITE_CONTENT = {
           "en": "Studio aabee",
           "fa": "استودیو آبی (Studio aabee)"
         },
-        "sales": {
-          "en": "All 4 pieces sold",
-          "fa": "هر ۴ اثر فروش رفته"
-        },
         "items": [
           {
             "image": "assets/gallery/it-will-pass-4.webp",
@@ -1006,10 +990,6 @@ window.SITE_CONTENT = {
         "madeFor": {
           "en": "Personal yearly collection",
           "fa": "کالکشن سالانهٔ شخصی"
-        },
-        "sales": {
-          "en": "All 12 pieces sold",
-          "fa": "هر ۱۲ اثر فروش رفته"
         },
         "items": [
           {
@@ -1126,10 +1106,6 @@ window.SITE_CONTENT = {
         "madeFor": {
           "en": "The Inktober challenge",
           "fa": "چالش اینکتوبر"
-        },
-        "sales": {
-          "en": "18 of 23 pieces sold",
-          "fa": "۱۸ اثر از ۲۳ اثر فروش رفته"
         },
         "items": [
           {
@@ -1299,22 +1275,6 @@ window.SITE_CONTENT = {
               "fa": "Crown"
             },
             "year": "2025"
-          },
-          {
-            "image": "assets/gallery/weave-2.webp",
-            "title": {
-              "en": "Weave",
-              "fa": "Weave"
-            },
-            "year": "2025"
-          },
-          {
-            "image": "assets/gallery/mustache-1.webp",
-            "title": {
-              "en": "Mustache",
-              "fa": "Mustache"
-            },
-            "year": "2025"
           }
         ]
       },
@@ -1335,10 +1295,6 @@ window.SITE_CONTENT = {
           "en": "Personal collection, released on objkt",
           "fa": "کالکشن شخصی، منتشرشده در objkt"
         },
-        "sales": {
-          "en": "19 of 22 pieces sold",
-          "fa": "۱۹ اثر از ۲۲ اثر فروش رفته"
-        },
         "items": [
           {
             "image": "assets/gallery/snowy-hills-23.webp",
@@ -1353,14 +1309,6 @@ window.SITE_CONTENT = {
             "title": {
               "en": "The Japan dream",
               "fa": "The Japan dream"
-            },
-            "year": "2024"
-          },
-          {
-            "image": "assets/gallery/merry-and-bright-21.webp",
-            "title": {
-              "en": "Merry and Bright!",
-              "fa": "Merry and Bright!"
             },
             "year": "2024"
           },
@@ -1393,14 +1341,6 @@ window.SITE_CONTENT = {
             "title": {
               "en": "From my window",
               "fa": "From my window"
-            },
-            "year": "2024"
-          },
-          {
-            "image": "assets/gallery/to-my-dear-younger-self-16.webp",
-            "title": {
-              "en": "To my dear younger self",
-              "fa": "To my dear younger self"
             },
             "year": "2024"
           },
@@ -1461,14 +1401,6 @@ window.SITE_CONTENT = {
             "year": "2024"
           },
           {
-            "image": "assets/gallery/serenity-s-embrace-7.webp",
-            "title": {
-              "en": "Serenity's Embrace",
-              "fa": "Serenity's Embrace"
-            },
-            "year": "2024"
-          },
-          {
             "image": "assets/gallery/solitude-island-6.webp",
             "title": {
               "en": "Solitude island",
@@ -1481,14 +1413,6 @@ window.SITE_CONTENT = {
             "title": {
               "en": "Sunny Delight",
               "fa": "Sunny Delight"
-            },
-            "year": "2024"
-          },
-          {
-            "image": "assets/gallery/nighttime-reflections-4.webp",
-            "title": {
-              "en": "Nighttime Reflections",
-              "fa": "Nighttime Reflections"
             },
             "year": "2024"
           },

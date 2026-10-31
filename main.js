@@ -548,15 +548,16 @@
     }, 0);
   }
   function glYear(y) { y = String(y || ""); return lang === "fa" ? y.replace(/[0-9]/g, function (d) { return "۰۱۲۳۴۵۶۷۸۹"[d]; }) : y; }
-  // a collection's facts row: when it was drawn, what it was made for, and how it sold
+  // a collection's facts row: when it was drawn and what it was made for
   function glFacts(col) {
-    var rows = [["when", col.when, { en: "Drawn", fa: "زمان" }], ["madeFor", col.madeFor, { en: "Made for", fa: "برای" }], ["sales", col.sales, { en: "Sales", fa: "فروش" }]]
+    var rows = [["when", col.when, { en: "Drawn", fa: "زمان" }], ["madeFor", col.madeFor, { en: "Made for", fa: "برای" }]]
       .filter(function (r) { return t(r[1]); });
     if (!rows.length) return "";
     return '<dl class="gl-facts">' + rows.map(function (r) {
       return '<div class="gl-fact gl-fact--' + r[0] + '"><dt>' + T(r[2]) + "</dt><dd>" + T(r[1]) + "</dd></div>";
     }).join("") + "</dl>";
   }
+  function glAnimated(it) { return !!it.animated || /\.gif$/i.test(it.image || ""); }
   // cards are display-only: no click, no large view, no outbound links
   function gallery(c) {
     var g = c.gallery || {};
@@ -566,7 +567,10 @@
       var cards = items.map(function (it) {
         return '<article class="gl-card">' +
           '<div class="gl-frame gl-protect">' +
-            '<canvas class="gl-canvas" data-src="' + esc(it.image) + '" role="img" aria-label="' + T(it.title) + '"></canvas>' +
+            (glAnimated(it)
+              // animated pieces play as a looping gif; a canvas would freeze them on the first frame
+              ? '<img class="gl-canvas gl-anim" data-src="' + esc(it.image) + '" alt="' + T(it.title) + '" draggable="false" decoding="async">'
+              : '<canvas class="gl-canvas" data-src="' + esc(it.image) + '" role="img" aria-label="' + T(it.title) + '"></canvas>') +
             '<span class="gl-shield" aria-hidden="true"></span></div>' +
           '<h3 class="gl-title">' + T(it.title) + "</h3>" +
           (it.year ? '<p class="gl-meta">' + esc(glYear(it.year)) + "</p>" : "") +
@@ -595,6 +599,12 @@
     return glImgCache[src];
   }
   function glDraw(cv, src) {
+    if (cv.tagName === "IMG") {
+      cv.onload = function () { cv.classList.add("is-ready"); };
+      cv.onerror = function () { var card = cv.closest(".gl-card"); if (card) card.hidden = true; };
+      cv.src = src;
+      return;
+    }
     return glLoad(src).then(function (im) {
       cv.width = im.naturalWidth; cv.height = im.naturalHeight;
       cv.getContext("2d").drawImage(im, 0, 0);

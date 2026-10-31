@@ -1025,16 +1025,19 @@ html[lang="fa"] .freelance .tl-text { font-size: 15px; }
 /* ===== Gallery page (gallery.html) ===== */
 .gallery-main { position: relative; padding: 110px 0 40px; }
 .gl-head { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; max-width: 640px; margin: 0 auto 56px; }
-.gl-collection { margin-bottom: 72px; }
+.gl-collection {
+  margin-bottom: 32px; padding: 48px 40px 56px;
+  background: #fff; border: 1px solid #eee; border-radius: 20px;
+}
 .gl-col-head { display: flex; align-items: baseline; justify-content: center; gap: 10px; margin-bottom: 8px; }
 .gl-col-head h2 { font-size: 22px; font-weight: 600; letter-spacing: .02em; }
 .gl-count { font-size: 13px; color: var(--muted-2); }
 .gl-col-text { text-align: center; color: var(--muted); font-size: 15px; line-height: 1.7; max-width: 600px; margin: 0 auto 8px; }
 .gl-facts { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 18px auto 0; max-width: 720px; }
-.gl-fact { display: flex; align-items: baseline; gap: 6px; padding: 6px 14px; border-radius: 999px; background: rgba(255, 255, 255, .6); border: 1px solid rgba(0, 0, 0, .07); font-size: 13px; line-height: 1.5; }
-.gl-fact dt { color: var(--muted-2); }
+.gl-fact { display: flex; align-items: baseline; gap: 6px; padding: 6px 14px; border-radius: 999px; background: #f7f7f8; border: 1px solid #eee; font-size: 13px; line-height: 1.5; }
+.gl-fact dt { color: var(--muted-2); white-space: nowrap; }
 .gl-fact dd { margin: 0; color: var(--ink-2); font-weight: 500; }
-.gl-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 56px 48px; margin-top: 32px; }
+.gl-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 56px 40px; margin-top: 40px; }
 .gl-card { display: flex; flex-direction: column; align-items: center; text-align: center; }
 .gl-frame {
   position: relative; display: flex; align-items: flex-end; justify-content: center;
@@ -1065,8 +1068,12 @@ html.gl-shielded .gl-canvas { filter: blur(28px) saturate(.6); }
 @media (max-width: 900px) {
   .gl-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 24px; }
 }
+@media (max-width: 900px) {
+  .gl-collection { padding: 40px 24px 44px; }
+}
 @media (max-width: 560px) {
   .gallery-main { padding-top: 90px; }
+  .gl-collection { padding: 32px 14px 36px; margin-bottom: 20px; border-radius: 16px; }
   .gl-grid { gap: 32px 16px; }
   .gl-title { font-size: 14px; margin-top: 12px; }
   .gl-meta { font-size: 12px; }

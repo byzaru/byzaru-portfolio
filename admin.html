@@ -291,8 +291,8 @@
         size: "عرض ۱۶۰۰ تا ۲۴۰۰ پیکسل، هر نسبتی", format: "JPG یا WebP", kb: "۸۰۰ کیلوبایت" },
       cv: { folder: "", fileName: "cv", maxKB: 3000, raw: "application/pdf", accept: "application/pdf",
         size: "رزومهٔ یک یا دو صفحه‌ای", format: "PDF", kb: "۳ مگابایت" },
-      artwork: { folder: "gallery", maxW: 1024, maxH: 1024, maxKB: 400, minW: 600, accept: "image/png,image/jpeg,image/webp",
-        size: "ضلع بلندتر ۱۰۲۴ پیکسل (بزرگ‌تر لازم نیست؛ هرچه کوچک‌تر، برداشتنش بی‌ارزش‌تر)", format: "WebP یا JPG", kb: "۴۰۰ کیلوبایت" },
+      artwork: { folder: "gallery", maxW: 1024, maxH: 1024, maxKB: 400, minW: 600, animated: true, accept: "image/png,image/jpeg,image/webp,image/gif",
+        size: "ضلع بلندتر ۱۰۲۴ پیکسل (بزرگ‌تر لازم نیست؛ هرچه کوچک‌تر، برداشتنش بی‌ارزش‌تر)", format: "WebP یا JPG — برای کار متحرک GIF یا WebP متحرک", kb: "۴۰۰ کیلوبایت (متحرک تا حدود ۴ مگابایت)" },
       icon: { folder: "icons", maxW: 128, maxH: 128, maxKB: 20, alpha: true, accept: "image/svg+xml,image/png",
         size: "۶۴ × ۶۴ پیکسل (نمایش ۳۲ پیکسل)", format: "SVG (یا PNG شفاف)", kb: "۲۰ کیلوبایت" }
     };
@@ -410,19 +410,19 @@
         { key: "gallery.title", label: "عنوان صفحه", i18n: true },
         { key: "gallery.intro", label: "توضیح کوتاه زیر عنوان", type: "textarea", i18n: true },
         { key: "gallery.collections", label: "کالکشن‌ها", type: "list", titleKey: "title",
-          blank: function () { return { title: L("New collection", "کالکشن جدید"), text: L(), when: L(), madeFor: L(), sales: L(), items: [] }; },
+          blank: function () { return { title: L("New collection", "کالکشن جدید"), text: L(), when: L(), madeFor: L(), items: [] }; },
           fields: [
             { key: "title", label: "اسم کالکشن", i18n: true },
             { key: "text", label: "توضیح کالکشن — چیست؟", type: "textarea", i18n: true, hint: "یکی دو جمله دربارهٔ موضوع و حال‌وهوای کالکشن." },
             { key: "when", label: "کی کشیده شده", i18n: true, hint: "مثلاً «October 2025» / «اکتبر ۲۰۲۵». خالی بماند، نشان داده نمی‌شود." },
             { key: "madeFor", label: "برای کجا / چه چیزی", i18n: true, hint: "مثلاً یک چالش، یک استودیو، یا کالکشن شخصی." },
-            { key: "sales", label: "وضعیت فروش", i18n: true, hint: "مثلاً «All 4 pieces sold» یا «۶ اثر از ۹ اثر فروش رفته». بعد از هر فروش جدید این را به‌روز کن." },
             { key: "items", label: "آثار", type: "list", titleKey: "title",
               blank: function () { return { image: "", title: L("Untitled", "بدون عنوان"), year: "" }; },
               fields: [
                 { key: "image", label: "تصویر اثر", type: "image", spec: "artwork", hint: "روی سایت فقط به‌شکل کارت (بدون بزرگ‌نمایی و لینک) داخل canvas نمایش داده می‌شود و ذخیره، کشیدن، پرینت و کلیک راست رویش بسته است." },
                 { key: "title", label: "عنوان اثر", i18n: true },
-                { key: "year", label: "سال" }
+                { key: "year", label: "سال" },
+                { key: "animated", label: "متحرک (گیف)", type: "checkbox", hint: "برای کارهای ویدیویی/گیف تیک بزن تا روی سایت به‌صورت گیفِ تکرارشونده پخش شود. ویدیو را اول به GIF یا WebP متحرک تبدیل کن." }
               ] }
           ] }
       ]},
@@ -615,7 +615,28 @@
         if (file.size / 1024 > spec.maxKB) n.push("حجمش بیشتر از حد پیشنهادی است.");
         return Promise.resolve({ blob: file, ext: "svg", notes: n, warn: n.length > 0 });
       }
+      if (spec.animated && /^video\//.test(file.type)) return Promise.reject(new Error("ویدیو مستقیم قابل استفاده نیست؛ اول آن را به GIF (یا WebP متحرک) تبدیل کن، بعد اینجا بگذار."));
       if (!/^image\//.test(file.type)) return Promise.reject(new Error("این فایل عکس نیست."));
+      if (spec.animated && (file.type === "image/gif" || file.type === "image/webp")) {
+        // animated files are kept as they are: re-drawing them on a canvas would freeze them on the first frame
+        return isAnimated(file).then(function (anim) {
+          if (!anim) return null;
+          var big = file.size / 1024 > 4096;
+          return { blob: file, ext: file.type === "image/gif" ? "gif" : "webp", animated: true,
+            notes: ["متحرک است و بدون تغییر نگه داشته شد؛ تیک «متحرک» را هم بزن."].concat(big ? ["حجمش زیاد است؛ بهتر است کوچک‌ترش کنی."] : []), warn: big };
+        }).then(function (r) { return r || processStill(file, spec); });
+      }
+      return processStill(file, spec);
+    }
+    function isAnimated(file) {
+      return file.slice(0, Math.min(file.size, 1 << 20)).arrayBuffer().then(function (buf) {
+        var b = new Uint8Array(buf), s = "";
+        for (var i = 0; i < b.length; i++) s += String.fromCharCode(b[i]);
+        if (file.type === "image/webp") return s.indexOf("ANIM") > 0;
+        return (s.match(/\x21\xF9\x04/g) || []).length > 1; // more than one GIF frame
+      }).catch(function () { return false; });
+    }
+    function processStill(file, spec) {
       return loadImage(file).then(function (img) {
         var w = img.naturalWidth, h = img.naturalHeight, notes = [], warn = false;
         if ((spec.minW && w < spec.minW) || (spec.minH && h < spec.minH)) {
