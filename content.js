@@ -42,8 +42,8 @@ window.SITE_CONTENT = {
       "fa": "کیس‌استادی‌ها"
     },
     "illustrations": {
-      "en": "Illustrations",
-      "fa": "تصویرسازی‌ها"
+      "en": "Works",
+      "fa": "نمونه کارها"
     },
     "gallery": {
       "en": "Gallery",
@@ -777,57 +777,14 @@ window.SITE_CONTENT = {
     }
   ],
   "illustrationsTitle": {
-    "en": "Illustrations",
-    "fa": "تصویرسازی‌ها"
+    "en": "Selected works",
+    "fa": "نمونه کارها"
   },
   "illustrationsIntro": {
-    "en": "A selection of my illustrations and digital paintings.",
-    "fa": "گزیده‌ای از تصویرسازی‌ها و نقاشی‌های دیجیتال من."
+    "en": "Shots from product projects I designed.",
+    "fa": "نمایی از پروژه‌های محصولی که طراحی کرده‌ام."
   },
-  "illustrations": [
-    {
-      "image": "assets/illustrations/01.jpg",
-      "title": {
-        "en": "Illustration 01",
-        "fa": "تصویرسازی ۱"
-      }
-    },
-    {
-      "image": "assets/illustrations/02.jpg",
-      "title": {
-        "en": "Illustration 02",
-        "fa": "تصویرسازی ۲"
-      }
-    },
-    {
-      "image": "assets/illustrations/03.jpg",
-      "title": {
-        "en": "Illustration 03",
-        "fa": "تصویرسازی ۳"
-      }
-    },
-    {
-      "image": "assets/illustrations/04.jpg",
-      "title": {
-        "en": "Illustration 04",
-        "fa": "تصویرسازی ۴"
-      }
-    },
-    {
-      "image": "assets/illustrations/05.jpg",
-      "title": {
-        "en": "Illustration 05",
-        "fa": "تصویرسازی ۵"
-      }
-    },
-    {
-      "image": "assets/illustrations/06.jpg",
-      "title": {
-        "en": "Illustration 06",
-        "fa": "تصویرسازی ۶"
-      }
-    }
-  ],
+  "illustrations": [],
   "gallery": {
     "title": {
       "en": "Gallery",

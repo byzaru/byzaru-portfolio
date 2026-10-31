@@ -154,10 +154,14 @@
         "</div></article>";
     }).join("");
 
+    // "Works" section under the case studies: Dribbble-style shots, one image each, opening in a single-image modal
     var illus = (c.illustrations || []).map(function (it, i) {
-      return '<button type="button" class="illu glass" data-index="' + i + '" style="--n:' + (i % 3) + '">' +
-        '<span class="illu__frame"><img src="' + esc(it.image) + '" alt="' + T(it.title) + '" loading="lazy"></span>' +
-        '<span class="illu__title">' + T(it.title) + "</span></button>";
+      var meta = [t(it.company), glYear(it.year)].filter(Boolean).map(esc).join('<span class="shot__dot">·</span>');
+      return '<button type="button" class="illu shot" data-index="' + i + '" style="--n:' + (i % 3) + '">' +
+        '<span class="illu__frame"><img src="' + esc(it.image) + '" alt="' + T(it.title) + '" loading="lazy">' +
+          '<span class="shot__overlay" aria-hidden="true"><span>' + T(it.title) + "</span></span></span>" +
+        '<span class="shot__info"><span class="illu__title">' + T(it.title) + "</span>" +
+          (meta ? '<span class="shot__meta">' + meta + "</span>" : "") + "</span></button>";
     }).join("");
 
     var services = (c.services || []).map(function (s) {
@@ -198,9 +202,7 @@
       '<div class="cm-scroll"><article class="cm-content"></article></div></dialog>' +
       '<dialog class="lightbox" id="lightbox" aria-label="' + T(c.illustrationsTitle) + '">' +
       '<button type="button" class="lb-btn lb-close" aria-label="' + esc(ui("close")) + '">✕</button>' +
-      '<button type="button" class="lb-btn lb-prev" aria-label="Previous">‹</button>' +
-      '<figure><img alt=""><figcaption></figcaption></figure>' +
-      '<button type="button" class="lb-btn lb-next" aria-label="Next">›</button></dialog>';
+      '<figure><img alt=""><figcaption><strong class="lb-title"></strong><span class="lb-meta"></span></figcaption></figure></dialog>';
   }
 
   var LOCK = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="7" width="9.6" height="6.8" rx="1.6"/><path d="M5.4 7V5.2a2.6 2.6 0 0 1 5.2 0V7"/></svg>';
@@ -735,26 +737,16 @@
   }
 
   // Lightbox
-  var lbIndex = 0;
-  function lbItems() {
-    return Array.prototype.slice.call(document.querySelectorAll(".illu:not(.is-missing)"));
-  }
+  // one view per work: the modal shows that single image, no next/previous
   function lbShow(btn) {
     var dlg = document.getElementById("lightbox");
     if (!dlg || !btn) return;
-    var items = lbItems();
-    lbIndex = items.indexOf(btn);
-    var img = btn.querySelector("img");
-    dlg.querySelector("figure img").src = img.src;
-    dlg.querySelector("figure img").alt = img.alt;
-    dlg.querySelector("figcaption").textContent = btn.querySelector(".illu__title").textContent;
-    dlg.querySelector(".lb-prev").hidden = dlg.querySelector(".lb-next").hidden = items.length < 2;
+    var img = btn.querySelector("img"), big = dlg.querySelector("figure img"), meta = btn.querySelector(".shot__meta");
+    big.src = img.src;
+    big.alt = img.alt;
+    dlg.querySelector(".lb-title").textContent = btn.querySelector(".illu__title").textContent;
+    dlg.querySelector(".lb-meta").innerHTML = meta ? meta.innerHTML : "";
     if (!dlg.open) dlg.showModal();
-  }
-  function lbStep(d) {
-    var items = lbItems();
-    if (!items.length) return;
-    lbShow(items[(lbIndex + d + items.length) % items.length]);
   }
 
   document.addEventListener("error", function (e) {
@@ -811,18 +803,8 @@
 
     var dlg = e.target.closest(".lightbox");
     if (dlg) {
-      if (e.target.closest(".lb-close") || e.target === dlg) { dlg.close(); return; }
-      var rtl = lang === "fa";
-      if (e.target.closest(".lb-next")) lbStep(rtl ? -1 : 1);
-      if (e.target.closest(".lb-prev")) lbStep(rtl ? 1 : -1);
+      if (e.target.closest(".lb-close") || e.target === dlg || e.target.tagName === "FIGURE") dlg.close();
     }
-  });
-
-  document.addEventListener("keydown", function (e) {
-    var dlg = document.getElementById("lightbox");
-    if (!dlg || !dlg.open) return;
-    if (e.key === "ArrowRight") lbStep(1);
-    if (e.key === "ArrowLeft") lbStep(-1);
   });
 
   function fallbackCopy(text) {

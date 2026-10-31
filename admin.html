@@ -287,6 +287,8 @@
         size: "۵۸۰ × ۶۶۶ پیکسل (نسبت ۸۷ به ۱۰۰)", format: "JPG یا WebP", kb: "۳۰۰ کیلوبایت" },
       companyLogo: { folder: "logos", maxH: 200, maxKB: 100, minH: 70, alpha: true, accept: "image/png,image/svg+xml,image/webp",
         size: "ارتفاع دو برابرِ «ارتفاع لوگو» در همین فرم (برای ۵۰ می‌شود ۱۰۰ پیکسل)", format: "SVG یا PNG با پس‌زمینهٔ شفاف", kb: "۱۰۰ کیلوبایت" },
+      shot: { folder: "works", maxW: 2400, maxH: 1800, maxKB: 800, minW: 1200, accept: "image/png,image/jpeg,image/webp",
+        size: "۱۶۰۰ × ۱۲۰۰ پیکسل (نسبت ۴:۳، مثل دریبل)", format: "JPG یا WebP", kb: "۸۰۰ کیلوبایت" },
       illustration: { folder: "illustrations", maxW: 2400, maxH: 2400, maxKB: 800, minW: 1200, accept: "image/png,image/jpeg,image/webp",
         size: "عرض ۱۶۰۰ تا ۲۴۰۰ پیکسل، هر نسبتی", format: "JPG یا WebP", kb: "۸۰۰ کیلوبایت" },
       cv: { folder: "", fileName: "cv", maxKB: 3000, raw: "application/pdf", accept: "application/pdf",
@@ -327,7 +329,7 @@
         { key: "nav.home", label: "منو: صفحهٔ اصلی", i18n: true },
         { key: "nav.about", label: "منو: درباره من", i18n: true },
         { key: "nav.caseStudies", label: "منو: کیس‌استادی‌ها", i18n: true },
-        { key: "nav.illustrations", label: "منو: تصویرسازی‌ها", i18n: true }
+        { key: "nav.illustrations", label: "منو: نمونه کارها", i18n: true }
       ]},
       { title: "بخش اول صفحه", page: "index.html", fields: [
         { key: "hero.title", label: "عنوان", type: "textarea", i18n: true, hint: "هر خط یک سطر عنوان است." },
@@ -395,14 +397,16 @@
               ] }
           ] }
       ]},
-      { title: "تصویرسازی‌ها", page: "index.html", fields: [
+      { title: "نمونه کارها", page: "index.html", fields: [
         { key: "illustrationsTitle", label: "عنوان بخش", i18n: true },
         { key: "illustrationsIntro", label: "توضیح کوتاه", i18n: true },
-        { key: "illustrations", label: "تصویرها", type: "list", titleKey: "title",
-          blank: function () { return { image: "assets/illustrations/", title: L("Untitled", "بدون عنوان") }; },
+        { key: "illustrations", label: "نمونه کارها", type: "list", titleKey: "title",
+          blank: function () { return { image: "", title: L("Untitled", "بدون عنوان"), company: L(), year: "" }; },
           fields: [
-            { key: "image", label: "عکس", type: "image", spec: "illustration", hint: "تا وقتی عکس نباشد، یک کاشی خاکستری جایش نشان داده می‌شود." },
-            { key: "title", label: "عنوان", i18n: true }
+            { key: "image", label: "عکس", type: "image", spec: "shot", hint: "کارت‌ها ۴:۳ هستند (مثل دریبل)؛ با کلیک، همین عکس بزرگ در مودال باز می‌شود." },
+            { key: "title", label: "عنوان", i18n: true },
+            { key: "company", label: "اسم شرکت", i18n: true },
+            { key: "year", label: "سال انجام" }
           ] }
       ]},
       { title: "گالری", page: "gallery.html", fields: [
