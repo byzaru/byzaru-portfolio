@@ -844,8 +844,20 @@ window.SITE_CONTENT = {
           "fa": "زارو ۲۰۲۶"
         },
         "text": {
-          "en": "",
-          "fa": ""
+          "en": "My 2026 illustrations. Every piece is hand-drawn and digital, filled with personal stories from deep within — a collection made in the hope of Iran's freedom.",
+          "fa": "تصویرسازی‌های سال ۲۰۲۶ من. همهٔ آثار با دست و به‌صورت دیجیتال کشیده شده‌اند و پر از روایت‌های شخصی‌اند؛ کالکشنی به امید آزادی ایران."
+        },
+        "when": {
+          "en": "February – October 2026 (ongoing)",
+          "fa": "فوریه تا اکتبر ۲۰۲۶ (ادامه دارد)"
+        },
+        "madeFor": {
+          "en": "Personal collection, released on objkt",
+          "fa": "کالکشن شخصی، منتشرشده در objkt"
+        },
+        "sales": {
+          "en": "6 of 9 pieces sold",
+          "fa": "۶ اثر از ۹ اثر فروش رفته"
         },
         "items": [
           {
@@ -854,8 +866,7 @@ window.SITE_CONTENT = {
               "en": "little ducks",
               "fa": "little ducks"
             },
-            "year": "2026",
-            "link": "https://objkt.com/tokens/KT1NUa6HsjEHab9EME9iaBZQN1fPoAbfgjM2/10"
+            "year": "2026"
           },
           {
             "image": "assets/gallery/my-weird-fishes-9.webp",
@@ -863,8 +874,7 @@ window.SITE_CONTENT = {
               "en": "My weird fishes",
               "fa": "My weird fishes"
             },
-            "year": "2026",
-            "link": "https://objkt.com/tokens/KT1NUa6HsjEHab9EME9iaBZQN1fPoAbfgjM2/9"
+            "year": "2026"
           },
           {
             "image": "assets/gallery/to-be-found-8.webp",
@@ -872,8 +882,7 @@ window.SITE_CONTENT = {
               "en": "To Be Found",
               "fa": "To Be Found"
             },
-            "year": "2026",
-            "link": "https://objkt.com/tokens/KT1NUa6HsjEHab9EME9iaBZQN1fPoAbfgjM2/8"
+            "year": "2026"
           },
           {
             "image": "assets/gallery/walking-with-suns-7.webp",
@@ -881,8 +890,7 @@ window.SITE_CONTENT = {
               "en": "Walking with Suns",
               "fa": "Walking with Suns"
             },
-            "year": "2026",
-            "link": "https://objkt.com/tokens/KT1NUa6HsjEHab9EME9iaBZQN1fPoAbfgjM2/7"
+            "year": "2026"
           },
           {
             "image": "assets/gallery/pink-gathering-6.webp",
@@ -890,8 +898,7 @@ window.SITE_CONTENT = {
               "en": "Pink gathering",
               "fa": "Pink gathering"
             },
-            "year": "2026",
-            "link": "https://objkt.com/tokens/KT1NUa6HsjEHab9EME9iaBZQN1fPoAbfgjM2/6"
+            "year": "2026"
           },
           {
             "image": "assets/gallery/hope-takes-flight-4.webp",
@@ -899,8 +906,7 @@ window.SITE_CONTENT = {
               "en": "Hope takes flight",
               "fa": "Hope takes flight"
             },
-            "year": "2026",
-            "link": "https://objkt.com/tokens/KT1NUa6HsjEHab9EME9iaBZQN1fPoAbfgjM2/4"
+            "year": "2026"
           },
           {
             "image": "assets/gallery/insomnia-3.webp",
@@ -908,8 +914,7 @@ window.SITE_CONTENT = {
               "en": "Insomnia",
               "fa": "Insomnia"
             },
-            "year": "2026",
-            "link": "https://objkt.com/tokens/KT1NUa6HsjEHab9EME9iaBZQN1fPoAbfgjM2/3"
+            "year": "2026"
           },
           {
             "image": "assets/gallery/still-we-hold-on-2.webp",
@@ -917,8 +922,7 @@ window.SITE_CONTENT = {
               "en": "Still, We Hold On",
               "fa": "Still, We Hold On"
             },
-            "year": "2026",
-            "link": "https://objkt.com/tokens/KT1NUa6HsjEHab9EME9iaBZQN1fPoAbfgjM2/2"
+            "year": "2026"
           },
           {
             "image": "assets/gallery/grief-and-hope-1.webp",
@@ -926,8 +930,7 @@ window.SITE_CONTENT = {
               "en": "Grief and Hope",
               "fa": "Grief and Hope"
             },
-            "year": "2026",
-            "link": "https://objkt.com/tokens/KT1NUa6HsjEHab9EME9iaBZQN1fPoAbfgjM2/1"
+            "year": "2026"
           }
         ]
       },
@@ -937,8 +940,20 @@ window.SITE_CONTENT = {
           "fa": "Blue Archive"
         },
         "text": {
-          "en": "",
-          "fa": ""
+          "en": "A limited series of digital artworks made for Studio aabee.",
+          "fa": "مجموعه‌ای محدود از آثار دیجیتال که برای استودیو آبی کشیده شد."
+        },
+        "when": {
+          "en": "February – March 2026",
+          "fa": "فوریه تا مارس ۲۰۲۶"
+        },
+        "madeFor": {
+          "en": "Studio aabee",
+          "fa": "استودیو آبی (Studio aabee)"
+        },
+        "sales": {
+          "en": "All 4 pieces sold",
+          "fa": "هر ۴ اثر فروش رفته"
         },
         "items": [
           {
@@ -947,8 +962,7 @@ window.SITE_CONTENT = {
               "en": "It will pass.",
               "fa": "It will pass."
             },
-            "year": "2026",
-            "link": "https://objkt.com/tokens/KT1V9T24tNtCD58X5iEPLy8HU4e4a1tV96N4/4"
+            "year": "2026"
           },
           {
             "image": "assets/gallery/a-safe-world-3.webp",
@@ -956,8 +970,7 @@ window.SITE_CONTENT = {
               "en": "A Safe World",
               "fa": "A Safe World"
             },
-            "year": "2026",
-            "link": "https://objkt.com/tokens/KT1V9T24tNtCD58X5iEPLy8HU4e4a1tV96N4/3"
+            "year": "2026"
           },
           {
             "image": "assets/gallery/bound-by-moonlight-2.webp",
@@ -965,8 +978,7 @@ window.SITE_CONTENT = {
               "en": "Bound by moonlight",
               "fa": "Bound by moonlight"
             },
-            "year": "2026",
-            "link": "https://objkt.com/tokens/KT1V9T24tNtCD58X5iEPLy8HU4e4a1tV96N4/2"
+            "year": "2026"
           },
           {
             "image": "assets/gallery/same-shadows-1.webp",
@@ -974,8 +986,7 @@ window.SITE_CONTENT = {
               "en": "Same shadows",
               "fa": "Same shadows"
             },
-            "year": "2026",
-            "link": "https://objkt.com/tokens/KT1V9T24tNtCD58X5iEPLy8HU4e4a1tV96N4/1"
+            "year": "2026"
           }
         ]
       },
@@ -985,8 +996,20 @@ window.SITE_CONTENT = {
           "fa": "زارو ۲۰۲۵"
         },
         "text": {
-          "en": "",
-          "fa": ""
+          "en": "My 2025 illustration collection — hand-drawn and digital, full of personal stories. The year I expanded my creativity, my skills and my brand.",
+          "fa": "کالکشن تصویرسازی‌های ۲۰۲۵ من؛ با دست و دیجیتال، پر از روایت‌های شخصی. سالی که خلاقیت، مهارت و برندم را گسترش دادم."
+        },
+        "when": {
+          "en": "January 2025 – January 2026",
+          "fa": "ژانویهٔ ۲۰۲۵ تا ژانویهٔ ۲۰۲۶"
+        },
+        "madeFor": {
+          "en": "Personal yearly collection",
+          "fa": "کالکشن سالانهٔ شخصی"
+        },
+        "sales": {
+          "en": "All 12 pieces sold",
+          "fa": "هر ۱۲ اثر فروش رفته"
         },
         "items": [
           {
@@ -995,8 +1018,7 @@ window.SITE_CONTENT = {
               "en": "Fearless in blue",
               "fa": "Fearless in blue"
             },
-            "year": "2026",
-            "link": "https://objkt.com/tokens/KT1FEddgJEaKb1ckN3JUBRTeL5hNtZPc1HCS/12"
+            "year": "2026"
           },
           {
             "image": "assets/gallery/whispers-of-the-wind-11.webp",
@@ -1004,8 +1026,7 @@ window.SITE_CONTENT = {
               "en": "Whispers of the Wind",
               "fa": "Whispers of the Wind"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1FEddgJEaKb1ckN3JUBRTeL5hNtZPc1HCS/11"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/everyday-life-10.webp",
@@ -1013,8 +1034,7 @@ window.SITE_CONTENT = {
               "en": "Everyday life",
               "fa": "Everyday life"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1FEddgJEaKb1ckN3JUBRTeL5hNtZPc1HCS/10"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/peace-in-the-hills-9.webp",
@@ -1022,8 +1042,7 @@ window.SITE_CONTENT = {
               "en": "Peace in the Hills",
               "fa": "Peace in the Hills"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1FEddgJEaKb1ckN3JUBRTeL5hNtZPc1HCS/9"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/fall-into-the-deep-8.webp",
@@ -1031,8 +1050,7 @@ window.SITE_CONTENT = {
               "en": "Fall into the deep",
               "fa": "Fall into the deep"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1FEddgJEaKb1ckN3JUBRTeL5hNtZPc1HCS/8"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/the-quiet-that-stayed-7.webp",
@@ -1040,8 +1058,7 @@ window.SITE_CONTENT = {
               "en": "The Quiet That Stayed",
               "fa": "The Quiet That Stayed"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1FEddgJEaKb1ckN3JUBRTeL5hNtZPc1HCS/7"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/where-the-world-can-t-reach-me-6.webp",
@@ -1049,8 +1066,7 @@ window.SITE_CONTENT = {
               "en": "Where the World Can’t Reach Me",
               "fa": "Where the World Can’t Reach Me"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1FEddgJEaKb1ckN3JUBRTeL5hNtZPc1HCS/6"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/an-inner-flight-5.webp",
@@ -1058,8 +1074,7 @@ window.SITE_CONTENT = {
               "en": "An Inner Flight",
               "fa": "An Inner Flight"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1FEddgJEaKb1ckN3JUBRTeL5hNtZPc1HCS/5"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/my-safe-haven-4.webp",
@@ -1067,8 +1082,7 @@ window.SITE_CONTENT = {
               "en": "My safe Haven",
               "fa": "My safe Haven"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1FEddgJEaKb1ckN3JUBRTeL5hNtZPc1HCS/4"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/too-big-to-carry-3.webp",
@@ -1076,8 +1090,7 @@ window.SITE_CONTENT = {
               "en": "Too Big to Carry",
               "fa": "Too Big to Carry"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1FEddgJEaKb1ckN3JUBRTeL5hNtZPc1HCS/3"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/my-home-always-on-my-back-2.webp",
@@ -1085,8 +1098,7 @@ window.SITE_CONTENT = {
               "en": "My Home, Always on My Back",
               "fa": "My Home, Always on My Back"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1FEddgJEaKb1ckN3JUBRTeL5hNtZPc1HCS/2"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/have-you-seen-zaru-1.webp",
@@ -1094,8 +1106,7 @@ window.SITE_CONTENT = {
               "en": "Have you seen Zaru?",
               "fa": "Have you seen Zaru?"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1FEddgJEaKb1ckN3JUBRTeL5hNtZPc1HCS/1"
+            "year": "2025"
           }
         ]
       },
@@ -1105,8 +1116,20 @@ window.SITE_CONTENT = {
           "fa": "اینکتوبر ۲۰۲۵"
         },
         "text": {
-          "en": "",
-          "fa": ""
+          "en": "My entries for Inktober — the month-long challenge where artists draw in ink every day of October.",
+          "fa": "آثارم برای چالش اینکتوبر؛ رویدادی یک‌ماهه که هنرمندها هر روزِ اکتبر با جوهر نقاشی می‌کشند."
+        },
+        "when": {
+          "en": "October 2025",
+          "fa": "اکتبر ۲۰۲۵"
+        },
+        "madeFor": {
+          "en": "The Inktober challenge",
+          "fa": "چالش اینکتوبر"
+        },
+        "sales": {
+          "en": "18 of 23 pieces sold",
+          "fa": "۱۸ اثر از ۲۳ اثر فروش رفته"
         },
         "items": [
           {
@@ -1115,8 +1138,7 @@ window.SITE_CONTENT = {
               "en": "Awards",
               "fa": "Awards"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/23"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/vacant-22.webp",
@@ -1124,8 +1146,7 @@ window.SITE_CONTENT = {
               "en": "Vacant",
               "fa": "Vacant"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/22"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/blast-21.webp",
@@ -1133,8 +1154,7 @@ window.SITE_CONTENT = {
               "en": "Blast",
               "fa": "Blast"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/21"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/rivals-20.webp",
@@ -1142,8 +1162,7 @@ window.SITE_CONTENT = {
               "en": "Rivals",
               "fa": "Rivals"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/20"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/arctic-19.webp",
@@ -1151,8 +1170,7 @@ window.SITE_CONTENT = {
               "en": "Arctic",
               "fa": "Arctic"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/19"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/deal-18.webp",
@@ -1160,8 +1178,7 @@ window.SITE_CONTENT = {
               "en": "Deal",
               "fa": "Deal"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/18"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/ornate-17.webp",
@@ -1169,8 +1186,7 @@ window.SITE_CONTENT = {
               "en": "Ornate",
               "fa": "Ornate"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/17"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/blunder-16.webp",
@@ -1178,8 +1194,7 @@ window.SITE_CONTENT = {
               "en": "Blunder",
               "fa": "Blunder"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/16"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/ragged-15.webp",
@@ -1187,8 +1202,7 @@ window.SITE_CONTENT = {
               "en": "Ragged",
               "fa": "Ragged"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/15"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/trunk-14.webp",
@@ -1196,8 +1210,7 @@ window.SITE_CONTENT = {
               "en": "Trunk",
               "fa": "Trunk"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/14"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/drink-13.webp",
@@ -1205,8 +1218,7 @@ window.SITE_CONTENT = {
               "en": "Drink",
               "fa": "Drink"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/13"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/shredded-12.webp",
@@ -1214,8 +1226,7 @@ window.SITE_CONTENT = {
               "en": "Shredded",
               "fa": "Shredded"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/12"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/sting-11.webp",
@@ -1223,8 +1234,7 @@ window.SITE_CONTENT = {
               "en": "Sting",
               "fa": "Sting"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/11"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/sweep-10.webp",
@@ -1232,8 +1242,7 @@ window.SITE_CONTENT = {
               "en": "Sweep",
               "fa": "Sweep"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/10"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/heavy-9.webp",
@@ -1241,8 +1250,7 @@ window.SITE_CONTENT = {
               "en": "Heavy",
               "fa": "Heavy"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/9"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/reckless-8.webp",
@@ -1250,8 +1258,7 @@ window.SITE_CONTENT = {
               "en": "Reckless",
               "fa": "Reckless"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/8"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/starfish-7.webp",
@@ -1259,8 +1266,7 @@ window.SITE_CONTENT = {
               "en": "Starfish",
               "fa": "Starfish"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/7"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/pierce-6.webp",
@@ -1268,8 +1274,7 @@ window.SITE_CONTENT = {
               "en": "Pierce",
               "fa": "Pierce"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/6"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/deer-5.webp",
@@ -1277,8 +1282,7 @@ window.SITE_CONTENT = {
               "en": "Deer",
               "fa": "Deer"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/5"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/murky-4.webp",
@@ -1286,8 +1290,7 @@ window.SITE_CONTENT = {
               "en": "Murky",
               "fa": "Murky"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/4"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/crown-3.webp",
@@ -1295,8 +1298,7 @@ window.SITE_CONTENT = {
               "en": "Crown",
               "fa": "Crown"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/3"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/weave-2.webp",
@@ -1304,8 +1306,7 @@ window.SITE_CONTENT = {
               "en": "Weave",
               "fa": "Weave"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/2"
+            "year": "2025"
           },
           {
             "image": "assets/gallery/mustache-1.webp",
@@ -1313,8 +1314,7 @@ window.SITE_CONTENT = {
               "en": "Mustache",
               "fa": "Mustache"
             },
-            "year": "2025",
-            "link": "https://objkt.com/tokens/KT1VHLkFJpcbYDFs995xrW3UpDx37hY9Wo2G/1"
+            "year": "2025"
           }
         ]
       },
@@ -1324,8 +1324,20 @@ window.SITE_CONTENT = {
           "fa": "VISION"
         },
         "text": {
-          "en": "",
-          "fa": ""
+          "en": "My first collection: the chaotic beauty of a disordered mind — tangled thoughts and messy emotions colliding.",
+          "fa": "اولین کالکشن من؛ زیبایی آشفتهٔ ذهنی به‌هم‌ریخته، جایی که فکرهای درهم و احساس‌های شلوغ با هم برخورد می‌کنند."
+        },
+        "when": {
+          "en": "June – December 2024",
+          "fa": "ژوئن تا دسامبر ۲۰۲۴"
+        },
+        "madeFor": {
+          "en": "Personal collection, released on objkt",
+          "fa": "کالکشن شخصی، منتشرشده در objkt"
+        },
+        "sales": {
+          "en": "19 of 22 pieces sold",
+          "fa": "۱۹ اثر از ۲۲ اثر فروش رفته"
         },
         "items": [
           {
@@ -1334,8 +1346,7 @@ window.SITE_CONTENT = {
               "en": "Snowy hills",
               "fa": "Snowy hills"
             },
-            "year": "2024",
-            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/23"
+            "year": "2024"
           },
           {
             "image": "assets/gallery/the-japan-dream-22.webp",
@@ -1343,8 +1354,7 @@ window.SITE_CONTENT = {
               "en": "The Japan dream",
               "fa": "The Japan dream"
             },
-            "year": "2024",
-            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/22"
+            "year": "2024"
           },
           {
             "image": "assets/gallery/merry-and-bright-21.webp",
@@ -1352,8 +1362,7 @@ window.SITE_CONTENT = {
               "en": "Merry and Bright!",
               "fa": "Merry and Bright!"
             },
-            "year": "2024",
-            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/21"
+            "year": "2024"
           },
           {
             "image": "assets/gallery/lost-in-loneliness-20.webp",
@@ -1361,8 +1370,7 @@ window.SITE_CONTENT = {
               "en": "Lost in Loneliness",
               "fa": "Lost in Loneliness"
             },
-            "year": "2024",
-            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/20"
+            "year": "2024"
           },
           {
             "image": "assets/gallery/cherry-bloom-19.webp",
@@ -1370,8 +1378,7 @@ window.SITE_CONTENT = {
               "en": "Cherry Bloom",
               "fa": "Cherry Bloom"
             },
-            "year": "2024",
-            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/19"
+            "year": "2024"
           },
           {
             "image": "assets/gallery/life-goes-on-18.webp",
@@ -1379,8 +1386,7 @@ window.SITE_CONTENT = {
               "en": "Life Goes On",
               "fa": "Life Goes On"
             },
-            "year": "2024",
-            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/18"
+            "year": "2024"
           },
           {
             "image": "assets/gallery/from-my-window-17.webp",
@@ -1388,8 +1394,7 @@ window.SITE_CONTENT = {
               "en": "From my window",
               "fa": "From my window"
             },
-            "year": "2024",
-            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/17"
+            "year": "2024"
           },
           {
             "image": "assets/gallery/to-my-dear-younger-self-16.webp",
@@ -1397,8 +1402,7 @@ window.SITE_CONTENT = {
               "en": "To my dear younger self",
               "fa": "To my dear younger self"
             },
-            "year": "2024",
-            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/16"
+            "year": "2024"
           },
           {
             "image": "assets/gallery/the-village-among-the-hills-15.webp",
@@ -1406,8 +1410,7 @@ window.SITE_CONTENT = {
               "en": "The Village Among the Hills",
               "fa": "The Village Among the Hills"
             },
-            "year": "2024",
-            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/15"
+            "year": "2024"
           },
           {
             "image": "assets/gallery/the-journey-14.webp",
@@ -1415,8 +1418,7 @@ window.SITE_CONTENT = {
               "en": "The journey",
               "fa": "The journey"
             },
-            "year": "2024",
-            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/14"
+            "year": "2024"
           },
           {
             "image": "assets/gallery/remote-work-life-13.webp",
@@ -1424,8 +1426,7 @@ window.SITE_CONTENT = {
               "en": "Remote work life",
               "fa": "Remote work life"
             },
-            "year": "2024",
-            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/13"
+            "year": "2024"
           },
           {
             "image": "assets/gallery/me-my-playlist-and-myself-12.webp",
@@ -1433,8 +1434,7 @@ window.SITE_CONTENT = {
               "en": "Me, my playlist and myself.",
               "fa": "Me, my playlist and myself."
             },
-            "year": "2024",
-            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/12"
+            "year": "2024"
           },
           {
             "image": "assets/gallery/midnight-vibes-10.webp",
@@ -1442,8 +1442,7 @@ window.SITE_CONTENT = {
               "en": "Midnight vibes",
               "fa": "Midnight vibes"
             },
-            "year": "2024",
-            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/10"
+            "year": "2024"
           },
           {
             "image": "assets/gallery/summer-breakfast-9.webp",
@@ -1451,8 +1450,7 @@ window.SITE_CONTENT = {
               "en": "Summer Breakfast",
               "fa": "Summer Breakfast"
             },
-            "year": "2024",
-            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/9"
+            "year": "2024"
           },
           {
             "image": "assets/gallery/breath-8.webp",
@@ -1460,8 +1458,7 @@ window.SITE_CONTENT = {
               "en": "Breath",
               "fa": "Breath"
             },
-            "year": "2024",
-            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/8"
+            "year": "2024"
           },
           {
             "image": "assets/gallery/serenity-s-embrace-7.webp",
@@ -1469,8 +1466,7 @@ window.SITE_CONTENT = {
               "en": "Serenity's Embrace",
               "fa": "Serenity's Embrace"
             },
-            "year": "2024",
-            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/7"
+            "year": "2024"
           },
           {
             "image": "assets/gallery/solitude-island-6.webp",
@@ -1478,8 +1474,7 @@ window.SITE_CONTENT = {
               "en": "Solitude island",
               "fa": "Solitude island"
             },
-            "year": "2024",
-            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/6"
+            "year": "2024"
           },
           {
             "image": "assets/gallery/sunny-delight-5.webp",
@@ -1487,8 +1482,7 @@ window.SITE_CONTENT = {
               "en": "Sunny Delight",
               "fa": "Sunny Delight"
             },
-            "year": "2024",
-            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/5"
+            "year": "2024"
           },
           {
             "image": "assets/gallery/nighttime-reflections-4.webp",
@@ -1496,8 +1490,7 @@ window.SITE_CONTENT = {
               "en": "Nighttime Reflections",
               "fa": "Nighttime Reflections"
             },
-            "year": "2024",
-            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/4"
+            "year": "2024"
           },
           {
             "image": "assets/gallery/moments-in-time-a-television-gallery-3.webp",
@@ -1505,8 +1498,7 @@ window.SITE_CONTENT = {
               "en": "Moments in Time: A Television Gallery",
               "fa": "Moments in Time: A Television Gallery"
             },
-            "year": "2024",
-            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/3"
+            "year": "2024"
           },
           {
             "image": "assets/gallery/the-human-pipeline-2.webp",
@@ -1514,8 +1506,7 @@ window.SITE_CONTENT = {
               "en": "the human pipeline",
               "fa": "the human pipeline"
             },
-            "year": "2024",
-            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/2"
+            "year": "2024"
           },
           {
             "image": "assets/gallery/the-calm-within-the-chaos-1.webp",
@@ -1523,8 +1514,7 @@ window.SITE_CONTENT = {
               "en": "The Calm Within the Chaos",
               "fa": "The Calm Within the Chaos"
             },
-            "year": "2024",
-            "link": "https://objkt.com/tokens/KT18j4CooK2BepGUeuBaDTFv7xaAKLKN9Jqs/1"
+            "year": "2024"
           }
         ]
       }

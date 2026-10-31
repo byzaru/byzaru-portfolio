@@ -547,42 +547,41 @@
       return n + (col.items || []).filter(function (it) { return it && it.image; }).length;
     }, 0);
   }
-  var galleryItems = [];
   function glYear(y) { y = String(y || ""); return lang === "fa" ? y.replace(/[0-9]/g, function (d) { return "۰۱۲۳۴۵۶۷۸۹"[d]; }) : y; }
+  // a collection's facts row: when it was drawn, what it was made for, and how it sold
+  function glFacts(col) {
+    var rows = [["when", col.when, { en: "Drawn", fa: "زمان" }], ["madeFor", col.madeFor, { en: "Made for", fa: "برای" }], ["sales", col.sales, { en: "Sales", fa: "فروش" }]]
+      .filter(function (r) { return t(r[1]); });
+    if (!rows.length) return "";
+    return '<dl class="gl-facts">' + rows.map(function (r) {
+      return '<div class="gl-fact gl-fact--' + r[0] + '"><dt>' + T(r[2]) + "</dt><dd>" + T(r[1]) + "</dd></div>";
+    }).join("") + "</dl>";
+  }
+  // cards are display-only: no click, no large view, no outbound links
   function gallery(c) {
     var g = c.gallery || {};
-    galleryItems = [];
     var cols = (g.collections || []).map(function (col) {
       var items = (col.items || []).filter(function (it) { return it && it.image; });
       if (!items.length) return "";
       var cards = items.map(function (it) {
-        var k = galleryItems.push(it) - 1;
-        var meta = [esc(glYear(it.year))];
-        if (it.link) meta.push('<a href="' + esc(it.link) + '" target="_blank" rel="noopener">' + esc(ui("viewOnObjkt")) + " ↗</a>");
         return '<article class="gl-card">' +
-          '<button type="button" class="gl-open gl-protect" data-gi="' + k + '" aria-label="' + T(it.title) + '">' +
+          '<div class="gl-frame gl-protect">' +
             '<canvas class="gl-canvas" data-src="' + esc(it.image) + '" role="img" aria-label="' + T(it.title) + '"></canvas>' +
-            '<span class="gl-shield" aria-hidden="true"></span></button>' +
+            '<span class="gl-shield" aria-hidden="true"></span></div>' +
           '<h3 class="gl-title">' + T(it.title) + "</h3>" +
-          '<p class="gl-meta">' + meta.filter(Boolean).join('<span class="gl-dot">·</span>') + "</p>" +
+          (it.year ? '<p class="gl-meta">' + esc(glYear(it.year)) + "</p>" : "") +
         "</article>";
       }).join("");
-      return '<section class="gl-collection"><div class="gl-col-head"><h2>' + T(col.title) + '</h2><span class="gl-count">' + items.length + "</span></div>" +
+      return '<section class="gl-collection"><div class="gl-col-head"><h2>' + T(col.title) + '</h2><span class="gl-count">' + glYear(items.length) + "</span></div>" +
         (t(col.text) ? '<p class="gl-col-text">' + T(col.text) + "</p>" : "") +
+        glFacts(col) +
         '<div class="gl-grid">' + cards + "</div></section>";
     }).join("");
     return '<div class="container gl-page">' +
       '<header class="gl-head"><h1 class="section-title">' + T(g.title) + "</h1>" +
       (t(g.intro) ? '<p class="section-intro">' + T(g.intro) + "</p>" : "") + "</header>" +
       cols +
-      "</div>" +
-      '<dialog class="gl-viewer" id="gl-viewer" aria-label="' + T(g.title) + '">' +
-        '<button type="button" class="lb-btn gl-close" aria-label="' + esc(ui("close")) + '">✕</button>' +
-        '<button type="button" class="lb-btn gl-prev" aria-label="Previous">‹</button>' +
-        '<figure class="gl-protect"><div class="gl-stage"><canvas class="gl-big"></canvas><span class="gl-shield" aria-hidden="true"></span></div>' +
-          '<figcaption><strong class="gl-v-title"></strong><span class="gl-v-meta"></span></figcaption></figure>' +
-        '<button type="button" class="lb-btn gl-next" aria-label="Next">›</button>' +
-      "</dialog>";
+      "</div>";
   }
   var glImgCache = {};
   function glLoad(src) {
@@ -602,7 +601,7 @@
       cv.classList.add("is-ready");
     }, function () { var card = cv.closest(".gl-card"); if (card) card.hidden = true; });
   }
-  var glObserver = null, glIndex = 0;
+  var glObserver = null;
   function initGallery() {
     if (glObserver) glObserver.disconnect();
     var cvs = document.querySelectorAll(".gl-canvas");
@@ -617,42 +616,15 @@
       cvs.forEach(function (cv) { glObserver.observe(cv); });
     } else cvs.forEach(function (cv) { glDraw(cv, cv.getAttribute("data-src")); });
   }
-  function glShow(k) {
-    var dlg = document.getElementById("gl-viewer");
-    if (!dlg || !galleryItems.length) return;
-    glIndex = (k + galleryItems.length) % galleryItems.length;
-    var it = galleryItems[glIndex], big = dlg.querySelector(".gl-big");
-    big.classList.remove("is-ready");
-    glDraw(big, it.image);
-    dlg.querySelector(".gl-v-title").textContent = t(it.title);
-    var meta = dlg.querySelector(".gl-v-meta");
-    meta.innerHTML = esc(glYear(it.year)) + (it.link ? '<span class="gl-dot">·</span><a href="' + esc(it.link) + '" target="_blank" rel="noopener">' + esc(ui("viewOnObjkt")) + " ↗</a>" : "");
-    if (!dlg.open) dlg.showModal();
-  }
   if (page === "gallery") {
-    var glBlock = function (e) { if (e.target.closest && e.target.closest(".gl-protect, .gl-viewer")) e.preventDefault(); };
+    var glBlock = function (e) { if (e.target.closest && e.target.closest(".gl-protect")) e.preventDefault(); };
     document.addEventListener("contextmenu", glBlock);
     document.addEventListener("dragstart", glBlock);
-    document.addEventListener("click", function (e) {
-      var open = e.target.closest(".gl-open");
-      if (open) { glShow(+open.getAttribute("data-gi")); return; }
-      var dlg = e.target.closest(".gl-viewer");
-      if (!dlg) return;
-      if (e.target.closest(".gl-close") || e.target === dlg) { dlg.close(); return; }
-      var rtl = lang === "fa";
-      if (e.target.closest(".gl-next")) glShow(glIndex + (rtl ? -1 : 1));
-      if (e.target.closest(".gl-prev")) glShow(glIndex + (rtl ? 1 : -1));
-    });
     var shield = function (on) { if (isPreview) return; document.documentElement.classList.toggle("gl-shielded", on); };
     document.addEventListener("keydown", function (e) {
       var k = (e.key || "").toLowerCase();
       if ((e.ctrlKey || e.metaKey) && (k === "s" || k === "p")) { e.preventDefault(); return; }
       if (k === "printscreen") shield(true);
-      var dlg = document.getElementById("gl-viewer");
-      if (dlg && dlg.open) {
-        if (e.key === "ArrowRight") glShow(glIndex + 1);
-        if (e.key === "ArrowLeft") glShow(glIndex - 1);
-      }
     });
     document.addEventListener("keyup", function (e) {
       if ((e.key || "").toLowerCase() !== "printscreen") return;
